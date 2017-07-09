@@ -11,7 +11,7 @@ namespace App\Http\Controllers;
 
 class ControllerWithMid extends Controller
 {
-    public function __construct()
+    public function __construct() //add middleware
     {
         $this->middleware('auth');
         $this->middleware('verify');

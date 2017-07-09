@@ -11,7 +11,7 @@ class GradeController extends ControllerWithMid
     {
         $c = json_decode($assignment->content); //decode the assignment content, correct answer
         $a = json_decode($request->answer);
-        $grade = $this->check($a, $c, 0);
+        $grade = $this->check($a, $c, 0); //grade the post
         return Grade::create([
             'user_id' => $request->user()->id,
             'assignment_id' => $assignment->id,
@@ -19,8 +19,8 @@ class GradeController extends ControllerWithMid
         ]);
     }
 
-    private function check(array $a, array $c, $type)
-    {
+    private function check(array $a, array $c, $type) //compare with the correct answer
+    {   //type: 0 => strict
         $count = 0;
         switch ($type)
         {

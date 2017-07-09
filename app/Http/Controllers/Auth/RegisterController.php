@@ -67,7 +67,7 @@ class RegisterController extends Controller
         $verifyCode = '';
         for ($i = 0; $i < 6; $i++)
         {
-            $verifyCode .= $charset[mt_rand(0, 35)];
+            $verifyCode .= $charset[mt_rand(0, 35)]; //random verify code
         }
 
         return User::create([

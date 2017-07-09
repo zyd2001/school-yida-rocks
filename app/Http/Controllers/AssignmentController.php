@@ -24,7 +24,7 @@ class AssignmentController extends ControllerWithMid
      */
     public function create()
     {
-        //
+        return view('assignment');
     }
 
     /**
@@ -33,9 +33,16 @@ class AssignmentController extends ControllerWithMid
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) // an ajax request
     {
-        //
+        if ($this->checkContent($request->content))
+        Assignment::create([
+            'name' => $request->name,
+            'course_id' => $request->id,
+            'content' => $request->content,
+        ]); //add Assignment
+        else
+            return response()->json(['error' => 'Wrong Content Type']);//return the error message
     }
 
     /**
@@ -81,5 +88,13 @@ class AssignmentController extends ControllerWithMid
     public function destroy(Assignment $assignment)
     {
         //
+    }
+
+    private function checkContent($content)
+    {
+        if ($c = json_decode($content)) // the content is a correct json string
+        {
+
+        }
     }
 }
