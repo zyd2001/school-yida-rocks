@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Middleware\VerifyUser;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -62,10 +63,18 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $verifyCode = '';
+        for ($i = 0; $i < 6; $i++)
+        {
+            $verifyCode .= $charset[mt_rand(0, 35)];
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'verifyCode' => $verifyCode,
         ]);
     }
 }
