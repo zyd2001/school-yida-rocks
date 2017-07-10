@@ -13,6 +13,11 @@
                             <input type="text" class="form-controller" name="code">
                             <input type="submit" class="form-controller" value="验证">
                         </form>
+                        @if (session()->has('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

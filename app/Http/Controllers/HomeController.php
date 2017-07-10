@@ -32,14 +32,22 @@ class HomeController extends Controller
 
     public function verify(Request $request)
     {
-        if ($request->code == auth()->user()->verifyCode && auth()->user()->updated_at->diffInMinutes(Carbon::now()) <= 60) //expire => 60 minutes
+        if ($request->code == auth()->user()->verifyCode) //expire => 60 minutes
         {
-            auth()->user()->isVerified = true;
-            auth()->user()->save();
+            if (auth()->user()->updated_at->diffInMinutes(Carbon::now()) <= 60)
+            {
+                auth()->user()->isVerified = true;
+                auth()->user()->save();
+                return redirect('/home');
+            }
+            else
+            {
+                return back()->with(['error' => 'your verify code is expired']);
+            }
         }
         else
         {
-
+            return back()->with(['error' => trans('message.wrong_verify_code')]);
         }
     }
 }

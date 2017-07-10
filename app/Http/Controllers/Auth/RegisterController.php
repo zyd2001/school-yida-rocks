@@ -63,12 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-        $verifyCode = '';
-        for ($i = 0; $i < 6; $i++)
-        {
-            $verifyCode .= $charset[mt_rand(0, 35)]; //random verify code
-        }
+        $verifyCode = strtoupper(bin2hex(random_bytes(3))); // better methods for generate verify code
 
         return User::create([
             'name' => $data['name'],

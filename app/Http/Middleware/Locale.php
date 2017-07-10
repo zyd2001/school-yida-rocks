@@ -15,9 +15,12 @@ class Locale
      */
     public function handle($request, Closure $next)
     {
-        $locale = json_decode(auth()->user()->setting)->locale;
-        if ($locale)
+        $setting = json_decode(auth()->user()->setting);
+        if ($setting) // skip if setting doesn't exist
+        {
+            $locale = $setting->locale;
             \App::setLocale($locale);
+        }
         return $next($request);
     }
 }

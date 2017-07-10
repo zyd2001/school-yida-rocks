@@ -26,4 +26,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token', 'verifyCode',
     ];
+
+    public function files()
+    {
+        return $this->hasMany('App\File');
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany('App\Course');
+    }
 }

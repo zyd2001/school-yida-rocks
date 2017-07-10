@@ -28,6 +28,6 @@ class CreateCourseFileTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('course_file');
     }
 }
