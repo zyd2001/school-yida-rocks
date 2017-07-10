@@ -9,9 +9,9 @@ class GradeController extends ControllerWithMid
 {
     public function store(Request $request, \App\Assignment $assignment)
     {
-        $c = json_decode($assignment->content); //decode the assignment content, correct answer
-        $a = json_decode($request->answer);
-        $grade = $this->check($a, $c, 0); //grade the post
+        $correct = json_decode($assignment->content); //decode the assignment content, correct answer
+        $answer = json_decode($request->answer);
+        $grade = $this->check($answer, $correct, 0); //grade the post
         return Grade::create([
             'user_id' => $request->user()->id,
             'assignment_id' => $assignment->id,
@@ -19,15 +19,15 @@ class GradeController extends ControllerWithMid
         ]);
     }
 
-    private function check(array $a, array $c, $type) //compare with the correct answer
+    private function check(array $answer, array $correct, $type) //compare with the correct answer
     {   //type: 0 => strict
         $count = 0;
         switch ($type)
         {
             case 0:
-                foreach ($c as $key => $value)
+                foreach ($correct as $key => $value)
                 {
-                    if ($value->correct == $a[$key])
+                    if ($value->correct == $answer[$key])
                     {
                         $count++;
                     }
@@ -35,7 +35,7 @@ class GradeController extends ControllerWithMid
                 break;
         }
 
-        $total = count($c);
+        $total = count($correct);
         return array([
             'total' => $total,
             'raw' => $count,
