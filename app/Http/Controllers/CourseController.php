@@ -35,7 +35,8 @@ class CourseController extends ControllerWithMid
      */
     public function store(Request $request)
     {
-        //
+        Course::create(['name' => $request->name]);
+        return redirect('/home')->with(['meg' => 'success']);
     }
 
     /**

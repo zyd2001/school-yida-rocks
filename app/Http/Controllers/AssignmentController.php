@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Assignment;
 use Illuminate\Http\Request;
+use KHerGe\JSON\JSON;
+use Mockery\Exception;
 
 class AssignmentController extends ControllerWithMid
 {
@@ -35,14 +37,21 @@ class AssignmentController extends ControllerWithMid
      */
     public function store(Request $request) // an ajax request
     {
-        if ($this->checkContent($request->content))
-        Assignment::create([
-            'name' => $request->name,
-            'course_id' => $request->id,
-            'content' => $request->content,
-        ]); //add Assignment
+        $result = $this->checkContent($request->content);
+        if ($result == 1)
+        {
+            Assignment::create([
+                'name' => $request->name,
+                'course_id' => $request->id,
+                'content' => $request->content,
+            ]);//add Assignment
+            return redirect('/home')->with(['msg' => 'success']);
+        }
         else
-            return response()->json(['error' => 'Wrong Content Type']);//return the error message
+        {
+            return redirect('/home')->with(['err' => $result->getMessage()]); //return the error message
+        }
+
     }
 
     /**
@@ -92,9 +101,17 @@ class AssignmentController extends ControllerWithMid
 
     private function checkContent($content)
     {
-        if ($c = json_decode($content)) // the content is a correct json string
+        $json = new JSON();
+        $decoded = $json->decode($content);
+        $std = $json->decodeFile('http://orjf65xeb.bkt.clouddn.com/json_schema');
+        try
         {
-
+            $json->validate($std, $decoded);
+            return 1;
+        }
+        catch (Exception $e)
+        {
+            return $e;
         }
     }
 }
