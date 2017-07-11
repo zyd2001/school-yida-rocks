@@ -14,4 +14,12 @@ class Course extends Model
 //        $fs = $this->fileStructure;
 //        $fs = json_decode($fs);
 //    }
+    public function info()// return basic info of a course
+    {
+        $info = new \stdClass();
+        $info->id = $this->id;
+        $info->name = $this->name;
+        $info->avatar = $this->avatar;
+        return $info;
+    }
 }

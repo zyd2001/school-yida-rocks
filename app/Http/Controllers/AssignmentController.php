@@ -103,7 +103,7 @@ class AssignmentController extends ControllerWithMid
     {
         $json = new JSON();
         $decoded = $json->decode($content);
-        $std = $json->decodeFile('http://orjf65xeb.bkt.clouddn.com/json_schema');
+        $std = $json->decodeFile(env('ASSIGNMENT_JSON_SCHEMA', 'http://orjf65xeb.bkt.clouddn.com/json_schema'));// get the standard assignment json schema
         try
         {
             $json->validate($std, $decoded);

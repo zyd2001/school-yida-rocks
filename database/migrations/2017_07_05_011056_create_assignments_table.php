@@ -18,6 +18,7 @@ class CreateAssignmentsTable extends Migration
             $table->string('name');
             $table->integer('course_id');
             $table->text('content'); //json
+            $table->text('setting')->nullable();//json
             $table->timestamps();
         });
     }

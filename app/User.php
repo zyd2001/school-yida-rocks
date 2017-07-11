@@ -36,4 +36,25 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Course');
     }
+
+    public function grades()
+    {
+        return $this->hasMany('App\Grade');
+    }
+
+    public function getGrades()
+    {
+        $grades = $this->grades;
+        $results = new \stdClass();
+        foreach ($grades as $item)//omit all the unnecessary info
+        {
+            $result = new \stdClass();
+            $assignment = $item->assignment;
+            $result->name = $assignment->name;
+            $result->class_info = $assignment->course->info();
+            $result->score = $item->score();
+            $results->{$item->id} = $result;
+        }
+        return $results;
+    }
 }

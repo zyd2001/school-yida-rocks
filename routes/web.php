@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/verify', 'HomeController@verify');
 Route::post('/assignments/{assignment}', 'GradeController@store');
 Route::resource('courses', 'CourseController');
+Route::get('/grades', 'GradeController@index');

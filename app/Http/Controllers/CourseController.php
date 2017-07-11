@@ -12,9 +12,9 @@ class CourseController extends ControllerWithMid
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) //an ajax request
+    public function index() //an ajax request
     {
-        return $request->user()->courses->where('type', 0)->pluck('avatar', 'name');
+        return auth()->user()->courses->where('type', 0)->pluck('avatar', 'name');
     }
 
     /**
