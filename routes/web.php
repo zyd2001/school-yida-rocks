@@ -22,3 +22,5 @@ Route::post('/verify', 'HomeController@verify');
 Route::post('/assignments/{assignment}', 'GradeController@store');
 Route::resource('courses', 'CourseController');
 Route::get('/grades', 'GradeController@index');
+Route::get('/files/{course}', 'FileController@index');
+Route::resource('files', 'FileController');

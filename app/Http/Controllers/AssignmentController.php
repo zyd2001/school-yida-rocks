@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Assignment;
 use Illuminate\Http\Request;
 use KHerGe\JSON\JSON;
-use Mockery\Exception;
 
 class AssignmentController extends ControllerWithMid
 {
@@ -37,9 +36,9 @@ class AssignmentController extends ControllerWithMid
      */
     public function store(Request $request) // an ajax request
     {
-        $result = $this->checkContent($request->content);
-        if ($result == 1)
+        try
         {
+            $this->checkContent($request->content);
             Assignment::create([
                 'name' => $request->name,
                 'course_id' => $request->id,
@@ -47,11 +46,10 @@ class AssignmentController extends ControllerWithMid
             ]);//add Assignment
             return redirect('/home')->with(['msg' => 'success']);
         }
-        else
+        catch (\Exception $e)
         {
-            return redirect('/home')->with(['err' => $result->getMessage()]); //return the error message
+            return redirect('/home')->with(['err' => $e->getMessage()]); //return the error message
         }
-
     }
 
     /**
@@ -102,16 +100,16 @@ class AssignmentController extends ControllerWithMid
     private function checkContent($content)
     {
         $json = new JSON();
-        $decoded = $json->decode($content);
-        $std = $json->decodeFile(env('ASSIGNMENT_JSON_SCHEMA', 'http://orjf65xeb.bkt.clouddn.com/json_schema'));// get the standard assignment json schema
         try
         {
+            $decoded = $json->decode($content);
+            $std = $json->decodeFile(env('ASSIGNMENT_JSON_SCHEMA', 'http://orjf65xeb.bkt.clouddn.com/json_schema'));// get the standard assignment json schema
             $json->validate($std, $decoded);
             return 1;
         }
-        catch (Exception $e)
+        catch (\Exception $e)
         {
-            return $e;
+            throw $e;
         }
     }
 }

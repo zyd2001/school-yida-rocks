@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Course;
 use App\File;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,17 @@ class FileController extends ControllerWithMid
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Course $course)
     {
-        //
+        try
+        {
+            $result = $course->getFiles();
+            return response()->json($result);
+        }
+        catch (\Exception $e)
+        {
+            return response($e->getMessage(), 500);
+        }
     }
 
     /**
