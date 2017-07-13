@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class VerifyUser
+class setLocale
 {
     /**
      * Handle an incoming request.
@@ -15,11 +15,7 @@ class VerifyUser
      */
     public function handle($request, Closure $next)
     {
-        $response = $next($request);
-        if (auth()->user()->isVerified)
-            session(['isVerified' => true]);
-        else
-            session(['isVerified' => false]);
-        return $response;
+        \App::setLocale(session('locale'));
+        return $next($request);
     }
 }

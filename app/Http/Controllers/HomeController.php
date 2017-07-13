@@ -5,17 +5,8 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class HomeController extends ControllerWithMid
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -24,10 +15,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->isVerified)
+        if (session('isVerified'))
             return view('home');
         else
             return view('verify');
+    }
+
+    public function locale(Request $request)
+    {
+        session(['locale' => $request->locale]);
+        return back()->with(['msg' => 'message.changeLocaleSuccess']);
     }
 
     public function verify(Request $request)
@@ -38,6 +35,7 @@ class HomeController extends Controller
             {
                 auth()->user()->isVerified = true;
                 auth()->user()->save();
+                session(['isVerified' => true]);
                 return redirect('/home');
             }
             else
@@ -49,5 +47,5 @@ class HomeController extends Controller
         {
             return back()->with(['err' => trans('message.wrong_verify_code')]);
         }
-    }
+    }//too complex, but I don't want to change it
 }

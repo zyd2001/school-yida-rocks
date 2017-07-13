@@ -14,7 +14,6 @@ class ControllerWithMid extends Controller
     public function __construct() //add middleware
     {
         $this->middleware('auth');
-        $this->middleware('verify');
-        $this->middleware('locale');
+        $this->middleware('setLocale');
     }
 }
