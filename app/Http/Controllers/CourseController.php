@@ -14,7 +14,6 @@ class CourseController extends ControllerWithMid
      */
     public function index() //an ajax request
     {
-        return auth()->user()->courses->where('type', 0)->pluck('avatar', 'name');
     }
 
     /**

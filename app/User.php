@@ -42,6 +42,16 @@ class User extends Authenticatable
         return $this->hasMany('App\Grade');
     }
 
+    public function assignments()
+    {
+        return $this->belongsToMany('App\Assignment', 'grades');
+    }
+
+    public function getAssignments()
+    {
+
+    }
+
     public function getGrades()
     {
         $grades = $this->grades;
@@ -57,4 +67,10 @@ class User extends Authenticatable
         }
         return $results;
     }
+
+    public function getCourses()
+    {
+        $this->courses->where('type', 0)->pluck('avatar', 'name');
+    }
+
 }

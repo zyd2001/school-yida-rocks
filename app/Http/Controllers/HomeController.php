@@ -16,7 +16,11 @@ class HomeController extends ControllerWithMid
     public function index()
     {
         if (session('isVerified'))
-            return view('home');
+        {
+            $courses = auth()->user()->getCourses();
+            $assignments = auth()->user()->getAssignments();
+            return view('home', compact(['courses', 'assignments']));
+        }
         else
             return view('verify');
     }
