@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Middleware\VerifyUser;
+use App\Mail\VerifyCode;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -65,11 +66,15 @@ class RegisterController extends Controller
     {
         $verifyCode = strtoupper(bin2hex(random_bytes(3))); // better methods for generate verify code
 
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'verifyCode' => $verifyCode,
         ]);
+
+        \Mail::to($data['email'])->send(new VerifyCode($user));
+
+        return $user;
     }
 }
