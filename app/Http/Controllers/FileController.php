@@ -36,7 +36,12 @@ class FileController extends ControllerWithMid
      */
     public function store(Request $request)
     {
-        //
+        File::create([
+            'user_id' => auth()->user()->id,
+            'public' => $request->public,
+            'url' => $request->url,
+        ]);
+        return redirect('/files')->with(['msg' => 'success']);
     }
 
     /**
