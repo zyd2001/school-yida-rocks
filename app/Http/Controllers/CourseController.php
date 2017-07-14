@@ -14,11 +14,8 @@ class CourseController extends ControllerWithMid
      */
     public function index()
     {
-    }
-
-    public function getCourses()
-    {
-        return auth()->user()->getCourses();
+        $courses = Course::all()->where('public', '1');
+        return view('courses');
     }
 
     /**
@@ -39,8 +36,8 @@ class CourseController extends ControllerWithMid
      */
     public function store(Request $request)
     {
-        Course::create(['name' => $request->name]);
-        return redirect('/home')->with(['msg' => 'success']);
+        $id = Course::create(['name' => $request->name])->id;
+        return redirect('/courses/'.$id)->with(['msg' => 'success']);
     }
 
     /**

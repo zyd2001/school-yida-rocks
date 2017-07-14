@@ -13,17 +13,9 @@ class FileController extends ControllerWithMid
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Course $course)
+    public function index()
     {
-        try
-        {
-            $result = $course->getFiles();
-            return response()->json($result);
-        }
-        catch (\Exception $e)
-        {
-            return response($e->getMessage(), 500);
-        }
+        return view('grades');
     }
 
     /**

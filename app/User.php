@@ -49,18 +49,13 @@ class User extends Authenticatable
 
     public function getGrades()
     {
-        $grades = $this->grades;
-        $results = new \stdClass();
-        foreach ($grades as $item)//omit all the unnecessary info
+        $grades =  $this->grades()->select('assignment_id', 'course_id', 'total', 'raw', 'percent', 'grade')->get();
+        foreach ($grades as $grade)
         {
-            $result = new \stdClass();
-            $assignment = $item->assignment;
-            $result->name = $assignment->name;
-            $result->class_info = $assignment->course->info();
-            $result->score = $item->score();
-            $results->{$item->id} = $result;
+            $grade['course'] = Course::where('id', $grade['course_id'])->select('name', 'avatar')->get();
+            $grade['assignment'] = Assignment::where('id', $grade['assignment_id'])->select('name')->get();
         }
-        return $results;
+        return $grades;
     }
 
     public function getCourses()

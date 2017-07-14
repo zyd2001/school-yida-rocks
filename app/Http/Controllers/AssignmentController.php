@@ -17,7 +17,6 @@ class AssignmentController extends ControllerWithMid
      */
     public function index()
     {
-        return auth()->user()->assignments;
     }
 
     /**
@@ -27,7 +26,7 @@ class AssignmentController extends ControllerWithMid
      */
     public function create()
     {
-        return view('assignment');
+//        return view('assignment');
     }
 
     /**
@@ -57,7 +56,7 @@ class AssignmentController extends ControllerWithMid
         }
         catch (\Exception $e)
         {
-            return redirect('/home')->with(['err' => $e->getMessage()]); //return the error message
+            return back()->with(['err' => $e->getMessage()]); //return the error message
         }
     }
 

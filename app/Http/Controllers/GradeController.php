@@ -10,7 +10,6 @@ class GradeController extends ControllerWithMid
 
     public function index()
     {
-        return response()->json(json_encode(auth()->user()->getGrades()));//return a json string that contains grades and related class info
     }
 
     public function store(Request $request, \App\Assignment $assignment)

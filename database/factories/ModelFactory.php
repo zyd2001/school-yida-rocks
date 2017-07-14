@@ -20,5 +20,33 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'verifyCode' => 'AAAAAA',
+        'isVerified' => true,
+    ];
+});
+
+$factory->define(App\Course::class, function (Faker\Generator $faker)
+{
+    return [
+        'name' => $faker->name,
+    ];
+});
+
+$factory->define(App\Assignment::class, function (Faker\Generator $faker)
+{
+    return [
+        'name' => $faker->name,
+        'course_id' => 1,
+        'content' => $faker->text,
+        'dueTime' => $faker->time('H:i:s'),
+    ];
+});
+
+$factory->define(App\Grade::class, function (Faker\Generator $faker)
+{
+    return [
+        'user_id' => 1,
+        'course_id' => 1,
+        'assignment_id' => factory(App\Assignment::class)->create()->id,
     ];
 });

@@ -20,9 +20,17 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/setLocale', 'HomeController@locale');
 Route::post('/verify', 'HomeController@verify');
+
 Route::post('/assignments/{assignment}', 'GradeController@store');
-Route::get('/getCourses', 'CourseController@getCourses');
+
+Route::get('/files/{course}', 'ApiController@getFiles');
+Route::get('/courses/getCourses', 'ApiController@getCourses');
+Route::get('/assignments/getAssignments', 'ApiController@getAssignments');
+Route::get('/courses/allCourses', 'ApiController@allCourses');
+Route::get('/grades/getGrades', 'ApiController@getGrades');
+
+Route::resource('grades', 'GradeController');
+
 Route::resource('courses', 'CourseController');
-Route::get('/grades', 'GradeController@index');
-Route::get('/files/{course}', 'FileController@index');
+
 Route::resource('files', 'FileController');
