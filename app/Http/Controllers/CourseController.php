@@ -12,8 +12,13 @@ class CourseController extends ControllerWithMid
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() //an ajax request
+    public function index()
     {
+    }
+
+    public function getCourses()
+    {
+        return auth()->user()->getCourses();
     }
 
     /**

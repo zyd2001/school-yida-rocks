@@ -47,11 +47,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Assignment', 'grades');
     }
 
-    public function getAssignments()
-    {
-
-    }
-
     public function getGrades()
     {
         $grades = $this->grades;

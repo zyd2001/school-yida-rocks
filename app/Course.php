@@ -25,6 +25,11 @@ class Course extends Model
         return $this->belongsToMany('App\File');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
     public function getFiles()
     {
         $json = new JSON();

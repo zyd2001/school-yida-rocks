@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Assignment;
+use App\Course;
+use App\Grade;
 use Illuminate\Http\Request;
 use KHerGe\JSON\JSON;
 
@@ -15,7 +17,7 @@ class AssignmentController extends ControllerWithMid
      */
     public function index()
     {
-        //
+        return auth()->user()->assignments;
     }
 
     /**
@@ -39,12 +41,19 @@ class AssignmentController extends ControllerWithMid
         try
         {
             $this->checkContent($request->content);
-            Assignment::create([
+            $id = Assignment::create([
                 'name' => $request->name,
                 'course_id' => $request->id,
                 'content' => $request->content,
-            ]);//add Assignment
-            return redirect('/home')->with(['msg' => 'success']);
+                ])->id;//add Assignment
+            $users = Course::find($request->id)->users;
+            foreach ($users as $user)
+                Grade::create([
+                    'user_id' => $user->id,
+                    'course_id' => $request->id,
+                    'assignment_id' => $id,
+                    ]);
+            return redirect('/assignments/'.$id)->with(['msg' => 'success']);
         }
         catch (\Exception $e)
         {

@@ -17,9 +17,7 @@ class HomeController extends ControllerWithMid
     {
         if (session('isVerified'))
         {
-            $courses = auth()->user()->getCourses();
-            $assignments = auth()->user()->getAssignments();
-            return view('home', compact(['courses', 'assignments']));
+            return view('home');
         }
         else
             return view('verify');

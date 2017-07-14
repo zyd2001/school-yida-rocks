@@ -18,9 +18,9 @@ class CreateGradesTable extends Migration
             $table->integer('user_id');
             $table->integer('course_id');
             $table->integer('assignment_id');
-            $table->integer('total');
-            $table->integer('raw');
-            $table->integer('percent');
+            $table->integer('total')->nullable();
+            $table->integer('raw')->nullable();
+            $table->integer('percent')->nullable();
             $table->char('grade', 1)->nullable();
             $table->timestamps();
         });
