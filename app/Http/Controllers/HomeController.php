@@ -15,12 +15,7 @@ class HomeController extends ControllerWithMid
      */
     public function index()
     {
-        if (session('isVerified'))
-        {
-            return view('home');
-        }
-        else
-            return view('verify');
+        return view('home');
     }
 
     public function locale(Request $request)

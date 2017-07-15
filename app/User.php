@@ -47,6 +47,16 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Assignment', 'grades');
     }
 
+    public function getAssignments()
+    {
+        $assignments = $this->assignments()->select('assignments.id', 'assignments.name', 'assignments.course_id', 'assignments.dueTime')->where('assignments.done', false)->get();
+        foreach ($assignments as $assignment)
+        {
+            $assignment['course'] = Course::where('id', $assignment['course_id'])->select('name', 'avatar')->get();
+        }
+        return $assignments;
+    }
+
     public function getGrades()
     {
         $grades =  $this->grades()->select('assignment_id', 'course_id', 'total', 'raw', 'percent', 'grade')->get();
@@ -60,7 +70,7 @@ class User extends Authenticatable
 
     public function getCourses()
     {
-        $this->courses->where('type', 0)->pluck('avatar', 'name');
+        return $this->courses()->where('courses.type', 0)->select('courses.avatar', 'courses.name')->get();
     }
 
 }

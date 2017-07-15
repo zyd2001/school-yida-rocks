@@ -42,14 +42,16 @@ class AssignmentController extends ControllerWithMid
             $this->checkContent($request->content);
             $id = Assignment::create([
                 'name' => $request->name,
-                'course_id' => $request->id,
+                'course_id' => $request->course_id,
                 'content' => $request->content,
+                'setting' => $request->setting,
+                'dueTime' => $request->dueTime,
                 ])->id;//add Assignment
-            $users = Course::find($request->id)->users;
+            $users = Course::find($request->course_id)->users;
             foreach ($users as $user)
                 Grade::create([
                     'user_id' => $user->id,
-                    'course_id' => $request->id,
+                    'course_id' => $request->course_id,
                     'assignment_id' => $id,
                     ]);
             return redirect('/assignments/'.$id)->with(['msg' => 'success']);

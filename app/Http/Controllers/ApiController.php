@@ -19,7 +19,7 @@ class ApiController extends ControllerWithMid
 
     public function getAssignments()
     {
-        return auth()->user()->assignments()->select('assignments.id', 'assignments.name', 'assignments.course_id', 'assignments.setting', 'assignments.dueTime')->get();
+        return auth()->user()->getAssignments();
     }
 
     public function getGrades()

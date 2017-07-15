@@ -20,6 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/setLocale', 'HomeController@locale');
 Route::post('/verify', 'HomeController@verify');
+Route::get('/verify', function ()
+{
+    return view('verify');
+});
 
 Route::post('/assignments/{assignment}', 'GradeController@store');
 

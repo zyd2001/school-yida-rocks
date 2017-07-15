@@ -15,11 +15,9 @@ class VerifyUser
      */
     public function handle($request, Closure $next)
     {
-        $response = $next($request);
-        if (auth()->user()->isVerified)
-            session(['isVerified' => true]);
+        if (session('isVerified'))
+            return $next($request);
         else
-            session(['isVerified' => false]);
-        return $response;
+            return response()->view('verify', [], 403);
     }
 }

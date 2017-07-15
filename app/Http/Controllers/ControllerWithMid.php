@@ -15,5 +15,6 @@ class ControllerWithMid extends Controller
     {
         $this->middleware('auth');
         $this->middleware('setLocale');
+        $this->middleware('verify');
     }
 }
