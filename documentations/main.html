@@ -1,0 +1,46 @@
+<meta charset="UTF-8"><link rel="stylesheet" href="http://orjf65xeb.bkt.clouddn.com/markdown7.css"><h1>后端接口</h1>
+<p><code>/setLocale</code> : get方法，请求中必须有locale字段，值为<code>en</code>或者<code>zh</code>，没有post方法</p>
+<p><code>/assignments</code> : post方法，这个url没有get方法，content的格式见<code>http://orjf65xeb.bkt.clouddn.com/json_schema</code></p>
+<table>
+<thead>
+<tr>
+<th>可接受字段</th>
+<th style="text-align: left;">作用</th>
+<th style="text-align: left;">格式</th>
+<th style="text-align: left;">是否必须</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td style="text-align: left;">作业的名字</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">是</td>
+</tr>
+<tr>
+<td>course_id</td>
+<td style="text-align: left;">作业所属的课</td>
+<td style="text-align: left;">integer</td>
+<td style="text-align: left;">是</td>
+</tr>
+<tr>
+<td>content</td>
+<td style="text-align: left;">内容</td>
+<td style="text-align: left;">json</td>
+<td style="text-align: left;">是</td>
+</tr>
+<tr>
+<td>dueTime</td>
+<td style="text-align: left;">截止日期</td>
+<td style="text-align: left;">time</td>
+<td style="text-align: left;">是</td>
+</tr>
+<tr>
+<td>setting</td>
+<td style="text-align: left;">设置</td>
+<td style="text-align: left;">json</td>
+<td style="text-align: left;">否</td>
+</tr>
+</tbody>
+</table>
+<p><code>/assignments/getAssignments</code> ： get方法，返回一个json字符串，每一项包含<code>id</code>, <code>name</code>, <code>dueTime</code>和所属课程的信息</p>
