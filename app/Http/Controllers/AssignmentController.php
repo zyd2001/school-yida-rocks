@@ -112,8 +112,10 @@ class AssignmentController extends ControllerWithMid
         {
             $decoded = $json->decode($content);
             $std = $json->decodeFile(env('ASSIGNMENT_JSON_SCHEMA', 'http://orjf65xeb.bkt.clouddn.com/json_schema'));// get the standard assignment json schema
-            $json->validate($std, $decoded);
-            return 1;
+            foreach ($decoded as $item)
+            {
+                $json->validate($std, $item);
+            }
         }
         catch (\Exception $e)
         {

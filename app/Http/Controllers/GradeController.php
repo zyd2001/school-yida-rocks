@@ -18,7 +18,7 @@ class GradeController extends ControllerWithMid
         $answer = json_decode($request->answer);
         $grade = $this->check($answer, $correct, 0); //grade the post
         $temp = Grade::where([['user_id', 1], ['assignment_id', 2]])->first();
-        $temp['total'] = $grade['tptal'];
+        $temp['total'] = $grade['total'];
         $temp['raw'] = $grade['raw'];
         $temp['percent'] = $grade['percent'];
         $temp->save();
