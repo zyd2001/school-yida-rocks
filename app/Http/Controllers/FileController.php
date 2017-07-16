@@ -15,7 +15,8 @@ class FileController extends ControllerWithMid
      */
     public function index()
     {
-        return view('grades');
+        $files = File::where('public', true)->get();// all public files
+        return view('files', compact('files'));
     }
 
     /**
@@ -38,6 +39,7 @@ class FileController extends ControllerWithMid
     {
         File::create([
             'user_id' => auth()->user()->id,
+            'name' => $request->name,
             'public' => $request->public,
             'url' => $request->url,
         ]);
@@ -52,7 +54,7 @@ class FileController extends ControllerWithMid
      */
     public function show(File $file)
     {
-        //
+        return response()->json(['name' => $file->name, 'url' => $file->url]);
     }
 
     /**

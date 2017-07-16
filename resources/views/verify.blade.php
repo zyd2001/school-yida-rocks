@@ -18,6 +18,7 @@
                                 {{ session('err') }}
                             </div>
                         @endif
+                        {{ dump(session()->all()) }}
                     </div>
                 </div>
             </div>

@@ -27,14 +27,11 @@ Route::get('/verify', function ()
 
 Route::post('/assignments/{assignment}', 'GradeController@store');
 
-Route::get('/files/{course}', 'ApiController@getFiles');
+Route::get('/courses/{course}/getFiles', 'ApiController@getFiles');
 Route::get('/courses/getCourses', 'ApiController@getCourses');
-Route::get('/assignments/getAssignments', 'ApiController@getAssignments');
-Route::get('/courses/allCourses', 'ApiController@allCourses');
-Route::get('/grades/getGrades', 'ApiController@getGrades');
+Route::get('/assignments', 'ApiController@getAssignments');
+Route::get('/grades', 'ApiController@getGrades');
 
-Route::resource('grades', 'GradeController');
+Route::resource('courses', 'CourseController');// return view
 
-Route::resource('courses', 'CourseController');
-
-Route::resource('files', 'FileController');
+Route::resource('files', 'FileController');// return view

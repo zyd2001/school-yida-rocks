@@ -50,3 +50,12 @@ $factory->define(App\Grade::class, function (Faker\Generator $faker)
         'assignment_id' => factory(App\Assignment::class)->create()->id,
     ];
 });
+
+$factory->define(App\File::class, function (Faker\Generator $faker)
+{
+    return [
+        'name' => $faker->name,
+        'url' => $faker->url,
+        'user_id' => 1,
+    ];
+});

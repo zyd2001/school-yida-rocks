@@ -14,8 +14,8 @@ class CourseController extends ControllerWithMid
      */
     public function index()
     {
-        $courses = Course::all()->where('public', '1');
-        return view('courses');
+        $courses = Course::where('public', '1')->get();
+        return view('courses', compact('courses'));
     }
 
     /**
@@ -48,7 +48,7 @@ class CourseController extends ControllerWithMid
      */
     public function show(Course $course)
     {
-        //
+        return view('course');
     }
 
     /**

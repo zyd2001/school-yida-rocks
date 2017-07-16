@@ -5,8 +5,15 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class HomeController extends ControllerWithMid
+class HomeController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('setLocale');
+        $this->middleware('verify')->except('verify');
+    }
 
     /**
      * Show the application dashboard.

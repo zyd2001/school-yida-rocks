@@ -11,15 +11,6 @@ use KHerGe\JSON\JSON;
 class AssignmentController extends ControllerWithMid
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -70,7 +61,7 @@ class AssignmentController extends ControllerWithMid
      */
     public function show(Assignment $assignment)
     {
-        //
+        return view('assignment', compact('assignment'));
     }
 
     /**

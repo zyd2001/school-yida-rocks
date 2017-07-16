@@ -12,11 +12,6 @@ class ApiController extends ControllerWithMid
         return auth()->user()->getCourses();
     }
 
-    public function allCourses()
-    {
-        return Course::select('name', 'avatar', 'type')->where('public', '1')->get();
-    }
-
     public function getAssignments()
     {
         return auth()->user()->getAssignments();
@@ -29,14 +24,6 @@ class ApiController extends ControllerWithMid
 
     public function getFiles(Course $course)
     {
-        try
-        {
-            $result = $course->getFiles();
-            return response()->json($result);
-        }
-        catch (\Exception $e)
-        {
-            return response($e->getMessage(), 500);
-        }
+        return response()->json($course->fileStructure);
     }
 }

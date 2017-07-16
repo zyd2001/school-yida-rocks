@@ -52,7 +52,7 @@ class User extends Authenticatable
         $assignments = $this->assignments()->select('assignments.id', 'assignments.name', 'assignments.course_id', 'assignments.dueTime')->where('assignments.done', false)->get();
         foreach ($assignments as $assignment)
         {
-            $assignment['course'] = Course::where('id', $assignment['course_id'])->select('name', 'avatar')->get();
+            $assignment->course = Course::where('id', $assignment['course_id'])->select('name', 'avatar')->get();
         }
         return $assignments;
     }
@@ -62,15 +62,15 @@ class User extends Authenticatable
         $grades =  $this->grades()->select('assignment_id', 'course_id', 'total', 'raw', 'percent', 'grade')->get();
         foreach ($grades as $grade)
         {
-            $grade['course'] = Course::where('id', $grade['course_id'])->select('name', 'avatar')->get();
-            $grade['assignment'] = Assignment::where('id', $grade['assignment_id'])->select('name')->get();
+            $grade->course = Course::where('id', $grade['course_id'])->select('name', 'avatar')->get();
+            $grade->assignment = Assignment::where('id', $grade['assignment_id'])->select('name')->get();
         }
         return $grades;
     }
 
     public function getCourses()
     {
-        return $this->courses()->where('courses.type', 0)->select('courses.avatar', 'courses.name')->get();
+        return $this->courses()->select('courses.avatar', 'courses.name')->get();
     }
 
 }

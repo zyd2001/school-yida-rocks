@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use KHerGe\JSON\JSON;
 
 class Course extends Model
 {
@@ -28,20 +27,5 @@ class Course extends Model
     public function users()
     {
         return $this->belongsToMany('App\User');
-    }
-
-    public function getFiles()
-    {
-        $json = new JSON();
-        $files = $this->files;
-        try
-        {
-            $fileStructure = $json->decode($this->fileStructure);
-            return [];//not completed, return an array
-        }
-        catch (\Exception $e)
-        {
-            throw $e;
-        }
     }
 }
