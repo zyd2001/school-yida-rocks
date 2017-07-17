@@ -27,10 +27,11 @@ Route::get('/verify', function ()
 
 Route::post('/assignments/{assignment}', 'GradeController@store');
 
-Route::get('/courses/{course}/getFiles', 'ApiController@getFiles');
+Route::get('/courses/{course}/files', 'ApiController@getFiles');
 Route::get('/courses/getCourses', 'ApiController@getCourses');
 Route::get('/assignments', 'ApiController@getAssignments');
 Route::get('/grades', 'ApiController@getGrades');
+Route::get('/courses/{course}/assignments', 'ApiController@getAssignmentsInCourse');
 
 Route::resource('courses', 'CourseController');// return view
 

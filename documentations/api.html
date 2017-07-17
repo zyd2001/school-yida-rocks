@@ -2,13 +2,14 @@
 <p><code>/setLocale</code>：get方法，请求中必须有locale字段，值为<code>en</code>或者<code>zh</code>，没有post方法</p>
 <p><code>/verify</code>：post方法，请求中需要有code字段；get方法返回一个验证码页面verify.blade.php（这个可以改）</p>
 <p><code>/assignments/id</code>：post方法，这里的id是assignment的id，请求中只需要一个answer字段，是一个json字符串，包含答案；get方法返回一个指定id的assignment页面</p>
-<p><code>/assignments</code>：post方法，这个url没有get方法，content的格式见<code>http://orjf65xeb.bkt.clouddn.com/json_schema</code></p>
+<p><code>/assignments</code>：get方法，返回一个json字符串，每一项包含<code>id</code>, <code>name</code>, <code>dueTime</code>和所属course的信息（只返回尚未完成的assignment）；post方法，添加一个assignment</p>
 <table>
 <thead>
 <tr>
 <th>可接受字段</th>
 <th style="text-align: left;">作用</th>
 <th style="text-align: left;">格式</th>
+<th style="text-align: left;">可选值</th>
 <th style="text-align: left;">是否必须</th>
 </tr>
 </thead>
@@ -17,35 +18,91 @@
 <td>name</td>
 <td style="text-align: left;">assignment的名字</td>
 <td style="text-align: left;">string</td>
+<td style="text-align: left;">any</td>
 <td style="text-align: left;">是</td>
 </tr>
 <tr>
 <td>course_id</td>
 <td style="text-align: left;">assignment所属的course</td>
 <td style="text-align: left;">integer</td>
+<td style="text-align: left;">any</td>
 <td style="text-align: left;">是</td>
 </tr>
 <tr>
 <td>content</td>
 <td style="text-align: left;">内容</td>
 <td style="text-align: left;">json</td>
+<td style="text-align: left;">any</td>
 <td style="text-align: left;">是</td>
 </tr>
 <tr>
 <td>dueTime</td>
 <td style="text-align: left;">截止日期</td>
 <td style="text-align: left;">time</td>
+<td style="text-align: left;">any</td>
 <td style="text-align: left;">是</td>
 </tr>
 <tr>
 <td>setting</td>
 <td style="text-align: left;">设置</td>
 <td style="text-align: left;">json</td>
+<td style="text-align: left;">any</td>
 <td style="text-align: left;">否</td>
 </tr>
 </tbody>
 </table>
-<p>get方法，返回一个json字符串，每一项包含<code>id</code>, <code>name</code>, <code>dueTime</code>和所属course的信息（只返回尚未完成的assignment）</p>
-<p><code>/courses/id/getFiles</code>：get方法，id是course的id，返回一个文件结构的json字符串</p>
+<p>content的格式见<code>http://orjf65xeb.bkt.clouddn.com/json_schema</code></p>
+<p><code>/courses/id/files</code>：get方法，id是course的id，返回一个文件结构的json字符串</p>
+<p><code>/courses/id/assignments</code>：get方法，返回当前用户在指定id的course里所有assignment</p>
 <p><code>/courses/getCourses</code>：get方法，获得所有当前用户加入过的course</p>
 <p><code>/grades</code>：get方法，获得当前用户的所有grade</p>
+<p><code>/files/id</code>：get方法，返回指定id文件的<code>url</code>和<code>name</code></p>
+<p><code>/courses</code>：post方法，创建一个course，需要有<code>name</code>，<code>avatar</code>，<code>public</code>，<code>setting</code>，<code>type</code>字段</p>
+<table>
+<thead>
+<tr>
+<th>可接受字段</th>
+<th style="text-align: left;">作用</th>
+<th style="text-align: left;">格式</th>
+<th style="text-align: left;">可选值</th>
+<th style="text-align: left;">是否必须</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td style="text-align: left;">名字</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">any</td>
+<td style="text-align: left;">是</td>
+</tr>
+<tr>
+<td>avatar</td>
+<td style="text-align: left;">头像url</td>
+<td style="text-align: left;">string</td>
+<td style="text-align: left;">any</td>
+<td style="text-align: left;">否</td>
+</tr>
+<tr>
+<td>public</td>
+<td style="text-align: left;">是否公开</td>
+<td style="text-align: left;">boolean</td>
+<td style="text-align: left;">true or false</td>
+<td style="text-align: left;">否</td>
+</tr>
+<tr>
+<td>setting</td>
+<td style="text-align: left;">设置</td>
+<td style="text-align: left;">json</td>
+<td style="text-align: left;">any</td>
+<td style="text-align: left;">否</td>
+</tr>
+<tr>
+<td>type</td>
+<td style="text-align: left;">类型</td>
+<td style="text-align: left;">integer</td>
+<td style="text-align: left;">0，1，2</td>
+<td style="text-align: left;">否</td>
+</tr>
+</tbody>
+</table>

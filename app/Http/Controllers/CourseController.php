@@ -36,7 +36,12 @@ class CourseController extends ControllerWithMid
      */
     public function store(Request $request)
     {
-        $id = Course::create(['name' => $request->name])->id;
+        $id = Course::create([
+            'name' => $request->name,
+            'public' => $request->public,
+            'avatar' => $request->avatar,
+            'setting' => $request->setting,
+        ])->id;
         return redirect('/courses/'.$id)->with(['msg' => 'success']);
     }
 

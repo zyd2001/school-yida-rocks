@@ -26,4 +26,9 @@ class ApiController extends ControllerWithMid
     {
         return response()->json($course->fileStructure);
     }
+
+    public function getAssignmentsInCourse(Course $course)
+    {
+        return $course->assignments()->select('id', 'name', 'done', 'dueTime')->get();
+    }
 }
