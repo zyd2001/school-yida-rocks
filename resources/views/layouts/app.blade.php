@@ -55,7 +55,23 @@
                 </div>
             </div>
         </nav>
-
+        <div class="container-fluid">
+            <div class="row">
+                <nav class="bg-faded sidebar">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Updates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Courses</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-item" href="#">Grades</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
         @yield('content')
     </div>
 
