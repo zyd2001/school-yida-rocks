@@ -1,8 +1,8 @@
 <meta charset="UTF-8"><link rel="stylesheet" href="http://orjf65xeb.bkt.clouddn.com/markdown7.css"><h1>后端接口</h1>
-<p><code>/setLocale</code>：get方法，请求中必须有locale字段，值为<code>en</code>或者<code>zh</code>，没有post方法</p>
-<p><code>/verify</code>：post方法，请求中需要有code字段；get方法返回一个验证码页面verify.blade.php（这个可以改）</p>
-<p><code>/assignments/id</code>：post方法，这里的id是assignment的id，请求中只需要一个answer字段，是一个json字符串，包含答案；get方法返回一个指定id的assignment页面</p>
-<p><code>/assignments</code>：get方法，返回一个json字符串，每一项包含<code>id</code>, <code>name</code>, <code>dueTime</code>和所属course的信息（只返回尚未完成的assignment）；post方法，添加一个assignment</p>
+<p><strong><code>/setLocale</code></strong>：get方法，请求中必须有locale字段，值为<code>en</code>或者<code>zh</code>，没有post方法</p>
+<p><strong><code>/verify</code></strong>：post方法，请求中需要有code字段；get方法返回一个验证码页面verify.blade.php（这个可以改）</p>
+<p><strong><code>/assignments/id</code></strong>：post方法，这里的id是assignment的id，请求中只需要一个answer字段，是一个json字符串，包含答案；get方法返回一个指定id的assignment页面</p>
+<p><strong><code>/assignments</code></strong>：get方法，返回一个json字符串，每一项包含<code>id</code>, <code>name</code>, <code>dueTime</code>和所属course的信息（只返回尚未完成的assignment）；post方法，添加一个assignment</p>
 <table>
 <thead>
 <tr>
@@ -52,12 +52,12 @@
 </tbody>
 </table>
 <p>content的格式见<code>http://orjf65xeb.bkt.clouddn.com/json_schema</code></p>
-<p><code>/courses/id/files</code>：get方法，id是course的id，返回一个文件结构的json字符串</p>
-<p><code>/courses/id/assignments</code>：get方法，返回当前用户在指定id的course里所有assignment</p>
-<p><code>/courses/getCourses</code>：get方法，获得所有当前用户加入过的course</p>
-<p><code>/grades</code>：get方法，获得当前用户的所有grade</p>
-<p><code>/files/id</code>：get方法，返回指定id文件的<code>url</code>和<code>name</code></p>
-<p><code>/courses</code>：post方法，创建一个course，需要有<code>name</code>，<code>avatar</code>，<code>public</code>，<code>setting</code>，<code>type</code>字段</p>
+<p><strong><code>/courses/id/files</code></strong>：get方法，id是course的id，返回一个文件结构的json字符串</p>
+<p><strong><code>/courses/id/assignments</code></strong>：get方法，返回当前用户在指定id的course里所有assignment</p>
+<p><strong><code>/courses/getCourses</code></strong>：get方法，获得所有当前用户加入过的course</p>
+<p><strong><code>/grades</code></strong>：get方法，获得当前用户的所有grade</p>
+<p><strong><code>/files/id</code></strong>：get方法，返回指定id文件的<code>url</code>和<code>name</code></p>
+<p><strong><code>/courses</code></strong>：post方法，创建一个course，需要有<code>name</code>，<code>avatar</code>，<code>public</code>，<code>setting</code>，<code>type</code>字段</p>
 <table>
 <thead>
 <tr>
