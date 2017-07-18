@@ -18,7 +18,7 @@ const getCourses = new Vue({
                         for (var i in res.data) {
                             var course = res.data[i];
                             self.courses += '<a class="dropdown-item h5" href="/courses/' + course.id + '">'
-                                + '<img src="' + course.avatar + '" alt="' + course.name + '">' + course.name + '</a>';
+                                + '<img src="' + course.avatar + '" alt="' + course.name + '">&nbsp;' + course.name + '</a>';
                         }
                     })
                     .catch(function (err) {
