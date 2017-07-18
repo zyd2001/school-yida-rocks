@@ -17,7 +17,7 @@ class CreateCoursesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->boolean('public')->default(true);
-            $table->string('avatar')->default('http://orjf65xeb.bkt.clouddn.com/Class_avatar.png');
+            $table->string('avatar')->default('http://orjf65xeb.bkt.clouddn.com/default.png');
             $table->text('fileStructure')->nullable(); //json
             $table->text('setting')->nullable();//json
             $table->integer('type')->default(0); //0 => class, 1 => course, 2 => group
