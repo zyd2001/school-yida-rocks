@@ -70,7 +70,7 @@ class User extends Authenticatable
 
     public function getCourses()
     {
-        return $this->courses()->select('courses.avatar', 'courses.name')->get();
+        return $this->courses()->select('courses.id', 'courses.avatar', 'courses.name')->get();
     }
 
 }

@@ -11,75 +11,61 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{--<link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">--}}
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-            <div class="container">
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<div id="app">
+    <div class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <nav class="container">
+            <div class="d-flex justify-content-between">
+                <a class="navbar-brand" href="/">
+                    School
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'School') }}
-                </a>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                        </li>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item dropdown" id="course">
+                        <a v-on:click="get" class="nav-link dropdown-toggle" href="#" id="dropdownCourse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Courses
+                        </a>
+                        <div v-html="courses" class="dropdown-menu" aria-labelledby="dropdownCourse"></div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @if (auth()->check())
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                            <form action="{{ route('logout') }}" method="post" id="logout-form">
+                                {{ csrf_field() }}
+                            </form>
+                            <a href="{{ route('logout') }}" class="nav-link"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Disabled</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav ml-auto">
-                        @if (auth()->check())
-                            {{--<li class="nav-item"><a class="nav-link" href="{{ route('logout') }}">Logout</a></li>--}}
-                            <li class="nav-item">
-                                <form action="{{ route('logout') }}" method="post" id="logout-form">
-                                    {{ csrf_field() }}
-                                </form>
-                                <a href="{{ route('logout') }}" class="nav-link"
-                                   onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
+                    @endif
+                </ul>
             </div>
         </nav>
-        <div class="container-fluid">
-            <div class="row">
-                <nav class="bg-faded sidebar">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Updates</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Courses</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-item" href="#">Grades</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        @yield('content')
     </div>
-
+    @yield ('content')
+</div>
     <!-- Scripts -->
-    {{--<script src="{{ asset('js/app.js') }}"></script>--}}
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    {{--<script src="https://unpkg.com/vue"></script>--}}
+    {{--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>--}}
+    {{--<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.slim.min.js"></script>--}}
+    {{--<script src="https://cdn.bootcss.com/tether/1.4.0/js/tether.min.js"></script>--}}
+    {{--<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>--}}
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
