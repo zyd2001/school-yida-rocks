@@ -773,7 +773,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
-module.exports = __webpack_require__(36);
+module.exports = __webpack_require__(42);
 
 
 /***/ }),
@@ -797,13 +797,13 @@ window.Vue = __webpack_require__(35);
 //  * or customize the JavaScript scaffolding to fit your unique needs.
 //  */
 //
-Vue.component('example', __webpack_require__(43));
+Vue.component('example', __webpack_require__(36));
 //
 // const app = new Vue({
 //     el: '#app'
 // });
-__webpack_require__(42);
-__webpack_require__(47);
+__webpack_require__(40);
+__webpack_require__(41);
 
 /***/ }),
 /* 10 */
@@ -42924,40 +42924,14 @@ module.exports = Vue$3;
 
 /***/ }),
 /* 36 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */
-/***/ (function(module, exports) {
-
-/**
- * Created by zyd on 17-7-18.
- */
-$(function () {
-    if (window.innerWidth <= 768) $('nav').removeClass('container');
-});
-
-$(window).resize(function () {
-    if (window.innerWidth <= 768) $('nav').removeClass('container');else $('nav').addClass('container');
-});
-
-/***/ }),
-/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(44)(
+var Component = __webpack_require__(37)(
   /* script */
-  __webpack_require__(45),
+  __webpack_require__(38),
   /* template */
-  __webpack_require__(46),
+  __webpack_require__(39),
   /* styles */
   null,
   /* scopeId */
@@ -42989,7 +42963,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 44 */
+/* 37 */
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -43086,7 +43060,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 45 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43115,7 +43089,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 46 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -43144,7 +43118,22 @@ if (false) {
 }
 
 /***/ }),
-/* 47 */
+/* 40 */
+/***/ (function(module, exports) {
+
+/**
+ * Created by zyd on 17-7-18.
+ */
+$(function () {
+    if (window.innerWidth <= 768) $('nav').removeClass('container');
+});
+
+$(window).resize(function () {
+    if (window.innerWidth <= 768) $('nav').removeClass('container');else $('nav').addClass('container');
+});
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports) {
 
 /**
@@ -43165,7 +43154,7 @@ var getCourses = new Vue({
                     self.courses = '';
                     for (var i in res.data) {
                         var course = res.data[i];
-                        self.courses += '<a class="dropdown-item h5" href="/courses/' + course.id + '">' + '<img src="' + course.avatar + '" alt="' + course.name + '">' + course.name + '</a>';
+                        self.courses += '<a class="dropdown-item h5" href="/courses/' + course.id + '">' + '<img src="' + course.avatar + '" alt="' + course.name + '">&nbsp;' + course.name + '</a>';
                     }
                 }).catch(function (err) {
                     console.log(err);
@@ -43174,6 +43163,12 @@ var getCourses = new Vue({
         }
     }
 });
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
