@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class setLocale
+class SetLocale
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,10 @@ class setLocale
      */
     public function handle($request, Closure $next)
     {
-        \App::setLocale(session('locale'));
+        if (session()->has('locale'))
+            \App::setLocale(session('locale'));
+        else if (!session()->exists('locale'))
+            session(['locale' => null]);
         return $next($request);
     }
 }

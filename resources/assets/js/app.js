@@ -21,4 +21,4 @@ Vue.component('example', require('./components/Example.vue'));
 //     el: '#app'
 // });
 require('./resize');
-require('./getCourses');
+require('./GetCourses');

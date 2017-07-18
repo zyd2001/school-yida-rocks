@@ -47,5 +47,7 @@ class LoginController extends Controller
         $setting = json_decode($user->setting);
         if ($setting) // skip if setting doesn't exist
             session(['locale' => $setting->locale]);
+        else
+            session(['locale' => null]);
     }
 }
