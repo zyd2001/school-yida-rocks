@@ -17,7 +17,7 @@ class CourseController extends ControllerWithMid
     public function index()
     {
         $courses = Course::where('public', '1')->get();
-        return view('courses', compact('courses'));
+        return view('course.list', compact('courses'));
     }
 
     /**
@@ -27,7 +27,7 @@ class CourseController extends ControllerWithMid
      */
     public function create()
     {
-        //
+        return view('course.create');
     }
 
     /**
@@ -42,9 +42,9 @@ class CourseController extends ControllerWithMid
             'name' => $request->name,
             'public' => $request->public,
             'avatar' => $request->avatar,
+            'accessCode' => strtoupper(bin2hex(random_bytes(3))),
             'setting' => $request->setting,
         ])->id;
-        new MessageBag(['messages' => 'success']);
         return redirect('/courses/'.$id)->with(['msg' => 'success']);
     }
 
@@ -54,7 +54,7 @@ class CourseController extends ControllerWithMid
             'code' => 'required|size:6',
         ]);
         $course = Course::where('accessCode', 'code')->first();
-        $course->users()->attach(auth()->user());
+        $course->users()->attach(auth()->user(), ['type' => 0]);
         return redirect('/courses/' . $course->id);
     }
 

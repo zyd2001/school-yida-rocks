@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function locale(Request $request)
     {
         session(['locale' => $request->locale]);
-        return back()->with(['msg' => 'message.changeLocaleSuccess']);
+        return back()->with(['msg' => trans('message.changeLocaleSuccess')]);
     }
 
     public function verify(Request $request)

@@ -81,11 +81,7 @@
                         <div class="form-group">
                             <label for="access-code" class="form-control-label">Access Code</label>
                             <input type="text" class="form-control" name="code" required>
-                            @if ($errors->has('code'))
-                                <div class="alert alert-danger">
-                                    {{ $errors->first('code') }}
-                                </div>
-                            @endif
+                            @include ('layouts.error')
                         </div>
                     </form>
                 </div>
@@ -97,6 +93,7 @@
             </div>
         </div>
     </div>
+    @include ('layouts.message')
     @yield ('content')
 </div>
     <!-- Scripts -->

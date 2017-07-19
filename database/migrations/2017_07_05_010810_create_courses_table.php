@@ -20,7 +20,7 @@ class CreateCoursesTable extends Migration
             $table->string('avatar')->default('http://orjf65xeb.bkt.clouddn.com/default.png');
             $table->text('fileStructure')->nullable(); //json
             $table->text('setting')->nullable();//json
-            $table->string('accessCode')->nullable();
+            $table->string('accessCode');
             $table->integer('type')->default(0); //0 => class, 1 => course, 2 => group
             $table->timestamps();
         });
