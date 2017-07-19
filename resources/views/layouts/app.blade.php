@@ -105,6 +105,8 @@
     <script src="{{ asset('js/app.js') }}"></script>
 <script>
     $('#coursesLink').css('cursor', 'default');
+</script>
+<script>
     if ({{$errors->has('code')}})
         $('#joinModal').modal('show');
 </script>

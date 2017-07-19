@@ -33,7 +33,7 @@ class HomeController extends Controller
 
     public function verify(Request $request)
     {
-        if ($request->code == auth()->user()->verifyCode) //expire => 60 minutes
+        if (strtoupper($request->code) == auth()->user()->verifyCode) //expire => 60 minutes
         {
             if (auth()->user()->updated_at->diffInMinutes(Carbon::now()) <= 60)
             {

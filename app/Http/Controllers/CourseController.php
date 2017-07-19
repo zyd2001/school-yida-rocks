@@ -53,7 +53,7 @@ class CourseController extends ControllerWithMid
         $this->validate($request, [
             'code' => 'required|size:6',
         ]);
-        $course = Course::where('accessCode', 'code')->first();
+        $course = Course::where('accessCode', strtoupper($request->code))->first();
         $course->users()->attach(auth()->user(), ['type' => 0]);
         return redirect('/courses/' . $course->id);
     }
