@@ -36,7 +36,10 @@
                             Courses
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownCourse">
-                            <div v-html="courses"></div>
+                            <a v-for="course in courses" v-if="status === 1" class="dropdown-item h5" v-bind:href="'/courses/' + course.id"><img
+                                        v-bind:src="course.avatar" v-bind:alt="course.name">&nbsp;@{{ course.name }}</a>
+                            <a v-if="status === 2" class="dropdown-item h5">Loading...</a>
+                            <a v-if="status === 3" class="dropdown-item" data-toggle="modal" data-target="#joinModal" href="#">No Courses, join one</a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item font-weight-bold" data-toggle="modal" data-target="#joinModal">Join A New Course</a>
                         </div>
@@ -45,20 +48,17 @@
                 <ul class="navbar-nav">
                     @if (auth()->check())
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle font-weight-bold" id="dropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ auth()->user()->name }}</a>
+                            <a href="#" class="navbar-brand dropdown-toggle" id="dropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ auth()->user()->name }}</a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
-                                <a href="#" class="dropdown-item">a</a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <form action="{{ route('logout') }}" method="post" id="logout-form">
-                                {{ csrf_field() }}
-                            </form>
-                            <a href="{{ route('logout') }}" class="nav-link"
-                               onclick="event.preventDefault();
+                                <form action="{{ route('logout') }}" method="post" id="logout-form">
+                                    {{ csrf_field() }}
+                                </form>
+                                <a href="{{ route('logout') }}" class="dropdown-item"
+                                   onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
+                                    Logout
+                                </a>
+                            </div>
                         </li>
                     @endif
                 </ul>
@@ -81,20 +81,26 @@
                         <div class="form-group">
                             <label for="access-code" class="form-control-label">Access Code</label>
                             <input type="text" class="form-control" name="code" required>
-                            @include ('layouts.error')
+                            @include('layouts.error')
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-secondary mr-auto" href="/courses" id="coursesLink">All Courses</a>
+                    <button type="button" class="btn btn-secondary mr-auto" onclick="window.location.href='/courses'">All Courses</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" onclick="event.preventDefault(); document.getElementById('join-form').submit()" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
     </div>
-    @include ('layouts.message')
-    @yield ('content')
+    @include('layouts.message')
+    <br/>
+    <div class="container">
+        <div class="row">
+            @include('layouts.assignments')
+            @yield('content')
+        </div>
+    </div>
 </div>
     <!-- Scripts -->
     {{--<script src="https://unpkg.com/vue"></script>--}}

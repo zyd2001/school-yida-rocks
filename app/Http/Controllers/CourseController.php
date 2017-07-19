@@ -33,19 +33,19 @@ class CourseController extends ControllerWithMid
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $id = Course::create([
-            'name' => $request->name,
-            'public' => $request->public,
-            'avatar' => $request->avatar,
+            'name'       => $request->name,
+            'public'     => $request->public,
+            'avatar'     => $request->avatar,
             'accessCode' => strtoupper(bin2hex(random_bytes(3))),
-            'setting' => $request->setting,
+            'setting'    => $request->setting,
         ])->id;
-        return redirect('/courses/'.$id)->with(['msg' => 'success']);
+        return redirect('/courses/' . $id)->with(['msg' => 'success']);
     }
 
     public function join(Request $request)
@@ -54,14 +54,16 @@ class CourseController extends ControllerWithMid
             'code' => 'required|size:6',
         ]);
         $course = Course::where('accessCode', strtoupper($request->code))->first();
-        $course->users()->attach(auth()->user(), ['type' => 0]);
-        return redirect('/courses/' . $course->id);
+        $status = $course->users()->syncWithoutDetaching([auth()->user()->id => ['type' => 0]]);
+        if ($status['attached'] == auth()->user()->id)
+            return redirect('/courses/' . $course->id);
+        return back()->with(['err' => 'Failed, maybe you have already joined this course']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Course  $course
+     * @param  \App\Course $course
      * @return \Illuminate\Http\Response
      */
     public function show(Course $course)
@@ -72,7 +74,7 @@ class CourseController extends ControllerWithMid
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Course  $course
+     * @param  \App\Course $course
      * @return \Illuminate\Http\Response
      */
     public function edit(Course $course)
@@ -83,8 +85,8 @@ class CourseController extends ControllerWithMid
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Course  $course
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Course $course
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Course $course)
@@ -95,7 +97,7 @@ class CourseController extends ControllerWithMid
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Course  $course
+     * @param  \App\Course $course
      * @return \Illuminate\Http\Response
      */
     public function destroy(Course $course)
