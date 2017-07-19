@@ -10,7 +10,7 @@ const getCourses = new Vue({
     methods: {
         get: function (event) {
             if (this.courses === '') {
-                this.courses = 'Loading...';
+                this.courses = '<span class="dropdown-item">Loading...</span>';
                 var self = this;
                 axios.get('/courses/getCourses')
                     .then(function (res) {
