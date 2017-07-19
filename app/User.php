@@ -62,8 +62,8 @@ class User extends Authenticatable
         $grades =  $this->grades()->select('assignment_id', 'course_id', 'total', 'raw', 'percent', 'grade')->get();
         foreach ($grades as $grade)
         {
-            $grade->course = Course::where('id', $grade['course_id'])->select('name', 'avatar')->get();
-            $grade->assignment = Assignment::where('id', $grade['assignment_id'])->select('name')->get();
+            $grade->course = Course::where('id', $grade['course_id'])->select('name', 'avatar')->first();
+            $grade->assignment = Assignment::where('id', $grade['assignment_id'])->select('name')->first();
         }
         return $grades;
     }

@@ -34,5 +34,6 @@ Route::get('/grades', 'ApiController@getGrades');
 Route::get('/courses/{course}/assignments', 'ApiController@getAssignmentsInCourse');
 
 Route::resource('courses', 'CourseController');// return view
+Route::post('/courses/join', 'CourseController@join');
 
 Route::resource('files', 'FileController');// return view

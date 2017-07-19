@@ -43156,6 +43156,7 @@ var getCourses = new Vue({
                         var course = res.data[i];
                         self.courses += '<a class="dropdown-item h5" href="/courses/' + course.id + '">' + '<img src="' + course.avatar + '" alt="' + course.name + '">&nbsp;' + course.name + '</a>';
                     }
+                    if (self.courses === '') self.courses = '<a href="#" class="dropdown-item" data-toggle="modal" data-target="#joinModal">No Courses, join one</a>';
                 }).catch(function (err) {
                     console.log(err);
                 });

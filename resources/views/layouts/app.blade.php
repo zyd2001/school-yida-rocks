@@ -35,14 +35,21 @@
                         <a v-on:click="get" class="nav-link dropdown-toggle" href="#" id="dropdownCourse" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             Courses
                         </a>
-                        <div v-html="courses" class="dropdown-menu" aria-labelledby="dropdownCourse"></div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"></a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownCourse">
+                            <div v-html="courses"></div>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item font-weight-bold" data-toggle="modal" data-target="#joinModal">Join A New Course</a>
+                        </div>
                     </li>
                 </ul>
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav">
                     @if (auth()->check())
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle font-weight-bold" id="dropdownUser" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">{{ auth()->user()->name }}</a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
+                                <a href="#" class="dropdown-item">a</a>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="post" id="logout-form">
                                 {{ csrf_field() }}
@@ -58,6 +65,38 @@
             </div>
         </nav>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="joinModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="joinModalLabel">Join A New Course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/courses/join" method="post" id="join-form">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="access-code" class="form-control-label">Access Code</label>
+                            <input type="text" class="form-control" name="code" required>
+                            @if ($errors->has('code'))
+                                <div class="alert alert-danger">
+                                    {{ $errors->first('code') }}
+                                </div>
+                            @endif
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a type="button" class="btn btn-secondary mr-auto" href="/courses" id="coursesLink">All Courses</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="event.preventDefault(); document.getElementById('join-form').submit()" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
     @yield ('content')
 </div>
     <!-- Scripts -->
@@ -67,5 +106,10 @@
     {{--<script src="https://cdn.bootcss.com/tether/1.4.0/js/tether.min.js"></script>--}}
     {{--<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>--}}
     <script src="{{ asset('js/app.js') }}"></script>
+<script>
+    $('#coursesLink').css('cursor', 'default');
+    if ({{$errors->has('code')}})
+        $('#joinModal').modal('show');
+</script>
 </body>
 </html>

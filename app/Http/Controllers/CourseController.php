@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\MessageBag;
 
 class CourseController extends ControllerWithMid
 {
@@ -42,7 +44,18 @@ class CourseController extends ControllerWithMid
             'avatar' => $request->avatar,
             'setting' => $request->setting,
         ])->id;
+        new MessageBag(['messages' => 'success']);
         return redirect('/courses/'.$id)->with(['msg' => 'success']);
+    }
+
+    public function join(Request $request)
+    {
+        $this->validate($request, [
+            'code' => 'required|size:6',
+        ]);
+        $course = Course::where('accessCode', 'code')->first();
+        $course->users()->attach(auth()->user());
+        return redirect('/courses/' . $course->id);
     }
 
     /**
