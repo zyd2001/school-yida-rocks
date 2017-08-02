@@ -26,7 +26,7 @@ class AssignmentController extends ControllerWithMid
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) // an ajax request
+    public function store(Request $request)
     {
         try
         {
@@ -95,7 +95,7 @@ class AssignmentController extends ControllerWithMid
      */
     public function destroy(Assignment $assignment)
     {
-        //
+//        $this->delet();
     }
 
     private function checkContent($content)

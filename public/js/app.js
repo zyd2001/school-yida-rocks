@@ -773,7 +773,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(9);
-module.exports = __webpack_require__(43);
+module.exports = __webpack_require__(44);
 
 
 /***/ }),
@@ -805,6 +805,7 @@ Vue.component('example', __webpack_require__(36));
 __webpack_require__(40);
 __webpack_require__(41);
 __webpack_require__(42);
+__webpack_require__(43);
 
 /***/ }),
 /* 10 */
@@ -43208,6 +43209,27 @@ $(function () {
 
 /***/ }),
 /* 43 */
+/***/ (function(module, exports) {
+
+/**
+ * Created by zyd on 17-7-19.
+ */
+var assignments = new Vue({
+    el: '#assignments',
+    data: {
+        assignments: null
+    },
+    mounted: function mounted() {
+        var self = this;
+        axios.get('/assignments').then(function (res) {
+            self.assignments = res.data;
+        });
+    }
+
+});
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

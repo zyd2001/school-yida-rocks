@@ -4,8 +4,8 @@
         <div class="card-header">
             Assignments
         </div>
-        <ul v-html="assignments" class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
+        <ul class="list-group list-group-flush">
+            <li v-for="assignment in assignments" class="list-group-item">@{{ assignment.name }}</li>
         </ul>
     </div>
 </div>

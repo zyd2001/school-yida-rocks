@@ -23,3 +23,4 @@ Vue.component('example', require('./components/Example.vue'));
 require('./resize');
 require('./GetCourses');
 require('./ShowMessage');
+require('./assignments');
