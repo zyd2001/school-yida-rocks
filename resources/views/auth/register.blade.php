@@ -2,7 +2,7 @@
 @section('content')
     <div class="row">
         <div class="card mx-auto" style="width: 35%">
-            <h5s class="card-header">Register</h5s>
+            <h5 class="card-header">Register</h5>
             <div class="card-block">
                 <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                     {{ csrf_field() }}
