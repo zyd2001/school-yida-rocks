@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 45);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -72,11 +72,23 @@
  * Created by zyd on 17-7-18.
  */
 $(function () {
-    if (window.innerWidth <= 768) $('nav').removeClass('container');
+    if (window.innerWidth <= 768) {
+        $('nav').removeClass('container');
+        $('#footer-lg').addClass('hidden');
+        $('#footer-sm').removeClass('hidden');
+    }
 });
 
 $(window).resize(function () {
-    if (window.innerWidth <= 768) $('nav').removeClass('container');else $('nav').addClass('container');
+    if (window.innerWidth <= 768) {
+        $('nav').removeClass('container');
+        $('#footer-lg').addClass('hidden');
+        $('#footer-sm').removeClass('hidden');
+    } else {
+        $('nav').addClass('container');
+        $('#footer-lg').removeClass('hidden');
+        $('#footer-sm').addClass('hidden');
+    }
 });
 
 /***/ }),
@@ -160,15 +172,15 @@ $(function () {
 
 /***/ }),
 
-/***/ 45:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(46);
+module.exports = __webpack_require__(47);
 
 
 /***/ }),
 
-/***/ 46:
+/***/ 47:
 /***/ (function(module, exports, __webpack_require__) {
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="row">
-        <div class="card mx-auto" style="width: 35%">
+        <div class="card mx-auto">
             <h5 class="card-header">Login</h5>
             <div class="card-block">
                 <form class="form-horizontal" method="POST" action="{{ route('login') }}">

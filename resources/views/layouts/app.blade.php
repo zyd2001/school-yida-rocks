@@ -26,11 +26,15 @@
         }
 
         footer {
-            padding: 2.5rem 0;
+            padding: 1rem 0;
             color: #999;
             text-align: center;
             background-color: #EEEEEE;
             border-top: .05rem solid #e5e5e5;
+        }
+
+        .hidden {
+            display: none;
         }
     </style>
 </head>
