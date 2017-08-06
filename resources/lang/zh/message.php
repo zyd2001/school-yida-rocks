@@ -7,4 +7,5 @@
  */
 return [
     'wrong_verify_code' => '错误的验证码',
+    'test' => '中文',
 ];

@@ -44,7 +44,7 @@ class HomeController extends Controller
             }
             else
             {
-                return back()->with(['err' => 'your verify code is expired']);
+                return back()->with(['err' => __('your verify code is expired')]);
             }
         }
         else

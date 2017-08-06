@@ -20,7 +20,13 @@ class GradeController extends ControllerWithMid
         $temp->save();
         $assignment->done = true;
         $assignment->save();
-        return redirect('/assignments/' . $assignment->id)->with(['msg' => 'success']);
+        return redirect('/assignments/' . $assignment->id)->with(['msg' => __()]);
+    }
+
+    public function destroy(Grade $grade)
+    {
+        $grade->delete();
+        return response()->json(['msg' => __()]);
     }
 
     private function check(array $answer, array $correct, $type) //compare with the correct answer

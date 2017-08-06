@@ -45,7 +45,7 @@ class AssignmentController extends ControllerWithMid
                     'course_id' => $request->course_id,
                     'assignment_id' => $id,
                     ]);
-            return redirect('/assignments/'.$id)->with(['msg' => 'success']);
+            return redirect('/assignments/'.$id)->with(['msg' => __()]);
         }
         catch (\Exception $e)
         {
@@ -95,7 +95,8 @@ class AssignmentController extends ControllerWithMid
      */
     public function destroy(Assignment $assignment)
     {
-//        $this->delet();
+        $assignment->delet();
+        return response()->json(['msg' => __()]);
     }
 
     private function checkContent($content)

@@ -45,7 +45,7 @@ class CourseController extends ControllerWithMid
             'accessCode' => strtoupper(bin2hex(random_bytes(3))),
             'setting'    => $request->setting,
         ])->id;
-        return redirect('/courses/' . $id)->with(['msg' => 'success']);
+        return redirect('/courses/' . $id)->with(['msg' => __()]);
     }
 
     public function join(Request $request)
@@ -57,7 +57,7 @@ class CourseController extends ControllerWithMid
         $status = $course->users()->syncWithoutDetaching([auth()->user()->id => ['type' => 0]]);
         if ($status['attached'] == auth()->user()->id)
             return redirect('/courses/' . $course->id);
-        return back()->with(['err' => 'Failed, maybe you have already joined this course']);
+        return back()->with(['err' => __('Failed, maybe you have already joined this course')]);
     }
 
     /**

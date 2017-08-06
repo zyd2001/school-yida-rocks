@@ -49,6 +49,11 @@ const getCourses = new Vue({
                         if (!res.data.length)
                             self.status = 3; //no data
                     })
+                    .catch(function (err) {
+                        console.log(err);
+                        self.status = 4;
+                        self.courses = 'error';
+                    })
             }
         },
     }
