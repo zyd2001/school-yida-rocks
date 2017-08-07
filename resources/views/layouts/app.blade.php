@@ -54,6 +54,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.slim.min.js"></script>
     <script src="https://cdn.bootcss.com/tether/1.4.0/js/tether.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
     <script src="{{ asset('js/production.js') }}"></script>
 @else
     <script src="{{ asset('js/app.js') }}"></script>
