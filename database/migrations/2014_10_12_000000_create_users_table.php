@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('isTeacher')->default(false);
-            $table->string('avatar')->default('http://img4.imgtn.bdimg.com/it/u=763968628,2435880126&fm=26&gp=0.jpg');
+            $table->string('avatar')->default('http://orjf65xeb.bkt.clouddn.com/default.jpeg');
             $table->text('setting')->default('{}'); //json
             $table->boolean('isVerified')->default(false);
             $table->string('verifyCode', 6);

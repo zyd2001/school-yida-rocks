@@ -13,6 +13,7 @@
     <!-- Styles -->
     @if(config('app.env') == 'production')
         <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     @else
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @endif
@@ -34,6 +35,10 @@
         }
 
         .hidden {
+            display: none;
+        }
+
+        [v-cloak] {
             display: none;
         }
     </style>

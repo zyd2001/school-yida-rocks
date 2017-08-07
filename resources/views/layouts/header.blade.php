@@ -25,13 +25,13 @@
                             <a v-for="course in courses" v-if="status === 1" class="dropdown-item h5"
                                v-bind:href="'/courses/' + course.id"><img
                                         v-bind:src="course.avatar" v-bind:alt="course.name">&nbsp;@{{ course.name }}</a>
-                            <a v-if="status === 2" class="dropdown-item h5">Loading...</a>
+                            <a v-if="status === 2" class="dropdown-item h5"><i class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Loading...</a>
                             <a v-if="status === 3" class="dropdown-item" data-toggle="modal"
-                               data-target="#joinModal" href="#">No Courses, join one</a>
+                               data-target="#joinModal" href="#"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;No Courses, join one</a>
                             <a v-if="status === 4" class="dropdown-item h5">Error</a>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item font-weight-bold" data-toggle="modal"
-                               data-target="#joinModal">Join A New Course</a>
+                               data-target="#joinModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Join A New Course</a>
                         </div>
                     </li>
                 </ul>
@@ -40,14 +40,20 @@
                         <li class="nav-item dropdown">
                             <a href="#" class="navbar-brand dropdown-toggle" id="dropdownUser"
                                data-toggle="dropdown" aria-haspopup="true"
-                               aria-expanded="true">{{ auth()->user()->name }}</a>
+                               aria-expanded="true"><img src="{{ auth()->user()->avatar }}" width="30" height="30">&nbsp;{{ auth()->user()->name }}</a>
+
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
+                                <a href="#" class="dropdown-item"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
+                                <a href="#" class="dropdown-item"><i class="fa fa-sliders fa-fw" aria-hidden="true"></i>&nbsp;Setting</a>
+                                <div class="dropdown-divider"></div>
+
                                 <form action="{{ route('logout') }}" method="post" id="logout-form">
                                     {{ csrf_field() }}
                                 </form>
                                 <a href="{{ route('logout') }}" class="dropdown-item"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
                                     Logout
                                 </a>
                             </div>

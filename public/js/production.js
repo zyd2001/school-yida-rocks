@@ -215,15 +215,16 @@ __webpack_require__(5);
 var assignments = new Vue({
     el: '#assignments',
     data: {
-        assignments: null
+        assignments: null,
+        status: 1
     },
     mounted: function mounted() {
         var self = this;
         if ($('#assignments').length) axios.get('/assignments').then(function (res) {
+            if (res.data.length === 0) self.status = 0;
             self.assignments = res.data;
         });
     }
-
 });
 
 /***/ })
