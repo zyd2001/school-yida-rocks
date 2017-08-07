@@ -18,7 +18,13 @@ class SetLocale
         if (session()->has('locale'))
             \App::setLocale(session('locale'));
         else if (!session()->exists('locale'))
-            session(['locale' => null]);
+        {
+            $setting = json_decode(auth()->user()->setting);
+            if ($setting) // skip if setting doesn't exist
+                session(['locale' => $setting->locale]);
+            else
+                session(['locale' => null]);
+        }
         return $next($request);
     }
 }

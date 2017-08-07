@@ -31,4 +31,17 @@ class ApiController extends ControllerWithMid
     {
         return $course->assignments()->select('id', 'name', 'done', 'dueTime')->get();
     }
+
+    public function locale(Request $request)
+    {
+        session(['locale' => $request->locale]);
+        if (auth()->check())
+        {
+            $setting = json_decode(auth()->user()->setting);
+            $setting->locale = $request->locale;
+            auth()->user()->setting = json_encode($setting);
+            auth()->user()->save();
+        }
+        return back()->with(['msg' => trans('message.changeLocaleSuccess')]);
+    }
 }

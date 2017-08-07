@@ -18,7 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/setLocale', 'HomeController@locale');
 Route::post('/verify', 'HomeController@verify');
 Route::get('/verify', function ()
 {
@@ -29,6 +28,7 @@ Route::post('/assignments/{assignment}', 'GradeController@store');
 
 Route::resource('assignments', 'AssignmentController');
 
+Route::get('/setLocale', 'ApiController@locale');
 Route::get('/courses/{course}/files', 'ApiController@getFiles');
 Route::get('/courses/getCourses', 'ApiController@getCourses');
 Route::get('/assignments', 'ApiController@getAssignments');
