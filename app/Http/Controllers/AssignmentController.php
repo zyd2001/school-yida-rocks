@@ -61,7 +61,7 @@ class AssignmentController extends ControllerWithMid
      */
     public function show(Assignment $assignment)
     {
-        return view('assignment', compact('assignment'));
+        return view('assignment.main', compact('assignment'));
     }
 
     /**

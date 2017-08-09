@@ -20,7 +20,7 @@ class CreateAssignmentsTable extends Migration
             $table->text('content'); //json
             $table->boolean('done')->default(false);
             $table->text('setting')->default('{}');//json
-            $table->time('dueTime');
+            $table->dateTime('dueTime');
             $table->timestamps();
         });
     }

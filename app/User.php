@@ -52,7 +52,7 @@ class User extends Authenticatable
         $assignments = $this->assignments()->select('assignments.id', 'assignments.name', 'assignments.course_id', 'assignments.dueTime')->where('assignments.done', false)->get();
         foreach ($assignments as $assignment)
         {
-            $assignment->course = Course::where('id', $assignment['course_id'])->select('name', 'avatar')->get();
+            $assignment->course = Course::where('id', $assignment['course_id'])->select('id', 'name', 'avatar')->first();
         }
         return $assignments;
     }

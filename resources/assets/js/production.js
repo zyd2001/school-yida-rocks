@@ -14,7 +14,7 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-require('./resize');
-require('./GetCourses');
-require('./ShowMessage');
+require('./main/resize');
+require('./main/GetCourses');
+require('./main/ShowMessage');
 require('./assignments');
