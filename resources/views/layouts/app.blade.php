@@ -42,6 +42,13 @@
         [v-cloak] {
             display: none;
         }
+
+        .disabled {
+            color: #636c72;
+            cursor: not-allowed;
+            pointer-events: none;
+            text-decoration: none;
+        }
     </style>
     @show
 </head>
