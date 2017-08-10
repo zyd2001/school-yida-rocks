@@ -8,7 +8,7 @@
                 <a v-cloak v-for="assignment in assignments" class="list-group-item" data-container="body"
                    data-toggle="popover" data-placement="left" data-html="true"
                    v-bind:data-content="assignment.hoverMessage"
-                   v-bind:href="'assignments/' + assignment.id"
+                   v-bind:href="'/assignments/' + assignment.id"
                    v-on:mouseenter="show" v-on:mouseleave="hide">@{{ assignment.name }}
                     <span style="font-size: 0.8rem" class="text-muted ml-auto">due:&nbsp;</span>
                     <span style="font-size: 0.65rem" class="text-muted">2017-07-25<br> 19:11:14</span></a>

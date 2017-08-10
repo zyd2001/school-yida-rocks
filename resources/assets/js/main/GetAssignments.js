@@ -16,7 +16,7 @@ const assignments = new Vue({
                         self.status = 0;
                     console.log(JSON.stringify(res.data[0].course.avatar, null, 2))
                     for (var i in res.data) {
-                        res.data[i].hoverMessage = '<img src="' + res.data[i].course.avatar + '" width="30" height="30">&nbsp;<a href="courses/' + res.data[i].course.id + '">' + res.data[i].course.name + '</a>';
+                        res.data[i].hoverMessage = '<img src="' + res.data[i].course.avatar + '" width="30" height="30">&nbsp;<a href="/courses/' + res.data[i].course.id + '">' + res.data[i].course.name + '</a>';
                     }
                     self.assignments = res.data;
                 }

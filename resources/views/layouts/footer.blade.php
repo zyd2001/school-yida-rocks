@@ -17,8 +17,8 @@
                         Language
                     </a>
                     <div class="dropdown-menu" aria-labelledby="language">
-                        <a class="dropdown-item" href="setLocale?locale=zh">中文</a>
-                        <a class="dropdown-item" href="setLocale?locale=en">English</a>
+                        <a class="dropdown-item" href="/setLocale?locale=zh">中文</a>
+                        <a class="dropdown-item" href="/setLocale?locale=en">English</a>
                     </div>
                 </div>
             </div>
@@ -57,8 +57,8 @@
                             Language
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="language">
-                            <a class="dropdown-item" href="setLocale?locale=zh">中文</a>
-                            <a class="dropdown-item" href="setLocale?locale=en">English</a>
+                            <a class="dropdown-item" href="/setLocale?locale=zh">中文</a>
+                            <a class="dropdown-item" href="/setLocale?locale=en">English</a>
                         </div>
                     </div>
                 </div>
