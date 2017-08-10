@@ -18,38 +18,6 @@
     @else
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @endif
-    <style type="text/css">
-        html, body {
-            height: 100%;
-        }
-
-        .container {
-            height: 100%;
-        }
-
-        footer {
-            padding: 1rem 0;
-            color: #999;
-            text-align: center;
-            background-color: #EEEEEE;
-            border-top: .05rem solid #e5e5e5;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        [v-cloak] {
-            display: none;
-        }
-
-        .disabled {
-            color: #636c72;
-            cursor: not-allowed;
-            pointer-events: none;
-            text-decoration: none;
-        }
-    </style>
     @show
 </head>
 <body>
