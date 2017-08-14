@@ -55,7 +55,7 @@ class CourseController extends ControllerWithMid
         ]);
         $course = Course::where('accessCode', strtoupper($request->code))->first();
         $status = $course->users()->syncWithoutDetaching([auth()->user()->id => ['type' => 0]]);
-        if ($status['attached'] == auth()->user()->id)
+        if ($status['attached'][0] == auth()->user()->id)
             return redirect('/courses/' . $course->id);
         return back()->with(['err' => __('Failed, maybe you have already joined this course')]);
     }

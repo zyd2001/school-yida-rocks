@@ -29,6 +29,7 @@ $factory->define(App\Course::class, function (Faker\Generator $faker)
 {
     return [
         'name' => $faker->name,
+        'accessCode' => 'AAAAAA',
     ];
 });
 
@@ -38,7 +39,7 @@ $factory->define(App\Assignment::class, function (Faker\Generator $faker)
         'name' => $faker->name,
         'course_id' => 1,
         'content' => $faker->text,
-        'dueTime' => $faker->time('H:i:s'),
+        'dueTime' => $faker->date(),
     ];
 });
 
