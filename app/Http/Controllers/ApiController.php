@@ -9,17 +9,17 @@ class ApiController extends ControllerWithMid
 {
     public function getCourses()
     {
-        return $user->getCourses();
+        return auth()->user()->getCourses();
     }
 
     public function getAssignments()
     {
-        return $user->getAssignments();
+        return auth()->user()->getAssignments();
     }
 
     public function getGrades()
     {
-        return $user->getGrades();//return a json string that contains grades and related class info
+        return auth()->user()->getGrades();//return a json string that contains grades and related class info
     }
 
     public function getFiles(Course $course)

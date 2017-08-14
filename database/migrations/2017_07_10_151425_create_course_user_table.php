@@ -17,7 +17,7 @@ class CreateCourseUserTable extends Migration
             $table->increments('id');
             $table->integer('course_id');
             $table->integer('user_id');
-            $table->text('setting');
+            $table->text('setting')->nullable();
             $table->integer('type'); // 0 => student, 1 => teacher, 2 => supervisor
             $table->timestamps();
         });
