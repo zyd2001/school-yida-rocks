@@ -39,7 +39,7 @@ $factory->define(App\Assignment::class, function (Faker\Generator $faker)
         'name' => $faker->name,
         'course_id' => 1,
         'content' => $faker->text,
-        'dueTime' => $faker->date(),
+        'dueTime' => $faker->dateTime,
     ];
 });
 
