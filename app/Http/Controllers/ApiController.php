@@ -9,17 +9,17 @@ class ApiController extends ControllerWithMid
 {
     public function getCourses()
     {
-        return auth()->user()->getCourses();
+        return $user->getCourses();
     }
 
     public function getAssignments()
     {
-        return auth()->user()->getAssignments();
+        return $user->getAssignments();
     }
 
     public function getGrades()
     {
-        return auth()->user()->getGrades();//return a json string that contains grades and related class info
+        return $user->getGrades();//return a json string that contains grades and related class info
     }
 
     public function getFiles(Course $course)
@@ -37,10 +37,13 @@ class ApiController extends ControllerWithMid
         session(['locale' => $request->locale]);
         if (auth()->check())
         {
-            $setting = json_decode(auth()->user()->setting);
+            $user = auth()->user();
+            if ($user->setting == null)
+                $user->setting = "{}";
+            $setting = json_decode($user->setting);
             $setting->locale = $request->locale;
-            auth()->user()->setting = json_encode($setting);
-            auth()->user()->save();
+            $user->setting = json_encode($setting);
+            $user->save();
         }
         return back()->with(['msg' => trans('message.changeLocaleSuccess')]);
     }
