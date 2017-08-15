@@ -2,5 +2,7 @@
     "/js/dependency.js": "/js/dependency.js",
     "/css/app.css": "/css/app.css",
     "/js/app.js": "/js/app.js",
+    "/js/home.js": "/js/home.js",
+    "/js/assignment.js": "/js/assignment.js",
     "/js/verify.js": "/js/verify.js"
 }

@@ -11,7 +11,9 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/dependency.js', 'public/js')
-    .js('resources/assets/js/app.js', 'public/js')
-    .js('resources/assets/js/verify.js', 'public/js')
+mix.js('resources/assets/js/entries/dependency.js', 'public/js')
+    .js('resources/assets/js/entries/app.js', 'public/js')
+    .js('resources/assets/js/entries/verify.js', 'public/js')
+    .js('resources/assets/js/entries/assignment.js', 'public/js')
+    .js('resources/assets/js/entries/home.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css');

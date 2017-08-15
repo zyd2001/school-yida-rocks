@@ -1,10 +1,12 @@
 @extends('layouts.app')
 @section('content')
+    @include('assignment.content')
+    @include('assignment.description')
 @endsection
 
 @section('script')
     @parent
-    <script></script>
+    <script src="{{ asset('js/assignment.js') }}"></script>
 @endsection
 
 @section('head')

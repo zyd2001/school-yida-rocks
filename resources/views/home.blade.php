@@ -7,3 +7,8 @@
         </div>
     </div>
 @endsection
+
+@section('script')
+    @parent
+    <script src="{{ asset('js/home.js') }}"></script>
+@endsection
