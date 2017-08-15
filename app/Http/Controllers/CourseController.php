@@ -68,7 +68,7 @@ class CourseController extends ControllerWithMid
      */
     public function show(Course $course)
     {
-        return view('course');
+        return view('course.main', compact('course'));
     }
 
     /**
