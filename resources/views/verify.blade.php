@@ -11,7 +11,7 @@
                     <input type="submit" class="form-controller btn btn-primary" value="验证">
                 </form>
                 <div class="row">
-                    <a type="submit" class="mx-auto" href="#" v-on:click="click" id="re" v-cloak>@{{ text }}</a>
+                    <a class="mx-auto" href="#" v-on:click="click" id="re" v-cloak>@{{ text }}</a>
                 </div>
             </div>
         </div>
