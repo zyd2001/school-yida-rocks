@@ -1,1 +1,215 @@
-!function(e){function t(o){if(n[o])return n[o].exports;var s=n[o]={i:o,l:!1,exports:{}};return e[o].call(s.exports,s,s.exports,t),s.l=!0,s.exports}var n={};t.m=e,t.c=n,t.d=function(e,n,o){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:o})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=38)}({38:function(e,t,n){e.exports=n(39)},39:function(e,t,n){axios.defaults.headers.common["X-Requested-With"]="XMLHttpRequest";var o=document.head.querySelector('meta[name="csrf-token"]');o&&(axios.defaults.headers.common["X-CSRF-TOKEN"]=o.content),n(40),n(45)},40:function(e,t,n){n(41),n(42),n(43),n(44)},41:function(e,t){$(function(){window.innerWidth<=768&&($("nav").removeClass("container"),$("#footer-lg").addClass("hidden"),$("#footer-sm").removeClass("hidden"))}),$(window).resize(function(){window.innerWidth<=768?($("nav").removeClass("container"),$("#footer-lg").addClass("hidden"),$("#footer-sm").removeClass("hidden")):($("nav").addClass("container"),$("#footer-lg").removeClass("hidden"),$("#footer-sm").addClass("hidden"))})},42:function(e,t){new Vue({el:"#course",data:{courses:null,status:0},methods:{get:function(e){if(null===this.courses){var t=this;this.status=2,axios.get("/courses/getCourses").then(function(e){t.courses=e.data,t.status=1,e.data.length||(t.status=3)}).catch(function(e){t.status=4,t.courses="error"})}}}})},43:function(e,t){$(function(){var e=$("#messageModal");e.length&&(e.modal("show"),window.setTimeout("$('#messageModal').modal('hide')",2e3))})},44:function(e,t){new Vue({el:"#assignments",data:{assignments:null,status:1},mounted:function(){var e=this;$("#assignments").length&&axios.get("/assignments").then(function(t){0===t.data.length&&(e.status=0);for(var n in t.data)t.data[n].hoverMessage='<img src="'+t.data[n].course.avatar+'" width="30" height="30">&nbsp;<a href="/courses/'+t.data[n].course.id+'">'+t.data[n].course.name+"</a>",t.data[n].dueTime=t.data[n].dueTime.split(" ");e.assignments=t.data})},methods:{show:function(e){$(e.target).popover("show").on("shown.bs.popover",function(){$(".popover").on("mouseleave",function(){$(e.target).popover("hide")})})},hide:function(e){setTimeout(function(){$(".popover:hover").length||$(e.target).popover("hide")},100)}}})},45:function(e,t){}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 37:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(38);
+
+
+/***/ }),
+
+/***/ 38:
+/***/ (function(module, exports, __webpack_require__) {
+
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+var token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
+
+__webpack_require__(39);
+
+/***/ }),
+
+/***/ 39:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(40);
+__webpack_require__(41);
+__webpack_require__(42);
+
+/***/ }),
+
+/***/ 40:
+/***/ (function(module, exports) {
+
+/**
+ * Created by zyd on 17-7-18.
+ */
+$(function () {
+    if (window.innerWidth <= 768) {
+        $('nav').removeClass('container');
+        $('#footer-lg').addClass('hidden');
+        $('#footer-sm').removeClass('hidden');
+    }
+});
+
+$(window).resize(function () {
+    if (window.innerWidth <= 768) {
+        $('nav').removeClass('container');
+        $('#footer-lg').addClass('hidden');
+        $('#footer-sm').removeClass('hidden');
+    } else {
+        $('nav').addClass('container');
+        $('#footer-lg').removeClass('hidden');
+        $('#footer-sm').addClass('hidden');
+    }
+});
+
+/***/ }),
+
+/***/ 41:
+/***/ (function(module, exports) {
+
+// /**
+//  * Created by zyd on 17-7-18.
+//  */
+//
+// const getCourses = new Vue({
+//     el: '#course',
+//     data: {
+//         courses: ''
+//     },
+//     methods: {
+//         get: function (event) {
+//             if (this.courses === '') {
+//                 this.courses = '<span class="dropdown-item">Loading...</span>';
+//                 var self = this;
+//                 axios.get('/courses/getCourses')
+//                     .then(function (res) {
+//                         self.courses = '';
+//                         for (var i in res.data) {
+//                             var course = res.data[i];
+//                             self.courses += '<a class="dropdown-item h5" href="/courses/' + course.id + '">'
+//                                 + '<img src="' + course.avatar + '" alt="' + course.name + '">&nbsp;' + course.name + '</a>';
+//                         }
+//                         if (self.courses === '')
+//                             self.courses = '<a href="#" class="dropdown-item" data-toggle="modal" data-target="#joinModal">No Courses, join one</a>';
+//                     })
+//                     .catch(function (err) {
+//                         console.log(err);
+//                     })
+//             }
+//         }
+//     }
+// })
+
+var getCourses = new Vue({
+    el: '#course',
+    data: {
+        courses: null,
+        status: 0
+    },
+    methods: {
+        get: function get(event) {
+            if (this.courses === null) {
+                var self = this;
+                this.status = 2; //processing
+                axios.get('/courses/getCourses').then(function (res) {
+                    self.courses = res.data;
+                    self.status = 1;
+                    if (!res.data.length) self.status = 3; //no data
+                }).catch(function (err) {
+                    console.log(err);
+                    self.status = 4;
+                    self.courses = 'error';
+                });
+            }
+        }
+    }
+});
+
+/***/ }),
+
+/***/ 42:
+/***/ (function(module, exports) {
+
+/**
+ * Created by zyd on 17-7-19.
+ */
+$(function () {
+    var messageModal = $('#messageModal');
+    if (messageModal.length) {
+        messageModal.modal('show');
+        window.setTimeout("$('#messageModal').modal('hide')", 2000);
+    }
+});
+
+/***/ })
+
+/******/ });
