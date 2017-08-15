@@ -16,4 +16,5 @@ mix.js('resources/assets/js/entries/dependency.js', 'public/js')
     .js('resources/assets/js/entries/verify.js', 'public/js')
     .js('resources/assets/js/entries/assignment.js', 'public/js')
     .js('resources/assets/js/entries/home.js', 'public/js')
+    .copy('resources/assets/css/main.css', 'public/css')
     .sass('resources/assets/sass/app.scss', 'public/css');
