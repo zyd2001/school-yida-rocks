@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assignment;
 use App\Course;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,11 @@ class ApiController extends ControllerWithMid
     public function getAssignmentsInCourse(Course $course)
     {
         return $course->assignments()->select('id', 'name', 'done', 'dueTime')->get();
+    }
+
+    public function getAssignmentContent(Assignment $assignment)
+    {
+        return response()->json($assignment->content);
     }
 
     public function locale(Request $request)
