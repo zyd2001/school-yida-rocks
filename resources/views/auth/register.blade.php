@@ -3,7 +3,7 @@
     <div class="row">
         <div class="card mx-auto">
             <h5 class="card-header">Register</h5>
-            <div class="card-block">
+            <div class="card-body">
                 <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                     {{ csrf_field() }}
                     <div class="form-group">

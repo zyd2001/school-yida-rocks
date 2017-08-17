@@ -1,4 +1,4 @@
-<div class="navbar navbar-toggleable-md navbar-light bg-faded">
+<div class="navbar navbar-expand-md navbar-light bg-light">
     <nav class="container">
         <div class="d-flex justify-content-between">
             <a class="navbar-brand" href="/">

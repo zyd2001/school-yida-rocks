@@ -13,7 +13,7 @@
 
         <!-- Styles -->
         @if(config('app.env') == 'production')
-            <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" rel="stylesheet">
+            <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
             <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         @else
@@ -36,9 +36,9 @@
     @if(config('app.env') == 'production')
         <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.slim.min.js"></script>
-        <script src="https://cdn.bootcss.com/tether/1.4.0/js/tether.min.js"></script>
-        <script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
+        <script src="https://cdn.bootcss.com/popper.js/1.11.1/umd/popper.min.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
     @else
