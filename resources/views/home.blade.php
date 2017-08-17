@@ -2,7 +2,7 @@
 @section('content')
     <div class="row">
         @include('layouts.assignments')
-        <div class="col-md-8 pull-md-4">
+        <div class="col-md-8">
             {{ __('message.test') }}
         </div>
     </div>
