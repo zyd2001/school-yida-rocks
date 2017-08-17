@@ -1,6 +1,6 @@
 <div>
 	<div class="card">
-		<div class="card-block">This is the content of the assignment</div>
+		<div class="card-body">This is the content of the assignment</div>
 <!-- Multiple Choice Demo -->
 		<div class="radio">
 			<label><input type="radio" name="option">A</label>
