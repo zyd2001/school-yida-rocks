@@ -19,6 +19,6 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
-    "tether": "^1.4.0"
+    "popper.js": "^1.12.2"
   }
 }
