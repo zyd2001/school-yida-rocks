@@ -14,9 +14,9 @@
     @parent
     <script src="{{ asset('js/assignment.js') }}"></script>
     <script type="text/javascript">
-        window.onbeforeunload = function () {
-            return 'Are you sure you want to leave?';
-        };
+//        window.onbeforeunload = function () {
+//            return 'Are you sure you want to leave?';
+//        };
     </script>
 @endsection
 

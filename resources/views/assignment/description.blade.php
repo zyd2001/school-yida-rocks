@@ -32,7 +32,7 @@
 					});
 					$('.assignment_description').slideToggle(function(){
 						$('#get_content').html($('.assignment_description').is(':visible')?'Complete This Assignment':'Complete This Assignment');
-					}); "
+					});"
 			>Complete This Assignment</button>
 	<!-- About to add if-statements for warnings on assignment due time -->
 			<div class="card-footer alert-warning">

@@ -4,12 +4,16 @@ const content = new Vue({
         questions: null,
     },
     methods: {
-        fetch: function (event) {
+        fetch: function () {
             var id = document.getElementsByTagName('meta')['id'].content;
             var self = this;
-            axios.get('/assignments/' + id + 'content').then(function (res) {
-                self.questions = res.data;
+            axios.get('/assignments/' + id + '/content').then(function (res) {
+                self.questions = JSON.parse(res.data);
             })
         }
     },
+});
+
+$('#get_content').on('click', function (event) {
+    content.fetch();
 });

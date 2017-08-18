@@ -30,6 +30,7 @@
     <div class="container">
         @yield('content')
     </div>
+    <br>
     @include('layouts.footer')
 </div>
 @section('script')

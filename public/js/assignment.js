@@ -81,9 +81,47 @@ __webpack_require__(47);
 /***/ }),
 
 /***/ 47:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(48);
+__webpack_require__(49);
+
+/***/ }),
+
+/***/ 48:
 /***/ (function(module, exports) {
 
+var description = new Vue({
+    el: '.assignment_description',
+    data: {},
+    methods: {},
+    mounted: function mounted() {}
+});
 
+/***/ }),
+
+/***/ 49:
+/***/ (function(module, exports) {
+
+var content = new Vue({
+    el: '.assignment_content',
+    data: {
+        questions: null
+    },
+    methods: {
+        fetch: function fetch() {
+            var id = document.getElementsByTagName('meta')['id'].content;
+            var self = this;
+            axios.get('/assignments/' + id + '/content').then(function (res) {
+                self.questions = JSON.parse(res.data);
+            });
+        }
+    }
+});
+
+$('#get_content').on('click', function (event) {
+    content.fetch();
+});
 
 /***/ })
 

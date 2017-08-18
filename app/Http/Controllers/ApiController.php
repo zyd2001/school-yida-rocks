@@ -35,7 +35,13 @@ class ApiController extends ControllerWithMid
 
     public function getAssignmentContent(Assignment $assignment)
     {
-        return response()->json($assignment->content);
+        $res = json_decode($assignment->content);
+        foreach ($res as $item)
+        {
+            unset($item->correct);
+        }
+        $res = json_encode($res);
+        return response()->json($res);
     }
 
     public function locale(Request $request)
