@@ -3,7 +3,7 @@
         <li class="list-group-item" v-for="(question, index) in questions">
             <div v-if="question.type === 'multiple_choice'" v-bind:id="index">
                 @{{ index }}@{{ question.question }}
-                    <span v-for="choice in question.answer"><input type="radio" v-bind:name="index" v-bind:value="choice">@{{ choice }}</span>
+                    <span v-for="(choice, i) in question.answer"><input type="radio" v-bind:name="index" v-bind:value="i">@{{ choice }}</span>
             </div>
         </li>
     </ul>
@@ -47,3 +47,5 @@
         </div>
     </div>
 </div>
+
+<button class="btn btn-primary" v-on:click="submit">Submit</button>

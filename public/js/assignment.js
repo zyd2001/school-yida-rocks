@@ -115,6 +115,14 @@ var content = new Vue({
             axios.get('/assignments/' + id + '/content').then(function (res) {
                 self.questions = JSON.parse(res.data);
             });
+        },
+        submit: function submit() {
+            for (var i in this.questions) {
+                var item = document.getElementsByName(i);
+                for (var j in item) {
+                    if (item[j].checked) console.log(item[j].value);
+                }
+            }
         }
     }
 });
