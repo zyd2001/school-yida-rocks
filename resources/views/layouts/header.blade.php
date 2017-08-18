@@ -1,6 +1,5 @@
-<div class="navbar navbar-expand-md navbar-light bg-light">
-    <nav class="container">
-        <div class="d-flex justify-content-between">
+<nav class="navbar navbar-expand-md navbar-light bg-light w-100">
+    <div class="container" id="nav">
             <a class="navbar-brand" href="/">
                 {{ config('app.name') }}
             </a>
@@ -9,7 +8,6 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        </div>
         @if (auth()->check())
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
@@ -62,8 +60,8 @@
                 </ul>
             </div>
         @endif
-    </nav>
-</div>
+    </div>
+</nav>
 <!-- Modal -->
 <div class="modal fade" id="joinModal" tabindex="-1" role="dialog" aria-labelledby="joinModalLabel"
      aria-hidden="true">

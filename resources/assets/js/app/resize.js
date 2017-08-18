@@ -3,7 +3,7 @@
  */
 $(function () {
     if (window.innerWidth <= 768) {
-        $('nav').removeClass('container');
+        $('#nav').removeClass('container').addClass('container-fluid');
         $('.footer-lg').addClass('hidden');
         $('.footer-sm').removeClass('hidden');
     }
@@ -11,12 +11,12 @@ $(function () {
 
 $(window).resize(function () {
     if (window.innerWidth <= 768) {
-        $('nav').removeClass('container');
+        $('#nav').removeClass('container').addClass('container-fluid');
         $('.footer-lg').addClass('hidden');
         $('.footer-sm').removeClass('hidden');
     }
     else {
-        $('nav').addClass('container');
+        $('#nav').removeClass('container-fluid').addClass('container');
         $('.footer-lg').removeClass('hidden');
         $('.footer-sm').addClass('hidden');
     }
