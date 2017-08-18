@@ -3,7 +3,7 @@
         <li class="list-group-item" v-for="(question, index) in questions">
             <div v-if="question.type === 'multiple_choice'" v-bind:id="index">
                 @{{ index }}@{{ question.question }}
-                    <lable v-for="choice in question.answer"><input type="radio" v-bind:name="index" v-bind:value="choice">@{{ choice }}</lable>
+                    <span v-for="choice in question.answer"><input type="radio" v-bind:name="index" v-bind:value="choice">@{{ choice }}</span>
             </div>
         </li>
     </ul>
