@@ -37,7 +37,7 @@ class GradeController extends ControllerWithMid
             case 0:
                 foreach ($correct as $key => $value)
                 {
-                    if ($value['correct'] == $answer[$key-1])
+                    if ($value['correct'] == $answer[$key])
                     {
                         $count++;
                     }
@@ -47,9 +47,9 @@ class GradeController extends ControllerWithMid
 
         $total = count($correct);
         return [
-            'total' => $total,
-            'raw' => $count,
+            'total'   => $total,
+            'raw'     => $count,
             'percent' => $count / $total * 100,
-            ];
+        ];
     }
 }

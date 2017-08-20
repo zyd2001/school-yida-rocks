@@ -26,7 +26,7 @@ const content = new Vue({
                                 value = input[j].children[0].value
                             }
                         }
-                        result[i-1] = value;
+                        result[i] = value;
                         break;
                     case '1':
                         break;
