@@ -42,7 +42,7 @@ class ApiController extends ControllerWithMid
     {
         $grade = $assignment->grades->where('user_id', auth()->user()->id)->first();
         $correct = $assignment->correct;
-        $content = $assignment->content
+        $content = $assignment->content;
         $response = compact('grade', 'correct', 'content');
         return response()->json(json_encode($response));
     }
