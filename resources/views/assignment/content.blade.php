@@ -4,7 +4,7 @@
             <div v-if="question.type === 0" v-bind:id="index" v-bind:type="question.type">
                 {{--multiple choice--}}
                 @{{ Number(index)+1 }}@{{ question.question }}
-                    <span v-for="(choice, i) in question.answer"><input type="radio" v-bind:name="index" v-bind:value="i">@{{ choice }}</span>
+                <span v-for="(choice, i) in question.answer"><input type="radio" v-bind:name="index" v-bind:value="i">@{{ choice }}</span>
             </div>
             <div v-else-if="question.type === 1" v-bind:id="index" v-bind:type="question.type">
                 {{--fill the blank--}}
@@ -37,15 +37,10 @@
                 <p>Are you sure you want to exit the assignment? Your progress will be saved temporarily.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Back to Assignment
-                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Back to Assignment</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="
-		    		$('.assignment_description').slideToggle(function(){
-					$('#get_description').html($('.assignment_description').is(':visible')?'Confirm Exit':'Back to Assignment Description');
-					});
-					$('.assignment_content').slideToggle(function(){
-						$('#get_description').html($('.assignment_content').is(':visible')?'Confirm Exit':'Back to Assignment Description');
-					}); ">Confirm Exit
+		    		$('.assignment_description').slideToggle();
+					$('.assignment_content').slideToggle(); ">Confirm Exit
                 </button>
             </div>
         </div>

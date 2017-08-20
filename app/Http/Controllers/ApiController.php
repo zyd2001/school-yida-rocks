@@ -35,13 +35,16 @@ class ApiController extends ControllerWithMid
 
     public function getAssignmentContent(Assignment $assignment)
     {
-        $res = json_decode($assignment->content);
-        foreach ($res as $item)
-        {
-            unset($item->correct);
-        }
-        $res = json_encode($res);
-        return response()->json($res);
+        return response()->json($assignment->content);
+    }
+
+    public function getAssignmentGrade(Assignment $assignment)
+    {
+        $grade = $assignment->grades->where('user_id', auth()->user()->id)->first();
+        $correct = $assignment->correct;
+        $content = $assignment->content
+        $response = compact('grade', 'correct', 'content');
+        return response()->json(json_encode($response));
     }
 
     public function locale(Request $request)

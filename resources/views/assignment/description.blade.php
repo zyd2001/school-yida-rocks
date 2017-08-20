@@ -30,13 +30,8 @@
             </div>
             <button id="get_content"
                     class="btn btn-primary"
-                    href=""
-                    onclick="$('.assignment_content').slideToggle(function(){
-						$('#get_content').html($('.assignment_content').is(':visible')?'Complete This Assignment':'Complete This Assignment');
-					});
-					$('.assignment_description').slideToggle(function(){
-						$('#get_content').html($('.assignment_description').is(':visible')?'Complete This Assignment':'Complete This Assignment');
-					});"
+                    onclick="$('.assignment_content').slideToggle();
+					$('.assignment_description').slideToggle();"
             >Complete This Assignment
             </button>
             <!-- About to add if-statements for warnings on assignment due time -->

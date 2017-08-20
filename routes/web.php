@@ -32,6 +32,7 @@ Route::get('/setLocale', 'ApiController@locale');
 Route::get('/courses/{course}/files', 'ApiController@getFiles');
 Route::get('/courses/getCourses', 'ApiController@getCourses');
 Route::get('/assignments/{assignment}/content', 'ApiController@getAssignmentContent');
+Route::get('/assignments/{assignment}/grade', 'ApiController@getAssignmentGrade');
 Route::get('/assignments', 'ApiController@getAssignments');
 Route::get('/grades', 'ApiController@getGrades');
 Route::get('/courses/{course}/assignments', 'ApiController@getAssignmentsInCourse');

@@ -13,4 +13,9 @@ class Assignment extends Model
     {
         return $this->belongsTo('App\Course');
     }
+
+    public function grades()
+    {
+        return $this->hasMany('App\Grade');
+    }
 }

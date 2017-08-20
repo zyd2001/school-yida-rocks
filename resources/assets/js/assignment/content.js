@@ -12,6 +12,7 @@ const content = new Vue({
             })
         },
         submit: function () {
+
             var result = new Array();
             for (var i in this.questions) {
                 var question = $('#' + i);
