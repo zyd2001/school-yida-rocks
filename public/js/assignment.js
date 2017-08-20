@@ -117,12 +117,26 @@ var content = new Vue({
             });
         },
         submit: function submit() {
+            var result = new Array();
             for (var i in this.questions) {
-                var item = document.getElementsByName(i);
-                for (var j in item) {
-                    if (item[j].checked) console.log(item[j].value);
+                var question = $('#' + i);
+                var type = question.attr('type');
+                switch (type) {
+                    case '0':
+                        var input = question.contents('span');
+                        var value = null;
+                        for (var j = 0; j < input.length; j++) {
+                            if (input[j].children[0].checked) {
+                                value = input[j].children[0].value;
+                            }
+                        }
+                        result[i - 1] = value;
+                        break;
+                    case '1':
+                        break;
                 }
             }
+            console.log(result);
         }
     }
 });
