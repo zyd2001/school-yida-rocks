@@ -53,3 +53,8 @@
 </div>
 
 <button class="btn btn-primary" v-on:click="submit">Submit</button>
+
+<form action="/assignments/{{ $assignment->id }}" method="post" id="submit_form">
+    <input type="hidden" name="answer">
+    {{ csrf_field() }}
+</form>

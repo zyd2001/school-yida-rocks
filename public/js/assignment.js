@@ -136,7 +136,9 @@ var content = new Vue({
                         break;
                 }
             }
-            console.log(result);
+            var form = document.getElementById('submit_form');
+            form.children[0].value = JSON.stringify(result);
+            form.submit();
         }
     }
 });

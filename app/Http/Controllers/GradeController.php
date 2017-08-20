@@ -10,10 +10,10 @@ class GradeController extends ControllerWithMid
 
     public function store(Request $request, \App\Assignment $assignment)
     {
-        $correct = json_decode($assignment->content); //decode the assignment content, correct answer
+        $correct = json_decode($assignment->content, true); //decode the assignment content, correct answer
         $answer = json_decode($request->answer);
         $grade = $this->check($answer, $correct, 0); //grade the post
-        $temp = Grade::where([['user_id', 1], ['assignment_id', 2]])->first();
+        $temp = Grade::where([['user_id', auth()->user()->id], ['assignment_id', $assignment->id]])->first();
         $temp->total = $grade['total'];
         $temp->raw = $grade['raw'];
         $temp->percent = $grade['percent'];
@@ -37,7 +37,7 @@ class GradeController extends ControllerWithMid
             case 0:
                 foreach ($correct as $key => $value)
                 {
-                    if ($value->correct == $answer[$key])
+                    if ($value['correct'] == $answer[$key-1])
                     {
                         $count++;
                     }
