@@ -1,5 +1,5 @@
 const content = new Vue({
-    el: '.assignment_content',
+    el: '#assignment_content',
     data: {
         questions: null,
     },

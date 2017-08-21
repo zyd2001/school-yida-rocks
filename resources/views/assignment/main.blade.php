@@ -1,11 +1,14 @@
 @extends('layouts.app')
 @section('content')
     <div id="assignment">
-        <div class="assignment_description">
+        <div id="assignment_description">
             @include('assignment.description')
         </div>
-        <div class="assignment_content" style="display:none">
+        <div id="assignment_content" style="display:none">
             @include('assignment.content')
+        </div>
+        <div id="assignment_grade" style="display:none">
+            @include('assignment.grade')
         </div>
     </div>
 @endsection
@@ -14,9 +17,9 @@
     @parent
     <script src="{{ asset('js/assignment.js') }}"></script>
     <script type="text/javascript">
-//        window.onbeforeunload = function () {
-//            return 'Are you sure you want to leave?';
-//        };
+        //        window.onbeforeunload = function () {
+        //            return 'Are you sure you want to leave?';
+        //        };
     </script>
 @endsection
 

@@ -39,8 +39,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Back to Assignment</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="
-		    		$('.assignment_description').slideToggle();
-					$('.assignment_content').slideToggle(); ">Confirm Exit
+		    		$('#assignment_description').slideToggle();
+					$('#assignment_content').slideToggle(); ">Confirm Exit
                 </button>
             </div>
         </div>

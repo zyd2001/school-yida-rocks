@@ -92,7 +92,7 @@ __webpack_require__(49);
 /***/ (function(module, exports) {
 
 var description = new Vue({
-    el: '.assignment_description',
+    el: '#assignment_description',
     data: {},
     methods: {},
     mounted: function mounted() {}
@@ -104,7 +104,7 @@ var description = new Vue({
 /***/ (function(module, exports) {
 
 var content = new Vue({
-    el: '.assignment_content',
+    el: '#assignment_content',
     data: {
         questions: null
     },
