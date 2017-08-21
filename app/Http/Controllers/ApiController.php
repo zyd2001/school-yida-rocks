@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Assignment;
 use App\Course;
 use Illuminate\Http\Request;
+use function MongoDB\BSON\toJSON;
 
 class ApiController extends ControllerWithMid
 {
@@ -33,18 +34,17 @@ class ApiController extends ControllerWithMid
         return $course->assignments()->select('id', 'name', 'done', 'dueTime')->get();
     }
 
-    public function getAssignmentContent(Assignment $assignment)
+    public function getAssignmentQuestions(Assignment $assignment)
     {
-        return response()->json($assignment->content);
+        return $this->jsonResponse($assignment->questions);
     }
 
     public function getAssignmentGrade(Assignment $assignment)
     {
         $grade = $assignment->grades->where('user_id', auth()->user()->id)->first();
         $correct = $assignment->correct;
-        $content = $assignment->content;
-        $response = compact('grade', 'correct', 'content');
-        return response()->json(json_encode($response));
+        $response = compact('grade', 'correct');
+        return $this->jsonResponse($response);
     }
 
     public function locale(Request $request)
@@ -61,5 +61,12 @@ class ApiController extends ControllerWithMid
             $user->save();
         }
         return back()->with(['msg' => trans('message.changeLocaleSuccess')]);
+    }
+
+    public function jsonResponse($data)
+    {
+        if (is_array($data))
+            $data = json_encode($data);
+        return response($data)->header('Content-Type', 'application/json');
     }
 }

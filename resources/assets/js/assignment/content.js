@@ -7,12 +7,12 @@ const content = new Vue({
         fetch: function () {
             var id = document.getElementsByTagName('meta')['id'].content;
             var self = this;
-            axios.get('/assignments/' + id + '/content').then(function (res) {
-                self.questions = JSON.parse(res.data);
+            axios.get('/assignments/' + id + '/questions').then(function (res) {
+                self.questions = res.data;
+                sessionStorage.questions = JSON.stringify(res.data);
             })
         },
         submit: function () {
-
             var result = new Array();
             for (var i in this.questions) {
                 var question = $('#' + i);

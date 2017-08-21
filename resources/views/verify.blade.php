@@ -4,7 +4,7 @@
     <div class="row" id="verify">
         <div class="card mx-auto">
             <div class="card-header">Verify</div>
-            <div class="card-block">
+            <div class="card-body">
                 <form action="/verify" class="form-horizontal" method="post">
                     {{ csrf_field() }}
                     <input type="text" class="form-controller" name="code">

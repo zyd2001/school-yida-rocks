@@ -17,7 +17,7 @@ class CreateAssignmentsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('course_id');
-            $table->text('content'); //json
+            $table->text('questions'); //json
             $table->text('correct');
             $table->boolean('done')->default(false);
             $table->text('setting')->nullable();//json
