@@ -1,17 +1,20 @@
-@if (session()->has('err'))
-    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="alert alert-danger">
+<div class="modal fade messageModal" id="message_danger" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-danger">
+            @if (session()->has('err'))
                 {{ session('err') }}
-            </div>
+            @endif
         </div>
     </div>
-@elseif (session()->has('msg'))
-    <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="alert alert-info">
+</div>
+<div class="modal fade messageModal" id="message_info" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="alert alert-info">
+            @if (session()->has('msg'))
                 {{ session('msg') }}
-            </div>
+            @endif
         </div>
     </div>
-@endif
+</div>

@@ -53,3 +53,4 @@
     <input type="hidden" name="answer">
     {{ csrf_field() }}
 </form>
+<button class="btn btn-primary" v-on:click="save">Save</button>

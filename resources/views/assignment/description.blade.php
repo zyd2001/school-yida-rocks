@@ -29,8 +29,6 @@
                     <h4 class="col-md-8 text-left">{{ $assignment->course_id }}</h4>
                 </div>
             </div>
-            <div class="card-text">
-            </div>
             <button id="get_content"
                     class="btn btn-primary"
                     onclick="$('#assignment_content').slideToggle();

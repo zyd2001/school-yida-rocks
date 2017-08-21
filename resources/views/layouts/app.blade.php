@@ -42,9 +42,11 @@
         <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/global.js') }}"></script>
     @else
         <script src="{{ asset('js/dependency.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/global.js') }}"></script>
     @endif
 @show
 <script>
