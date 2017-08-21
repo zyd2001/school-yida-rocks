@@ -4,7 +4,7 @@
         <div class="card">
             <!-- Add grades -->
             <div class="card-body">
-                @if ($assignment->done)
+                @if ($grade->done)
                     <p class="card-text">Grade: {{ $grade->percent . '%' }}</p>
                     <button class="btn btn-info"  onclick="$('#assignment_grade').slideToggle();$('#assignment_description').slideToggle()">View Detail</button>
                 @else
@@ -33,7 +33,7 @@
                     class="btn btn-primary"
                     onclick="$('#assignment_content').slideToggle();
 					$('#assignment_description').slideToggle();"
-            >Complete This Assignment
+            v-bind:disabled="isOpen" v-cloak>@{{ buttonText }}
             </button>
             <!-- About to add if-statements for warnings on assignment due time -->
             <div class="card-footer alert-warning">

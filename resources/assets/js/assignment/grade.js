@@ -14,7 +14,7 @@ const grade = new Vue({
                 self.answer = res.data.answer;
                 self.correct = res.data.correct;
             }).catch(function (err) {
-                showMessage('Something went wrong!', 1);
+                showMessage('Something went wrong!', 0);
                 console.log(err)
             });
             if (questions)
@@ -24,7 +24,7 @@ const grade = new Vue({
                     self.questions = res.data;
                     sessionStorage.questions = JSON.stringify(res.data);
                 }).catch(function (err) {
-                    showMessage('Something went wrong!', 1);
+                    showMessage('Something went wrong!', 0);
                     console.log(err)
                 });;
         },

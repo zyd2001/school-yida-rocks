@@ -94,9 +94,19 @@ __webpack_require__(50);
 
 var description = new Vue({
     el: '#assignment_description',
-    data: {},
+    data: {
+        isOpen: true,
+        buttonText: 'Complete This Assignment'
+    },
     methods: {},
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        var setting = $('meta[name=setting]');
+        if (setting.length === 1) setting = JSON.parse(setting.attr('content'));
+        if (setting.open === false) {
+            this.isOpen = false;
+            this.buttonText = 'This assignment is closed';
+        }
+    }
 });
 
 /***/ }),
@@ -112,15 +122,19 @@ var content = new Vue({
     },
     mounted: function mounted() {
         var id = document.getElementsByTagName('meta')['id'].content;
-        this.answer = localStorage.getItem('answer-' + id);
-        if (this.answer) {
-            showMessage('Detected saved answer, continuing', 0);
-            this.fetch();
-            this.$nextTick(function () {
-                this.answer = JSON.parse(this.answer);
-                fill();
-                window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
-            });
+        var setting = $('meta[name=setting]');
+        if (setting.length === 1) setting = JSON.parse(setting.attr('content'));else setting.open = true;
+        if (setting.open === true) {
+            this.answer = localStorage.getItem('answer-' + id);
+            if (this.answer) {
+                showMessage('Detected saved answer, continuing', 1);
+                this.fetch();
+                this.$nextTick(function () {
+                    this.answer = JSON.parse(this.answer);
+                    fill();
+                    window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
+                });
+            }
         }
     },
     methods: {
@@ -132,7 +146,7 @@ var content = new Vue({
                 self.questions = res.data;
                 sessionStorage.questions = JSON.stringify(res.data);
             }).cache(function (err) {
-                showMessage('Can\'t fetch the questions', 1);
+                showMessage('Can\'t fetch the questions', 0);
                 console.log(err);
             });
         },
@@ -144,7 +158,7 @@ var content = new Vue({
                 form.children[0].value = JSON.stringify(this.answer);
                 form.submit();
             } else {
-                showMessage('Something went wrong!', 1);
+                showMessage('Something went wrong!', 0);
             }
         },
         save: function save() {
@@ -153,13 +167,13 @@ var content = new Vue({
             if (getAnswer()) {
                 localStorage.setItem('answer-' + id, JSON.stringify(this.answer));
                 axios.post('/assignments/' + id + '/save', { answer: self.answer }).then(function (res) {
-                    showMessage(res.data.msg, res.data.status); //0=>info, 1=>danger
+                    showMessage(res.data.msg, res.data.status); //0=>danger, 1=>info
                 }).catch(function (err) {
-                    showMessage('An error occurs!', 1);
+                    showMessage('An error occurs!', 0);
                     console.log(err);
                 });
             } else {
-                showMessage('Something went wrong!', 1);
+                showMessage('Something went wrong!', 0);
             }
         }
     }
@@ -224,14 +238,14 @@ var grade = new Vue({
                 self.answer = res.data.answer;
                 self.correct = res.data.correct;
             }).catch(function (err) {
-                showMessage('Something went wrong!', 1);
+                showMessage('Something went wrong!', 0);
                 console.log(err);
             });
             if (questions) self.questions = JSON.parse(questions);else axios.get('/assignments/' + id + '/questions').then(function (res) {
                 self.questions = res.data;
                 sessionStorage.questions = JSON.stringify(res.data);
             }).catch(function (err) {
-                showMessage('Something went wrong!', 1);
+                showMessage('Something went wrong!', 0);
                 console.log(err);
             });;
         }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Assignment;
 use App\Course;
 use Illuminate\Http\Request;
-use function MongoDB\BSON\toJSON;
 
 class ApiController extends ControllerWithMid
 {
@@ -61,6 +60,14 @@ class ApiController extends ControllerWithMid
             $user->save();
         }
         return back()->with(['msg' => trans('message.changeLocaleSuccess')]);
+    }
+
+    public function saveAssignmentAnswer(Request $request, Assignment $assignment)
+    {
+        $grade = $assignment->grades->where('user_id', auth()->user()->id)->first();
+        $grade->answer = $request->answer;
+        $grade->save();
+        return response()->json(['msg' => 'Upload successfully', 'status' => 1]);
     }
 
     public function jsonResponse($data)

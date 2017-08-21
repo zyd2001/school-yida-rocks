@@ -13,14 +13,14 @@ class GradeController extends ControllerWithMid
         $correct = json_decode($assignment->correct, true); //decode the assignment content, correct answer
         $answer = json_decode($request->answer, true);
         $grade = $this->check($answer, $correct, 0); //grade the post
-        $temp = Grade::where([['user_id', auth()->user()->id], ['assignment_id', $assignment->id]])->first();
+        $temp = $assignment->grades->where('user_id', auth()->user()->id)->first();
         $temp->total = $grade['total'];
         $temp->raw = $grade['raw'];
         $temp->percent = $grade['percent'];
         $temp->answer = $request->answer;
+        $temp->done = true;
+        $temp->attempt++;
         $temp->save();
-        $assignment->done = true;
-        $assignment->save();
         return redirect('/assignments/' . $assignment->id)->with(['msg' => __()]);
     }
 

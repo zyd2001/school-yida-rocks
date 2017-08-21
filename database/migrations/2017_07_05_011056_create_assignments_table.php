@@ -19,7 +19,6 @@ class CreateAssignmentsTable extends Migration
             $table->integer('course_id');
             $table->text('questions'); //json
             $table->text('correct');
-            $table->boolean('done')->default(false);
             $table->text('setting')->nullable();//json
             $table->dateTime('dueTime');
             $table->timestamps();

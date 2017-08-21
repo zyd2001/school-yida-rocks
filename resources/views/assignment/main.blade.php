@@ -26,4 +26,9 @@
 @section('head')
     @parent
     <meta name="id" content="{{ $assignment->id }}">
+    @if (isset($assignment->setting ))
+        <meta name="setting" content="{'open':false}">
+    @endif
+    <meta name="setting" content="{'open':false}">
+
 @endsection

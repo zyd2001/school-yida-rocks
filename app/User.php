@@ -44,12 +44,12 @@ class User extends Authenticatable
 
     public function assignments()
     {
-        return $this->belongsToMany('App\Assignment', 'grades');
+        return $this->belongsToMany('App\Assignment', 'grades')->withPivot('done');
     }
 
     public function getAssignments()
     {
-        $assignments = $this->assignments()->select('assignments.id', 'assignments.name', 'assignments.course_id', 'assignments.dueTime', 'assignments.done')->where('assignments.done', false)->get();
+        $assignments = $this->assignments()->select('assignments.id', 'assignments.name', 'assignments.course_id', 'assignments.dueTime')->where('grades.done', false)->get();
         foreach ($assignments as $assignment)
         {
             $assignment->course = Course::where('id', $assignment['course_id'])->select('id', 'name', 'avatar')->first();

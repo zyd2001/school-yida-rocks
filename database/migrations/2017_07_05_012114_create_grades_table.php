@@ -18,6 +18,8 @@ class CreateGradesTable extends Migration
             $table->integer('user_id');
             $table->integer('course_id');
             $table->integer('assignment_id');
+            $table->integer('done')->default(0);
+            $table->integer('attempt')->default(0);
             $table->text('answer')->nullable();
             $table->integer('total')->nullable();
             $table->integer('raw')->nullable();
