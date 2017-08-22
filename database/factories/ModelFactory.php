@@ -44,6 +44,7 @@ AAA;
         'course_id' => 1,
         'questions' => $questions,
         'correct'   => $correct,
+        'setting'   => '{"open":true,"attempt":3}',
         'dueTime'   => $faker->dateTime,
     ];
 });
