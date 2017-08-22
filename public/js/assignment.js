@@ -100,12 +100,9 @@ var description = new Vue({
     },
     methods: {},
     mounted: function mounted() {
-        var setting = $('meta[name=setting]');
-        if (setting.length === 1) setting = JSON.parse(setting.attr('content'));
-        if (setting.open === false) {
-            this.isOpen = false;
-            this.buttonText = 'This assignment is closed';
-        }
+        var status = assignmentStatus();
+        this.isOpen = status[0];
+        this.buttonText = status[1] ? status[1] : 'Complete This Assignment';
     }
 });
 
@@ -122,9 +119,7 @@ var content = new Vue({
     },
     mounted: function mounted() {
         var id = document.getElementsByTagName('meta')['id'].content;
-        var setting = $('meta[name=setting]');
-        if (setting.length === 1) setting = JSON.parse(setting.attr('content'));else setting.open = true;
-        if (setting.open === true) {
+        if (assignmentStatus()[0]) {
             this.answer = localStorage.getItem('answer-' + id);
             if (this.answer) {
                 showMessage('Detected saved answer, continuing', 1);

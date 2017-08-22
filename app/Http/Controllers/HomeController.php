@@ -53,7 +53,7 @@ class HomeController extends Controller
             }
             else
             {
-                return back()->with(['err' => trans('message.wrong_verify_code')]);
+                return back()->with(['err' => __('message.wrong_verify_code')]);
             }
         }//too complex, but I don't want to change it
     }

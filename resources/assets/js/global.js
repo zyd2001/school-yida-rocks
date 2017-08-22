@@ -15,3 +15,15 @@ function showMessage(msg, type) {
             break;
     }
 }
+
+function assignmentStatus() {
+    var setting = $('meta[name=setting]');
+    var attempt = $('#attempt').html();
+    if (setting.length === 1)
+        setting = JSON.parse(setting.attr('content'));
+    var status = [];
+    status[0] = setting.open && attempt < setting.attempt;
+    if (!status[0])
+        status[1] = setting.open ? 'You exceed the attempt limit' : 'The assignment is closed';
+    return status;
+}

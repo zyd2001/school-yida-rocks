@@ -6,12 +6,8 @@ const description = new Vue({
     },
     methods: {},
     mounted: function () {
-        var setting = $('meta[name=setting]');
-        if (setting.length === 1)
-            setting = JSON.parse(setting.attr('content'));
-        if (setting.open === false){
-            this.isOpen = false;
-            this.buttonText = 'This assignment is closed';
-        }
+        var status = assignmentStatus();
+        this.isOpen = status[0];
+        this.buttonText = status[1] ? status[1] : 'Complete This Assignment';
     }
 });

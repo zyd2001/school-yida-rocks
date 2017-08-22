@@ -20,7 +20,7 @@ class SetLocale
         else if (!session()->exists('locale'))
         {
             $setting = json_decode(auth()->user()->setting);
-            if ($setting) // skip if setting doesn't exist
+            if (!json_last_error()) // skip if setting doesn't exist
                 session(['locale' => $setting->locale]);
             else
                 session(['locale' => null]);

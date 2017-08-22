@@ -59,7 +59,7 @@ class ApiController extends ControllerWithMid
             $user->setting = json_encode($setting);
             $user->save();
         }
-        return back()->with(['msg' => trans('message.changeLocaleSuccess')]);
+        return back()->with(['msg' => __('message.changeLocaleSuccess')]);
     }
 
     public function saveAssignmentAnswer(Request $request, Assignment $assignment)

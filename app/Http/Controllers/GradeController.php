@@ -10,10 +10,29 @@ class GradeController extends ControllerWithMid
 
     public function store(Request $request, \App\Assignment $assignment)
     {
+        $temp = $assignment->grades->where('user_id', auth()->user()->id)->first();
+        $msg = 'Success';
+        $setting = json_decode($assignment->setting);
+        if (!json_last_error())
+        {
+            if (isset($setting->open))
+            {
+                if (!$setting->open)
+                {
+                    $msg = 'The assignment is closed';
+                    return back()->with(['err' => __($msg)]);
+                }
+            }
+            if (isset($setting->attempt))
+                if ($setting->attempt >= $assignment->attempt)
+                {
+                    $msg = 'You exceed the attempts limit';
+                    return back()->with(['err' => __($msg)]);
+                }
+        }
         $correct = json_decode($assignment->correct, true); //decode the assignment content, correct answer
         $answer = json_decode($request->answer, true);
         $grade = $this->check($answer, $correct, 0); //grade the post
-        $temp = $assignment->grades->where('user_id', auth()->user()->id)->first();
         $temp->total = $grade['total'];
         $temp->raw = $grade['raw'];
         $temp->percent = $grade['percent'];
@@ -21,7 +40,7 @@ class GradeController extends ControllerWithMid
         $temp->done = true;
         $temp->attempt++;
         $temp->save();
-        return redirect('/assignments/' . $assignment->id)->with(['msg' => __()]);
+        return redirect('/assignments/' . $assignment->id)->with(['msg' => __($msg)]);
     }
 
     public function destroy(Grade $grade)

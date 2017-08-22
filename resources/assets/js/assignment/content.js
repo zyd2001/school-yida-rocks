@@ -6,12 +6,7 @@ const content = new Vue({
     },
     mounted: function () {
         var id = document.getElementsByTagName('meta')['id'].content;
-        var setting = $('meta[name=setting]');
-        if (setting.length === 1)
-            setting = JSON.parse(setting.attr('content'));
-        else
-            setting.open = true;
-        if (setting.open === true) {
+        if (assignmentStatus()[0]) {
             this.answer = localStorage.getItem('answer-' + id);
             if (this.answer) {
                 showMessage('Detected saved answer, continuing', 1);

@@ -62,7 +62,8 @@ class AssignmentController extends ControllerWithMid
     public function show(Assignment $assignment)
     {
         $grade = $assignment->grades->where('user_id', auth()->user()->id)->first();
-        return view('assignment.main', compact('assignment', 'grade'));
+        $setting = json_decode($assignment->setting);
+        return view('assignment.main', compact('assignment', 'grade', 'setting'));
     }
 
     /**
