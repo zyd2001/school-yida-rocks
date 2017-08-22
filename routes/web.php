@@ -34,6 +34,7 @@ Route::get('/courses/getCourses', 'ApiController@getCourses');
 Route::get('/assignments/{assignment}/questions', 'ApiController@getAssignmentQuestions');
 Route::get('/assignments/{assignment}/grade', 'ApiController@getAssignmentGrade');
 Route::post('/assignments/{assignment}/save', 'ApiController@saveAssignmentAnswer');
+Route::get('/assignments/{assignment}/save', 'ApiController@getSavedAssignmentAnswer');
 Route::get('/assignments', 'ApiController@getAssignments');
 Route::get('/grades', 'ApiController@getGrades');
 Route::get('/courses/{course}/assignments', 'ApiController@getAssignmentsInCourse');

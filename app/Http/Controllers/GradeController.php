@@ -24,9 +24,9 @@ class GradeController extends ControllerWithMid
                 }
             }
             if (isset($setting->attempt))
-                if ($setting->attempt >= $assignment->attempt)
+                if ($temp->attempt >= $setting->attempt)
                 {
-                    $msg = 'You exceed the attempts limit';
+                    $msg = 'You exceed the attempt limit';
                     return back()->with(['err' => __($msg)]);
                 }
         }
@@ -37,7 +37,7 @@ class GradeController extends ControllerWithMid
         $temp->raw = $grade['raw'];
         $temp->percent = $grade['percent'];
         $temp->answer = $request->answer;
-        $temp->done = true;
+        $temp->done = 1;
         $temp->attempt++;
         $temp->save();
         return redirect('/assignments/' . $assignment->id)->with(['msg' => __($msg)]);

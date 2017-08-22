@@ -6,15 +6,28 @@ const content = new Vue({
     },
     mounted: function () {
         var id = document.getElementsByTagName('meta')['id'].content;
+        var status = document.getElementsByTagName('meta')['status'].content;
         if (assignmentStatus()[0]) {
             this.answer = localStorage.getItem('answer-' + id);
             if (this.answer) {
-                showMessage('Detected saved answer, continuing', 1);
+                showMessage('Detected saved answer locally, continuing', 1);
                 this.fetch();
                 this.$nextTick(function () {
                     this.answer = JSON.parse(this.answer);
                     fill();
                     window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
+                })
+            } else if (status == 2) {
+                var self = this;
+                showMessage('Detected saved answer on the server, continuing', 1);
+                this.fetch();
+                axios.get('/assignments/' + id + '/save').then(function (res) {
+                    console.log(res);
+                    self.$nextTick(function () {
+                        self.answer = res.data;
+                        fill();
+                        window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
+                    })
                 })
             }
         }
@@ -51,10 +64,11 @@ const content = new Vue({
             var id = document.getElementsByTagName('meta')['id'].content;
             if (getAnswer()) {
                 localStorage.setItem('answer-' + id, JSON.stringify(this.answer));
-                axios.post('/assignments/' + id + '/save', {answer: self.answer}).then(function (res) {
+                showMessage('Save successfully', 1);
+                axios.post('/assignments/' + id + '/save', {answer: JSON.stringify(self.answer)}).then(function (res) {
                     showMessage(res.data.msg, res.data.status); //0=>danger, 1=>info
                 }).catch(function (err) {
-                    showMessage('An error occurs!', 0);
+                    showMessage('Upload Fail', 0);
                     console.log(err);
                 });
             } else {

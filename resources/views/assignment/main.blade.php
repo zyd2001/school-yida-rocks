@@ -29,4 +29,5 @@
     @if (isset($assignment->setting))
         <meta name="setting" content="{{ $assignment->setting }}">
     @endif
+    <meta name="status" content="{{ $grade->done }}">
 @endsection

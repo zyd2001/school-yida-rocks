@@ -177,7 +177,7 @@ var getCourses = new Vue({
     },
     methods: {
         get: function get(event) {
-            if (this.courses === null) {
+            if (!this.courses) {
                 var self = this;
                 this.status = 2; //processing
                 axios.get('/courses/getCourses').then(function (res) {

@@ -39,7 +39,7 @@ const getCourses = new Vue({
     },
     methods: {
         get: function (event) {
-            if (this.courses === null) {
+            if (!this.courses) {
                 var self = this;
                 this.status = 2; //processing
                 axios.get('/courses/getCourses')
