@@ -27,3 +27,8 @@ function assignmentStatus() {
         status[1] = setting.open ? 'You exceed the attempt limit' : 'The assignment is closed';
     return status;
 }
+
+function ajaxError(err) {
+    console.log(err);
+    showMessage('An error occurs!', 0);
+}

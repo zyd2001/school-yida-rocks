@@ -108,7 +108,7 @@ var assignments = new Vue({
                 res.data[i].dueTime = res.data[i].dueTime.split(' ');
             }
             self.assignments = res.data;
-        });
+        }).catch(ajaxError(err));
     },
     methods: {
         show: function show(event) {

@@ -28,7 +28,7 @@ const content = new Vue({
                         fill();
                         window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
                     })
-                })
+                }).catch(ajaxError(err))
             }
         }
     },

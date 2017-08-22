@@ -13,20 +13,14 @@ const grade = new Vue({
             axios.get('/assignments/' + id + '/grade').then(function (res) {
                 self.answer = res.data.answer;
                 self.correct = res.data.correct;
-            }).catch(function (err) {
-                showMessage('Something went wrong!', 0);
-                console.log(err)
-            });
+            }).catch(ajaxError(err));
             if (questions)
                 self.questions = JSON.parse(questions);
             else
                 axios.get('/assignments/' + id + '/questions').then(function (res) {
                     self.questions = res.data;
                     sessionStorage.questions = JSON.stringify(res.data);
-                }).catch(function (err) {
-                    showMessage('Something went wrong!', 0);
-                    console.log(err)
-                });;
+                }).catch(ajaxError(err));
         },
     },
 });
