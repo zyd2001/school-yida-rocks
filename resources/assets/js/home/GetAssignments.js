@@ -20,7 +20,9 @@ const assignments = new Vue({
                     }
                     self.assignments = res.data;
                 }
-            ).catch(ajaxError(err))
+            ).catch(function (err) {
+                ajaxError(err);
+            })
     },
     methods: {
         show: function (event) {
