@@ -15,20 +15,16 @@ class GradeController extends ControllerWithMid
         $setting = json_decode($assignment->setting);
         if (!json_last_error())
         {
-            if (isset($setting->open))
+            if (!$setting->open)
             {
-                if (!$setting->open)
-                {
-                    $msg = 'The assignment is closed';
-                    return back()->with(['err' => __($msg)]);
-                }
+                $msg = 'The assignment is closed';
+                return back()->with(['err' => __($msg)]);
             }
-            if (isset($setting->attempt))
-                if ($temp->attempt >= $setting->attempt)
-                {
-                    $msg = 'You exceed the attempt limit';
-                    return back()->with(['err' => __($msg)]);
-                }
+            if ($temp->attempt >= $setting->attempt)
+            {
+                $msg = 'You exceed the attempt limit';
+                return back()->with(['err' => __($msg)]);
+            }
         }
         $correct = json_decode($assignment->correct, true); //decode the assignment content, correct answer
         $answer = json_decode($request->answer, true);
@@ -37,7 +33,7 @@ class GradeController extends ControllerWithMid
         $temp->raw = $grade['raw'];
         $temp->percent = $grade['percent'];
         $temp->answer = $request->answer;
-        $temp->done = 1;
+        $temp->status = 1;
         $temp->attempt++;
         $temp->save();
         return redirect('/assignments/' . $assignment->id)->with(['msg' => __($msg)]);

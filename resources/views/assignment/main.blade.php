@@ -26,8 +26,6 @@
 @section('head')
     @parent
     <meta name="id" content="{{ $assignment->id }}">
-    @if (isset($assignment->setting))
-        <meta name="setting" content="{{ $assignment->setting }}">
-    @endif
-    <meta name="status" content="{{ $grade->done }}">
+    <meta name="setting" content="{{ $assignment->setting }}">
+    <meta name="status" content="{{ $grade->status }}">
 @endsection

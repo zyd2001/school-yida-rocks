@@ -6,9 +6,12 @@
             <div class="card-body">
                 <p id="attempt" class="hidden">{{ $grade->attempt }}</p>
                 <p>You have {{ $setting->attempt - $grade->attempt }} attempt(s) left</p>
-                @if ($grade->done)
+                @if ($grade->percent)
                     <p class="card-text">Grade: {{ $grade->percent . '%' }}</p>
-                    <button class="btn btn-info"  onclick="$('#assignment_grade').slideToggle();$('#assignment_description').slideToggle()">View Detail</button>
+                    <button class="btn btn-info"
+                            onclick="$('#assignment_grade').slideToggle();$('#assignment_description').slideToggle()">
+                        View Detail
+                    </button>
                 @else
                     <p class="card-text">Grade: N/A</p>
                 @endif
@@ -35,7 +38,7 @@
                     class="btn btn-primary"
                     onclick="$('#assignment_content').slideToggle();
 					$('#assignment_description').slideToggle();"
-            v-bind:disabled="!isOpen" v-cloak>@{{ buttonText }}
+                    v-bind:disabled="!isOpen" v-cloak>@{{ buttonText }}
             </button>
             <!-- About to add if-statements for warnings on assignment due time -->
             <div class="card-footer alert-warning">

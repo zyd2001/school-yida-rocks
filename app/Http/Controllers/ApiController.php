@@ -66,7 +66,7 @@ class ApiController extends ControllerWithMid
     {
         $grade = $assignment->grades->where('user_id', auth()->user()->id)->first();
         $grade->answer = $request->answer;
-        $grade->done = 2;
+        $grade->status = 2;
         $grade->save();
         return response()->json(['msg' => 'Upload successfully', 'status' => 1]);
     }
