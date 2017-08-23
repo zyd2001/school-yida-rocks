@@ -22,7 +22,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home.home');
+    }
+
+    public function showSetting()
+    {
+        return view('home.setting');
     }
 
     public function verify(Request $request)
@@ -33,7 +38,7 @@ class HomeController extends Controller
             $user->verifyCode = strtoupper(bin2hex(random_bytes(3)));
             $user->save();
             \Mail::to($user->email)->send(new \App\Mail\VerifyCode($user));
-            return response()->json(['msg' => 'success']);
+            return response()->json(['msg' => __('success')]);
         }
         else
         {

@@ -22,7 +22,7 @@ const content = new Vue({
                 showMessage('Detected saved answer on the server, continuing', 1);
                 this.fetch();
                 axios.get('/assignments/' + id + '/save').then(function (res) {
-                    console.log(res);
+                    localStorage.setItem('answer-' + id, JSON.stringify(res.data));
                     self.$nextTick(function () {
                         self.answer = res.data;
                         fill();

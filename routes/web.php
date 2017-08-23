@@ -19,9 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/verify', 'HomeController@verify');
-Route::get('/verify', function ()
-{
-    return view('verify');
+Route::get('/home/setting', 'HomeController@showSetting');
+Route::get('/verify', function () {
+    if (session('isVerified'))
+        return back()->with(['err' => __('You have already verified')]);
+    else
+        return view('home.verify');
 });
 
 Route::post('/assignments/{assignment}', 'GradeController@store');

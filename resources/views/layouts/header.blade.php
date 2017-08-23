@@ -45,7 +45,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
                             <a href="#" class="dropdown-item"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
-                            <a href="#" class="dropdown-item"><i class="fa fa-sliders fa-fw" aria-hidden="true"></i>&nbsp;Setting</a>
+                            <a href="/home/setting" class="dropdown-item"><i class="fa fa-sliders fa-fw" aria-hidden="true"></i>&nbsp;Setting</a>
                             <div class="dropdown-divider"></div>
 
                             <form action="{{ route('logout') }}" method="post" id="logout-form">
