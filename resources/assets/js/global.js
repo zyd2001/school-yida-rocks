@@ -1,17 +1,33 @@
-function showMessage(msg, type) {
+window.onerror = function (msg, url, line) {
+    localStorage.setItem('last_error', JSON.stringify([msg, url, line]));
+    msg = 'An error occurs! Error message: <br>' + msg + '<br>' + 'Please contact maintainer';
+    showMessage(msg, 0, 5);
+    return false;
+};
+
+axios.interceptors.response.use(null, function (err) {
+    localStorage.setItem('last_error', JSON.stringify(err));
+    var msg = 'An error occurs! <br> Please contact maintainer';
+    showMessage(msg, 0, 5);
+    return Promise.reject(err);
+});
+
+function showMessage(msg, type, time) {
+    if (!time)
+        time = 2;
     var modal;
     switch (type) {
         case 0:
             modal = $('#message_danger');
             modal.contents().contents('.alert').html(msg);
             modal.modal('show');
-            window.setTimeout("$('#message_danger').modal('hide');", 2000);
+            window.setTimeout("$('#message_danger').modal('hide');", time * 1000);
             break;
         case 1:
             modal = $('#message_info');
             modal.contents().contents('.alert').html(msg);
             modal.modal('show');
-            window.setTimeout("$('#message_info').modal('hide');", 2000);
+            window.setTimeout("$('#message_info').modal('hide');", time * 1000);
             break;
     }
 }
@@ -26,9 +42,4 @@ function assignmentStatus() {
     if (!status[0])
         status[1] = setting.open ? 'You exceed the attempt limit' : 'The assignment is closed';
     return status;
-}
-
-function ajaxError(err) {
-    console.log(err);
-    showMessage('An error occurs!', 0);
 }

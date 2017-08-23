@@ -49,10 +49,7 @@
     @endif
 @show
 <script>
-    $('#coursesLink').css('cursor', 'default');
-</script>
-<script>
-    if ({{$errors->has('code')}})
+    if ({{$errors->has('code') ? 'true' : 'false'}})
         $('#joinModal').modal('show');
 </script>
 </body>

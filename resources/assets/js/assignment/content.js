@@ -28,8 +28,6 @@ const content = new Vue({
                         fill();
                         window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
                     })
-                }).catch(function (err) {
-                    ajaxError(err);
                 })
             }
         }
@@ -45,9 +43,6 @@ const content = new Vue({
                 axios.get('/assignments/' + id + '/questions').then(function (res) {
                     self.questions = res.data;
                     sessionStorage.questions = JSON.stringify(res.data);
-                }).cache(function (err) {
-                    showMessage('Can\'t fetch the questions', 0);
-                    console.log(err);
                 });
         },
         submit: function () {
@@ -61,18 +56,21 @@ const content = new Vue({
                 showMessage('Something went wrong!', 0);
             }
         },
-        save: function () {
+        save: function (type) {
             var self = this;
             var id = document.getElementsByTagName('meta')['id'].content;
             if (getAnswer()) {
-                localStorage.setItem('answer-' + id, JSON.stringify(this.answer));
-                showMessage('Save successfully', 1);
-                axios.post('/assignments/' + id + '/save', {answer: JSON.stringify(self.answer)}).then(function (res) {
-                    showMessage(res.data.msg, res.data.status); //0=>danger, 1=>info
-                }).catch(function (err) {
-                    showMessage('Upload Fail', 0);
-                    console.log(err);
-                });
+                switch (type) {
+                    case 0:
+                        localStorage.setItem('answer-' + id, JSON.stringify(this.answer));
+                        showMessage('Save successfully', 1);
+                        break;
+                    case 1:
+                        axios.post('/assignments/' + id + '/save', {answer: JSON.stringify(self.answer)}).then(function (res) {
+                            showMessage(res.data.msg, res.data.status); //0=>danger, 1=>info
+                        });
+                        break;
+                }
             } else {
                 showMessage('Something went wrong!', 0);
             }

@@ -141,8 +141,6 @@ var content = new Vue({
                         fill();
                         window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
                     });
-                }).catch(function (err) {
-                    ajaxError(err);
                 });
             }
         }
@@ -155,9 +153,6 @@ var content = new Vue({
             if (local) self.questions = JSON.parse(local);else axios.get('/assignments/' + id + '/questions').then(function (res) {
                 self.questions = res.data;
                 sessionStorage.questions = JSON.stringify(res.data);
-            }).cache(function (err) {
-                showMessage('Can\'t fetch the questions', 0);
-                console.log(err);
             });
         },
         submit: function submit() {
@@ -171,18 +166,21 @@ var content = new Vue({
                 showMessage('Something went wrong!', 0);
             }
         },
-        save: function save() {
+        save: function save(type) {
             var self = this;
             var id = document.getElementsByTagName('meta')['id'].content;
             if (getAnswer()) {
-                localStorage.setItem('answer-' + id, JSON.stringify(this.answer));
-                showMessage('Save successfully', 1);
-                axios.post('/assignments/' + id + '/save', { answer: JSON.stringify(self.answer) }).then(function (res) {
-                    showMessage(res.data.msg, res.data.status); //0=>danger, 1=>info
-                }).catch(function (err) {
-                    showMessage('Upload Fail', 0);
-                    console.log(err);
-                });
+                switch (type) {
+                    case 0:
+                        localStorage.setItem('answer-' + id, JSON.stringify(this.answer));
+                        showMessage('Save successfully', 1);
+                        break;
+                    case 1:
+                        axios.post('/assignments/' + id + '/save', { answer: JSON.stringify(self.answer) }).then(function (res) {
+                            showMessage(res.data.msg, res.data.status); //0=>danger, 1=>info
+                        });
+                        break;
+                }
             } else {
                 showMessage('Something went wrong!', 0);
             }
@@ -248,8 +246,6 @@ var grade = new Vue({
             axios.get('/assignments/' + id + '/grade').then(function (res) {
                 self.answer = res.data.answer;
                 self.correct = res.data.correct;
-            }).catch(function (err) {
-                ajaxError(err);
             });
             if (questions) self.questions = JSON.parse(questions);else axios.get('/assignments/' + id + '/questions').then(function (res) {
                 self.questions = res.data;
