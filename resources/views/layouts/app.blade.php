@@ -35,12 +35,11 @@
 </div>
 @section('script')
     @if(config('app.env') == 'production')
-        <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js"></script>
         <script src="https://cdn.bootcss.com/popper.js/1.11.1/umd/popper.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
+        <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/global.js') }}"></script>
     @else
