@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/verify', 'HomeController@verify');
 Route::get('/home/setting', 'HomeController@showSetting');
+Route::post('/home/resetPassword', 'HomeController@resetPassword');
 Route::get('/verify', function () {
     if (session('isVerified'))
         return back()->with(['err' => __('You have already verified')]);

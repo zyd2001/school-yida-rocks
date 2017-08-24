@@ -25,6 +25,15 @@ class HomeController extends Controller
         return view('home.home');
     }
 
+    public function resetPassword(Request $request)
+    {
+        $user = auth()->user();
+        $user->forceFill([
+            'password' => bcrypt($request->password),
+        ])->save();
+        return response()->json(['msg' => __()]);
+    }
+
     public function showSetting()
     {
         return view('home.setting');
