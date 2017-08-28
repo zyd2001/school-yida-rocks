@@ -54,6 +54,8 @@ class CourseController extends ControllerWithMid
             'code' => 'required|size:6',
         ]);
         $course = Course::where('accessCode', strtoupper($request->code))->first();
+        if (!$course)
+            return back()->with(['err' => __('No such course')]);
         $status = $course->users()->syncWithoutDetaching([auth()->user()->id => ['type' => 0]]);
         if (isset($status['attached'][0]))
             return redirect('/courses/' . $course->id);
