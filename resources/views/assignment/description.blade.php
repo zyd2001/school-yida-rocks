@@ -30,7 +30,6 @@
             <div class="card-title">
                 <div class="row">
                     <h5 class="col-md-4 text-center">From Course: </h5>
-                    <!-- How to get course from course id -->
                     <h4 class="col-md-8 text-left">{{ $assignment->course_id }}</h4>
                 </div>
             </div>
@@ -40,13 +39,34 @@
 					$('#assignment_description').slideToggle();"
                     v-bind:disabled="!isOpen" v-cloak>@{{ buttonText }}
             </button>
-            <!-- About to add if-statements for warnings on assignment due time -->
+            @php
+                use Carbon\Carbon;
+                $due = new Carbon($assignment->dueTime);
+                $timeLeft = $due->diffForHumans();
+                $diff = Carbon::now()->diffInDays($due, false);
+            @endphp
+            @if ($diff > 0)
             <div class="card-footer alert-warning">
                 <div class="row">
-                    <p>Due Time: </p>
-                    <h5>{{ $assignment->dueTime }}</h5>
+                    <h5>Due Time: </h5>
+                    <p>{{ $assignment->dueTime }} ({{ $diff }})</p>
                 </div>
             </div>
+            @else
+            <div class="card-footer alert-danger">
+                <div class="row">
+                    <h5>You have exceeded the Due Time: </h5>
+                    <p>{{ $due }} ({{ $timeLeft }})</p>
+                </div>
+            </div>
+            <script type="text/javascript">
+                function hideattempt(){
+                    document.getElementById('get_content').style.display='none';
+                    document.getElementById('assignment_content').innerHTML = "";
+                }
+                hideattempt();
+            </script>
+            @endif
         </div>
     </div>
 </div>

@@ -27,10 +27,10 @@ class VerifyUser
             else
             {
                 session(['isVerified' => false]);
-                return response()->view('verify', [], 403);
+                return response()->view('home.verify', [], 403);
             }
         }
         else
-            return response()->view('verify', [], 403);
+            return response()->view('home.verify', [], 403);
     }
 }
