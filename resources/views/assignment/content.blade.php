@@ -17,11 +17,11 @@
     Assignment Description
 </button>
 
-<div class="progress">
+<!-- <div class="progress">
     <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
          aria-valuemax="100">You have completed this percentage of the assignment
     </div>
-</div>
+</div> -->
 
 <div class="modal fade" id="confirm_msg" tabindex="-1" role="dialog" aria-labelledby="confirm_msgLabel"
      aria-hidden="true">
@@ -34,7 +34,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to exit the assignment? Your progress will be saved temporarily.</p>
+                <p>{{ __('message.exitConfirm') }}</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Back to Assignment</button>
