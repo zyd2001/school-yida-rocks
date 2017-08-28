@@ -59,13 +59,13 @@
                     <p>{{ $due }} ({{ $timeLeft }})</p>
                 </div>
             </div>
-            <script type="text/javascript">
-                function hideattempt(){
-                    document.getElementById('get_content').style.display='none';
-                    document.getElementById('assignment_content').innerHTML = "";
-                }
-                hideattempt();
-            </script>
+            {{--<script type="text/javascript">--}}
+                {{--function hideattempt(){--}}
+                    {{--document.getElementById('get_content').style.display='none';--}}
+                    {{--document.getElementById('assignment_content').innerHTML = "";--}}
+                {{--}--}}
+                {{--hideattempt();--}}
+            {{--</script>--}}
             @endif
         </div>
     </div>

@@ -1,3 +1,5 @@
+var vue = [];
+
 window.onerror = function (msg, url, line) {
     localStorage.setItem('last_error', JSON.stringify([msg, url, line]));
     msg = 'An error occurs! Error message: <br>' + msg + '<br>' + 'Please contact maintainer';
@@ -43,3 +45,15 @@ function assignmentStatus() {
         status[1] = setting.open ? 'You exceed the attempt limit' : 'The assignment is closed';
     return status;
 }
+
+function echo() {
+    var user_id = $('meta[name=user_id]');
+    if (user_id.length === 1) {
+        user_id = user_id.attr('content');
+        Echo.channel('user-' + user_id)
+            .listen('CoursesChange', function (event) {
+                event.signal ? vue['getCourses'].get(event.signal) : null ;
+            });
+    }
+}
+$(echo());

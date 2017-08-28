@@ -8,6 +8,9 @@
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        @if(auth()->check())
+            <meta name="user_id" content="{{ auth()->id() }}">
+        @endif
 
         <title>{{ config('app.name', 'School') }}</title>
 
@@ -40,12 +43,15 @@
         <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
         <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
         <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="https://cdn.bootcss.com/pusher/4.1.0/pusher.min.js"></script>
+        <script src="{{ asset('js/laravel-echo.js') }}"></script>
         <script src="{{ asset('js/global.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     @else
         <script src="{{ asset('js/dependency.js') }}"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
+        <script src="{{ asset('js/laravel-echo.js') }}"></script>
         <script src="{{ asset('js/global.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     @endif
 @show
 <script>

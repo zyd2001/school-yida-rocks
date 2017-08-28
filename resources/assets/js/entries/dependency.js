@@ -37,3 +37,6 @@ window.axios = require('axios');
 //     key: 'your-pusher-key'
 // });
 window.Vue = require('vue');
+
+window.Pusher = require('pusher-js');
+

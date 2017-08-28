@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegistered;
 use App\Http\Middleware\VerifyUser;
-use App\Mail\VerifyCode;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -73,7 +73,8 @@ class RegisterController extends Controller
             'verifyCode' => $verifyCode,
         ]);
 
-        \Mail::to($data['email'])->send(new VerifyCode($user));
+        event(new UserRegistered($user));
+//        \Mail::to($data['email'])->send(new VerifyCode($user));
 
         return $user;
     }

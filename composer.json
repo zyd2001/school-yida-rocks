@@ -12,7 +12,8 @@
     "erusev/parsedown": "^1.6",
     "kherge/json": "^2.1",
     "laravel/framework": "5.4.*",
-    "laravel/tinker": "~1.0"
+    "laravel/tinker": "~1.0",
+    "pusher/pusher-php-server": "^3.0"
   },
   "require-dev": {
     "barryvdh/laravel-debugbar": "^2.4",

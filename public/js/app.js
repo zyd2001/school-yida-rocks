@@ -60,20 +60,20 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 37);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 37:
+/***/ 38:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(38);
+module.exports = __webpack_require__(39);
 
 
 /***/ }),
 
-/***/ 38:
+/***/ 39:
 /***/ (function(module, exports, __webpack_require__) {
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
@@ -92,20 +92,20 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-__webpack_require__(39);
-
-/***/ }),
-
-/***/ 39:
-/***/ (function(module, exports, __webpack_require__) {
-
 __webpack_require__(40);
-__webpack_require__(41);
-__webpack_require__(42);
 
 /***/ }),
 
 /***/ 40:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(41);
+__webpack_require__(42);
+__webpack_require__(43);
+
+/***/ }),
+
+/***/ 41:
 /***/ (function(module, exports) {
 
 /**
@@ -133,7 +133,7 @@ $(window).resize(function () {
 
 /***/ }),
 
-/***/ 41:
+/***/ 42:
 /***/ (function(module, exports) {
 
 // /**
@@ -172,31 +172,33 @@ $(window).resize(function () {
 var getCourses = new Vue({
     el: '#course',
     data: {
-        courses: null,
-        status: 0
+        courses: null
     },
     methods: {
-        get: function get(event) {
+        get: function get(updated) {
+            if (updated) sessionStorage.removeItem('courses');
             if (!this.courses) {
-                var self = this;
-                this.status = 2; //processing
-                axios.get('/courses/getCourses').then(function (res) {
-                    self.courses = res.data;
-                    self.status = 1;
-                    if (!res.data.length) self.status = 3; //no data
-                }).catch(function (err) {
-                    console.log(err);
-                    self.status = 4;
-                    self.courses = 'error';
-                });
+                this.courses = sessionStorage.getItem('courses');
+                if (!this.courses) {
+                    var self = this;
+                    axios.get('/courses/getCourses').then(function (res) {
+                        self.courses = res.data;
+                        if (!res.data.length) sessionStorage.setItem('courses', JSON.stringify(res.data));
+                    });
+                }
             }
         }
     }
 });
 
+function expose() {
+    vue['getCourses'] = getCourses;
+}
+expose();
+
 /***/ }),
 
-/***/ 42:
+/***/ 43:
 /***/ (function(module, exports) {
 
 /**

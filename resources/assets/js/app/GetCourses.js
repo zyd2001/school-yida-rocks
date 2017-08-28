@@ -35,26 +35,28 @@ const getCourses = new Vue({
     el: '#course',
     data: {
         courses: null,
-        status: 0,
     },
     methods: {
-        get: function (event) {
+        get: function (updated) {
+            if (updated)
+                sessionStorage.removeItem('courses');
             if (!this.courses) {
-                var self = this;
-                this.status = 2; //processing
-                axios.get('/courses/getCourses')
-                    .then(function (res) {
-                        self.courses = res.data;
-                        self.status = 1;
-                        if (!res.data.length)
-                            self.status = 3; //no data
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                        self.status = 4;
-                        self.courses = 'error';
-                    })
+                this.courses = sessionStorage.getItem('courses');
+                if (!this.courses) {
+                    var self = this;
+                    axios.get('/courses/getCourses')
+                        .then(function (res) {
+                            self.courses = res.data;
+                            if (!res.data.length)
+                                sessionStorage.setItem('courses', JSON.stringify(res.data));
+                        })
+                }
             }
         },
     }
-})
+});
+
+function expose() {
+    vue['getCourses'] = getCourses;
+}
+expose();

@@ -20,15 +20,18 @@
                             Courses
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownCourse">
-                            <a v-for="course in courses" v-if="status === 1" class="dropdown-item h5"
-                               v-bind:href="'/courses/' + course.id"><img
-                                        v-bind:src="course.avatar" v-bind:alt="course.name">&nbsp;@{{ course.name }}</a>
-                            <a v-if="status === 2" class="dropdown-item h5"><i
+                            <a v-if="!courses" class="dropdown-item h5"><i
                                         class="fa fa-spinner fa-pulse fa-1x fa-fw"></i> Loading...</a>
-                            <a v-if="status === 3" class="dropdown-item" data-toggle="modal"
+                            <a v-else-if="!courses.length" class="dropdown-item" data-toggle="modal"
                                data-target="#joinModal" href="#"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;No
                                 Courses, join one</a>
-                            <a v-if="status === 4" class="dropdown-item h5">Error</a>
+                            <span v-else>
+                                <a v-for="course in courses" class="dropdown-item h5"
+                                   v-bind:href="'/courses/' + course.id"> <img
+                                            v-bind:src="course.avatar" v-bind:alt="course.name">&nbsp;@{{
+                                    course.name
+                                    }}</a>
+                            </span>
                             <div class="dropdown-divider"></div>
                             <a href="#" class="dropdown-item font-weight-bold" data-toggle="modal"
                                data-target="#joinModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Join A New
@@ -45,7 +48,8 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
                             <a href="#" class="dropdown-item"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
-                            <a href="/home/setting" class="dropdown-item"><i class="fa fa-sliders fa-fw" aria-hidden="true"></i>&nbsp;Setting</a>
+                            <a href="/home/setting" class="dropdown-item"><i class="fa fa-sliders fa-fw"
+                                                                             aria-hidden="true"></i>&nbsp;Setting</a>
                             <div class="dropdown-divider"></div>
 
                             <form action="{{ route('logout') }}" method="post" id="logout-form">
@@ -62,7 +66,7 @@
                 </ul>
             </div>
         @else
-            <div  class="ml-auto">
+            <div class="ml-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
                     <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
