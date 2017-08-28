@@ -25,7 +25,7 @@ Route::get('/verify', function () {
     if (session('isVerified'))
         return back()->with(['err' => __('You have already verified')]);
     else
-        return view('home.verify');
+        return response()->view('home.verify', [], 403);
 });
 
 Route::post('/assignments/{assignment}', 'GradeController@store');
