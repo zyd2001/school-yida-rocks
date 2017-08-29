@@ -3,8 +3,14 @@
         <li class="list-group-item" v-for="(question, index) in questions">
             <div v-if="question.type === 0" v-bind:id="index" v-bind:type="question.type">
                 {{--multiple choice--}}
-                @{{ Number(index)+1 }}.&nbsp;@{{ question.question }}
-            <span v-for="(choice, i) in question.answer"><input type="radio" v-bind:name="index" v-bind:value="i">@{{ choice }}</span>
+                <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question }}</h6>
+                <div v-for="(choice, i) in question.answer">
+                    <label class="control control--radio">@{{ i }}.&nbsp;@{{ choice}}
+                        <input type="radio" v-bind:name="index" v-bind:value="i"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                    <!-- <span><input type="radio" class="custom_radio" v-bind:name="index" v-bind:value="i">@{{ i }}.&nbsp;@{{ choice }}</span> -->
+                </div>
             </div>
             <div v-else-if="question.type === 1" v-bind:id="index" v-bind:type="question.type">
                 {{--fill the blank--}}

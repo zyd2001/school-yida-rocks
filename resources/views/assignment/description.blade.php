@@ -6,7 +6,7 @@
             <div class="card-body">
                 <p id="attempt" class="hidden">{{ $grade->attempt }}</p>
                 <p>You have {{ $setting->attempt - $grade->attempt }} attempt(s) left</p>
-                @if (gettype($grade->percent) == 'integer')
+                @if (gettype($grade->percent) != 'NULL')
                     <p class="card-text">Grade: {{ $grade->percent . '%' }}</p>
                     <button id="get_detail" class="btn btn-info"
                             onclick="$('#assignment_grade').slideToggle();$('#assignment_description').slideToggle()">
