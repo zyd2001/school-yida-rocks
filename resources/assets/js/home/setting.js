@@ -3,17 +3,18 @@ const setting = new Vue({
     data: {
         password: '',
         passwordConfirm: '',
+        match: null,
     },
     methods: {
         reset: function () {
             var self = this;
             if (this.password !== this.passwordConfirm)
-                showMessage('not match', 0, 1);
+                this.match = false;
             else
                 axios.post('/home/resetPassword', {
                     password: this.password,
                 }).then(function (res) {
-                    showMessage(res.data, 1);
+                    showMessage(res.data.msg.content, res.data.msg.type);
                 })
         }
     },

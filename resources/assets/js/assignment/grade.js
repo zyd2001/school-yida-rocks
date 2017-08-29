@@ -9,8 +9,10 @@ const grade = new Vue({
         fetch: function (event) {
             var id = document.getElementsByTagName('meta')['id'].content;
             var self = this;
-            var questions = sessionStorage.getItem('questions');
+            var questions = sessionStorage.getItem('questions-' + id);
             axios.get('/assignments/' + id + '/grade').then(function (res) {
+                if (res.data.msg)
+                    showMessage(res.data.msg.content, res.data.msg.type);
                 self.answer = res.data.answer;
                 self.correct = res.data.correct;
             });
@@ -19,10 +21,8 @@ const grade = new Vue({
             else
                 axios.get('/assignments/' + id + '/questions').then(function (res) {
                     self.questions = res.data;
-                    sessionStorage.questions = JSON.stringify(res.data);
-                }).catch(function (err) {
-                    ajaxError(err);
-                });
+                    sessionStorage.setItem('questions-' + id, JSON.stringify(res.data));
+                })
         },
     },
 });

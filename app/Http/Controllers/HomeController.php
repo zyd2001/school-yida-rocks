@@ -31,7 +31,7 @@ class HomeController extends Controller
         $user->forceFill([
             'password' => bcrypt($request->password),
         ])->save();
-        return response()->json(['msg' => __()]);
+        return response()->json(['msg' => ['content' => __(), 'type' => 1]]);
     }
 
     public function showSetting()

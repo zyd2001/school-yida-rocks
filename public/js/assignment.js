@@ -149,10 +149,10 @@ var content = new Vue({
         fetch: function fetch() {
             var id = document.getElementsByTagName('meta')['id'].content;
             var self = this;
-            var local = sessionStorage.getItem('questions');
+            var local = sessionStorage.getItem('questions-' + id);
             if (local) self.questions = JSON.parse(local);else axios.get('/assignments/' + id + '/questions').then(function (res) {
                 self.questions = res.data;
-                sessionStorage.questions = JSON.stringify(res.data);
+                sessionStorage.setItem('questions-' + id, JSON.stringify(res.data));
             });
         },
         submit: function submit() {
@@ -177,7 +177,7 @@ var content = new Vue({
                         break;
                     case 1:
                         axios.post('/assignments/' + id + '/save', { answer: JSON.stringify(self.answer) }).then(function (res) {
-                            showMessage(res.data.msg, res.data.status); //0=>danger, 1=>info
+                            showMessage(res.data.msg.content, res.data.msg.type); //0=>danger, 1=>info
                         });
                         break;
                 }
@@ -242,16 +242,15 @@ var grade = new Vue({
         fetch: function fetch(event) {
             var id = document.getElementsByTagName('meta')['id'].content;
             var self = this;
-            var questions = sessionStorage.getItem('questions');
+            var questions = sessionStorage.getItem('questions-' + id);
             axios.get('/assignments/' + id + '/grade').then(function (res) {
+                if (res.data.msg) showMessage(res.data.msg.content, res.data.msg.type);
                 self.answer = res.data.answer;
                 self.correct = res.data.correct;
             });
             if (questions) self.questions = JSON.parse(questions);else axios.get('/assignments/' + id + '/questions').then(function (res) {
                 self.questions = res.data;
-                sessionStorage.questions = JSON.stringify(res.data);
-            }).catch(function (err) {
-                ajaxError(err);
+                sessionStorage.setItem('questions-' + id, JSON.stringify(res.data));
             });
         }
     }

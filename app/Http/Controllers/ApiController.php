@@ -41,9 +41,14 @@ class ApiController extends ControllerWithMid
     public function getAssignmentGrade(Assignment $assignment)
     {
         $grade = $assignment->grades->where('user_id', auth()->user()->id)->first();
-        $correct = $assignment->correct;
-        $response = compact('grade', 'correct');
-        return $this->jsonResponse($response);
+        if ($grade->status == 1)
+        {
+            $correct = $assignment->correct;
+            $response = compact('grade', 'correct');
+            return $this->jsonResponse($response);
+        }
+        else
+            return response()->json(['msg' => ['content' => __('You must complete the assignment first'), 'type' => 0]]);
     }
 
     public function locale(Request $request)
@@ -68,7 +73,7 @@ class ApiController extends ControllerWithMid
         $grade->answer = $request->answer;
         $grade->status = 2;
         $grade->save();
-        return response()->json(['msg' => 'Upload successfully', 'status' => 1]);
+        return response()->json(['msg' => ['content' => 'Upload successfully', 'type' => 1]]);
     }
 
     public function getSavedAssignmentAnswer(Assignment $assignment)
