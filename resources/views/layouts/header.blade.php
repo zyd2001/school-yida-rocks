@@ -106,7 +106,7 @@
                 </button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button"
-                        onclick="event.preventDefault(); document.getElementById('join-form').submit()"
+                        onclick="event.preventDefault(); sessionStorage.removeItem('courses'); document.getElementById('join-form').submit()"
                         class="btn btn-primary">Submit
                 </button>
             </div>

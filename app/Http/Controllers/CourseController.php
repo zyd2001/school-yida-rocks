@@ -58,7 +58,6 @@ class CourseController extends ControllerWithMid
         if (!$course)
             return back()->with(['err' => __('No such course')]);
         $status = $course->users()->syncWithoutDetaching([auth()->user()->id => ['type' => 0]]);
-        event(new CoursesChange());
         if (isset($status['attached'][0]))
             return redirect('/courses/' . $course->id);
         return back()->with(['err' => __('Failed, maybe you have already joined this course')]);
