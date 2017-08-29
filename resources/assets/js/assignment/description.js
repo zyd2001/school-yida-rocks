@@ -6,8 +6,8 @@ const description = new Vue({
     },
     methods: {},
     mounted: function () {
-        var status = assignmentStatus();
-        this.isOpen = status[0];
-        this.buttonText = status[1] ? status[1] : 'Complete This Assignment';
+        var assignmentStatus = assignmentStatus();
+        this.isOpen = assignmentStatus['open'];
+        this.buttonText = assignmentStatus['msg'] ? assignmentStatus['msg'] : 'Complete This Assignment';
     }
 });

@@ -37,13 +37,17 @@ function showMessage(msg, type, time) {
 function assignmentStatus() {
     var setting = $('meta[name=setting]');
     var attempt = $('#attempt').html();
+    var status = $('meta[name=status]');
+    if (status.length === 1)
+        status = status.attr(content);
     if (setting.length === 1)
         setting = JSON.parse(setting.attr('content'));
-    var status = [];
-    status[0] = setting.open && attempt < setting.attempt;
-    if (!status[0])
-        status[1] = setting.open ? 'You exceed the attempt limit' : 'The assignment is closed';
-    return status;
+    var value = [];
+    value['gradeStatus'] = status;
+    value['open'] = setting.open && attempt < setting.attempt;
+    if (!value['open'])
+        value['msg'] = setting.open ? 'You exceed the attempt limit' : 'The assignment is closed';
+    return value;
 }
 
 function echo() {

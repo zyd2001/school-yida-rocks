@@ -100,9 +100,9 @@ var description = new Vue({
     },
     methods: {},
     mounted: function mounted() {
-        var status = assignmentStatus();
-        this.isOpen = status[0];
-        this.buttonText = status[1] ? status[1] : 'Complete This Assignment';
+        var assignmentStatus = assignmentStatus();
+        this.isOpen = assignmentStatus['open'];
+        this.buttonText = assignmentStatus['msg'] ? assignmentStatus['msg'] : 'Complete This Assignment';
     }
 });
 
@@ -119,8 +119,8 @@ var content = new Vue({
     },
     mounted: function mounted() {
         var id = document.getElementsByTagName('meta')['id'].content;
-        var status = document.getElementsByTagName('meta')['status'].content;
-        if (assignmentStatus()[0]) {
+        var assignmentStatus = assignmentStatus();
+        if (assignmentStatus['open']) {
             this.answer = localStorage.getItem('answer-' + id);
             if (this.answer) {
                 showMessage('Detected saved answer locally, continuing', 1);
@@ -130,7 +130,7 @@ var content = new Vue({
                     fill();
                     window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
                 });
-            } else if (status == 2) {
+            } else if (assignmentStatus['gradeStatus'] == 2) {
                 var self = this;
                 showMessage('Detected saved answer on the server, continuing', 1);
                 this.fetch();

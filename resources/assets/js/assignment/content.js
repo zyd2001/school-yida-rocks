@@ -6,8 +6,8 @@ const content = new Vue({
     },
     mounted: function () {
         var id = document.getElementsByTagName('meta')['id'].content;
-        var status = document.getElementsByTagName('meta')['status'].content;
-        if (assignmentStatus()[0]) {
+        var assignmentStatus = assignmentStatus();
+        if (assignmentStatus['open']) {
             this.answer = localStorage.getItem('answer-' + id);
             if (this.answer) {
                 showMessage('Detected saved answer locally, continuing', 1);
@@ -17,7 +17,7 @@ const content = new Vue({
                     fill();
                     window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
                 })
-            } else if (status == 2) {
+            } else if (assignmentStatus['gradeStatus'] == 2) {
                 var self = this;
                 showMessage('Detected saved answer on the server, continuing', 1);
                 this.fetch();
