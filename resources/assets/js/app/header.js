@@ -31,13 +31,13 @@
 //     }
 // })
 
-const getCourses = new Vue({
-    el: '#course',
+const header = new Vue({
+    el: '#header',
     data: {
         courses: null,
     },
     methods: {
-        get: function (updated) {
+        getCourses: function (updated) {
             if (updated)
                 sessionStorage.removeItem('courses');
             if (!this.courses) {
@@ -57,6 +57,6 @@ const getCourses = new Vue({
 });
 
 function expose() {
-    vue['getCourses'] = getCourses;
+    vue['header'] = header;
 }
 expose();

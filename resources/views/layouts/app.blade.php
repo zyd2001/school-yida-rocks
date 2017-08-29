@@ -27,7 +27,9 @@
 </head>
 <body>
 <div id="app">
-    @include('layouts.header')
+    <div id="header">
+        @include('layouts.header')
+    </div>
     @include('layouts.message')
     <br/>
     <div class="container">

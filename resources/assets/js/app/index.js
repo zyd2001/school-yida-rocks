@@ -1,3 +1,3 @@
 require('./resize');
-require('./GetCourses');
+require('./header');
 require('./ShowMessage');
