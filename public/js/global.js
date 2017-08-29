@@ -56,14 +56,15 @@ function echo() {
         user_id = user_id.attr('content');
         Echo.channel('user-' + user_id)
             .listen('CoursesChange', function (event) {
-                event.signal ? vue['header'].getCourses(event.signal) : null;
+                // event.signal ? vue['header'].getCourses(event.signal) : null;
+                showMessage('Courses change', 1, 5);
             })
             .listen('.Message', function (event) {
                 showMessage(event.msg.content, event.msg.type, 5);
             })
             .listen('.GlobalMessage', function (event) {
                 showMessage('A Global Message:<br>' + event.msg.content, event.msg.type, 5);
-            })
+            });
     }
 }
 

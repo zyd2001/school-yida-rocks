@@ -63,7 +63,7 @@ function echo() {
             })
             .listen('.GlobalMessage', function (event) {
                 showMessage('A Global Message:<br>' + event.msg.content, event.msg.type, 5);
-            })
+            });
     }
 }
 

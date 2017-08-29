@@ -81,10 +81,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
 
+
+// var user_id = $('meta[name=user_id]');
+// if (user_id.length === 1) {
+//     window.Echo = new Echo({
+//         broadcaster: 'pusher',
+//         key: 'dd2316f11714174ab95e',
+//         cluster: 'ap1',
+//     });
+// }
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-    broadcaster: 'pusher',
-    key: 'dd2316f11714174ab95e',
-    cluster: 'ap1'
+    broadcaster: 'socket.io',
+    host: window.location.hostname + ':6001'
 });
 
 /***/ }),

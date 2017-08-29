@@ -23,6 +23,7 @@
             <link href="{{ asset('css/app.css') }}" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         @endif
+        <script src="https://cdn.bootcss.com/socket.io/2.0.3/socket.io.js"></script>
     @show
 </head>
 <body>
