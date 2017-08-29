@@ -169,13 +169,13 @@ $(window).resize(function () {
 //     }
 // })
 
-var getCourses = new Vue({
-    el: '#course',
+var header = new Vue({
+    el: '#header',
     data: {
         courses: null
     },
     methods: {
-        get: function get(updated) {
+        getCourses: function getCourses(updated) {
             if (updated) sessionStorage.removeItem('courses');
             if (!this.courses) {
                 this.courses = sessionStorage.getItem('courses');
@@ -192,7 +192,7 @@ var getCourses = new Vue({
 });
 
 function expose() {
-    vue['getCourses'] = getCourses;
+    vue['header'] = header;
 }
 expose();
 

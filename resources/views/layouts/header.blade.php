@@ -15,7 +15,7 @@
                         <a class="nav-link" href="/home">Home</a>
                     </li>
                     <li class="nav-item dropdown" id="course">
-                        <a v-on:click="get" class="nav-link dropdown-toggle" href="#" id="dropdownCourse"
+                        <a v-on:click="getCourses" class="nav-link dropdown-toggle" href="#" id="dropdownCourse"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                             Courses
                         </a>
@@ -48,8 +48,8 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
                             <a href="#" class="dropdown-item"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
-                            <a href="/home/setting" class="dropdown-item"><i class="fa fa-sliders fa-fw"
-                                                                             aria-hidden="true"></i>&nbsp;Setting</a>
+                            <a href="/home/setting" class="dropdown-item"><i class="fa fa-sliders fa-fw" aria-hidden="true"></i>&nbsp;Setting</a>
+                            <a href="/home/messsage" class="dropdown-item"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;Message&nbsp;<span class="badge badge-pill badge-danger"></span></a>
                             <div class="dropdown-divider"></div>
 
                             <form action="{{ route('logout') }}" method="post" id="logout-form">

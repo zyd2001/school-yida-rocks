@@ -27,6 +27,16 @@ class User extends Authenticatable
         'password', 'remember_token', 'verifyCode',
     ];
 
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
+
+    public function receivedMessages()
+    {
+        return $this->hasMany('App\Message', 'to');
+    }
+
     public function files()
     {
         return $this->hasMany('App\File');
