@@ -1,12 +1,12 @@
 <div class="row">
     <!-- Grading information -->
-    <div class="col-md-4 push-md-8" id="description_grade">
+    <div class="col-md-4 push-md-8 mb-3" id="description_grade">
         <div class="card">
             <!-- Add grades -->
             <div class="card-body">
                 <p id="attempt" class="hidden">{{ $grade->attempt }}</p>
                 <p>You have {{ $setting->attempt - $grade->attempt }} attempt(s) left</p>
-                @if ($grade->percent)
+                @if (gettype($grade->percent) == 'integer')
                     <p class="card-text">Grade: {{ $grade->percent . '%' }}</p>
                     <button id="get_detail" class="btn btn-info"
                             onclick="$('#assignment_grade').slideToggle();$('#assignment_description').slideToggle()">
@@ -19,20 +19,12 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8 pull-md-4" id="description_content">
+    <div class="col-md-8 pull-md-4 mb-3" id="description_content">
         <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-md-4 text-center">Assignment Title:</div>
-                    <div class="col-md-8 text-left">{{ $assignment->name }}</div>
-                </div>
+            <div class="card-header text-center">
+                <h6>Assignment Title:&nbsp;{{ $assignment->name }}</h6>
             </div>
-            <div class="card-title">
-                <div class="row mt-1">
-                    <h5 class="col-md-4 text-center">From Course: </h5>
-                    <h4 class="col-md-8 text-left">{{ $assignment->course_id }}</h4>
-                </div>
-            </div>
+            <p class="ml-3">From Course:&nbsp;{{ $assignment->course->name }}</p>
             <button id="get_content"
                     class="btn btn-primary"
                     onclick="$('#assignment_content').slideToggle();

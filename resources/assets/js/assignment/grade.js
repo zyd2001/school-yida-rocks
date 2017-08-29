@@ -13,7 +13,7 @@ const grade = new Vue({
             axios.get('/assignments/' + id + '/grade').then(function (res) {
                 if (res.data.msg)
                     showMessage(res.data.msg.content, res.data.msg.type);
-                self.answer = res.data.answer;
+                self.answer = JSON.parse(res.data.grade.answer);
                 self.correct = JSON.parse(res.data.correct);
             });
             if (questions)

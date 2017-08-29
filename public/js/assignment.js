@@ -245,7 +245,7 @@ var grade = new Vue({
             var questions = sessionStorage.getItem('questions-' + id);
             axios.get('/assignments/' + id + '/grade').then(function (res) {
                 if (res.data.msg) showMessage(res.data.msg.content, res.data.msg.type);
-                self.answer = res.data.answer;
+                self.answer = JSON.parse(res.data.grade.answer);
                 self.correct = JSON.parse(res.data.correct);
             });
             if (questions) self.questions = JSON.parse(questions);else axios.get('/assignments/' + id + '/questions').then(function (res) {

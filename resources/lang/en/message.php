@@ -9,5 +9,9 @@ return [
     'test' => 'English',
     'exitConfirm' => 'Are you sure you want to exit? Unsaved answers will be lost once you leave this webpage.',
     'changeLocaleSuccess' => 'You have changed the display language successfully.',
-    'notice' => 'Notice'
+    'notice' => 'Notice',
+    'correctAnswer' => 'Your answer is correct.',
+    'wrongAnswer1' => 'You chose',
+    'wrongAnswer2' => 'The correct answer is',
+    'noAnswer' => 'You did not answer this question. The correct answer is',
 ];
