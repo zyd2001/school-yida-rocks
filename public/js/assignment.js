@@ -100,9 +100,9 @@ var description = new Vue({
     },
     methods: {},
     mounted: function mounted() {
-        var assignmentStatus = assignmentStatus();
-        this.isOpen = assignmentStatus['open'];
-        this.buttonText = assignmentStatus['msg'] ? assignmentStatus['msg'] : 'Complete This Assignment';
+        var aStatus = assignmentStatus();
+        this.isOpen = aStatus['open'];
+        this.buttonText = aStatus['msg'] ? aStatus['msg'] : 'Complete This Assignment';
     }
 });
 
@@ -119,8 +119,8 @@ var content = new Vue({
     },
     mounted: function mounted() {
         var id = document.getElementsByTagName('meta')['id'].content;
-        var assignmentStatus = assignmentStatus();
-        if (assignmentStatus['open']) {
+        var aStatus = assignmentStatus();
+        if (aStatus['open']) {
             this.answer = localStorage.getItem('answer-' + id);
             if (this.answer) {
                 showMessage('Detected saved answer locally, continuing', 1);
@@ -130,7 +130,7 @@ var content = new Vue({
                     fill();
                     window.setTimeout('$("#assignment_content").slideDown();$("#assignment_description").slideUp()', 500);
                 });
-            } else if (assignmentStatus['gradeStatus'] == 2) {
+            } else if (aStatus['gradeStatus'] == 2) {
                 var self = this;
                 showMessage('Detected saved answer on the server, continuing', 1);
                 this.fetch();
@@ -246,7 +246,7 @@ var grade = new Vue({
             axios.get('/assignments/' + id + '/grade').then(function (res) {
                 if (res.data.msg) showMessage(res.data.msg.content, res.data.msg.type);
                 self.answer = res.data.answer;
-                self.correct = res.data.correct;
+                self.correct = JSON.parse(res.data.correct);
             });
             if (questions) self.questions = JSON.parse(questions);else axios.get('/assignments/' + id + '/questions').then(function (res) {
                 self.questions = res.data;
@@ -254,6 +254,10 @@ var grade = new Vue({
             });
         }
     }
+});
+
+$('#get_detail').on('click', function (event) {
+    grade.fetch();
 });
 
 /***/ })

@@ -14,7 +14,7 @@ const grade = new Vue({
                 if (res.data.msg)
                     showMessage(res.data.msg.content, res.data.msg.type);
                 self.answer = res.data.answer;
-                self.correct = res.data.correct;
+                self.correct = JSON.parse(res.data.correct);
             });
             if (questions)
                 self.questions = JSON.parse(questions);
@@ -25,4 +25,8 @@ const grade = new Vue({
                 })
         },
     },
+});
+
+$('#get_detail').on('click', function (event) {
+    grade.fetch();
 });

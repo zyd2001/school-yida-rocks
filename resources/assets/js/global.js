@@ -39,7 +39,7 @@ function assignmentStatus() {
     var attempt = $('#attempt').html();
     var status = $('meta[name=status]');
     if (status.length === 1)
-        status = status.attr(content);
+        status = status.attr('content');
     if (setting.length === 1)
         setting = JSON.parse(setting.attr('content'));
     var value = [];
