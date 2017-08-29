@@ -195,20 +195,19 @@ $('#get_content').on('click', function (event) {
 function getAnswer() {
     content.answer = [];
     for (var i in content.questions) {
-        var question = $('#' + i);
-        var type = question.attr('type');
+        var type = content.questions[i].type;
         switch (type) {
-            case '0':
-                var input = question.contents('span');
+            case 0:
+                var input = $('input[name=' + i + ']');
                 var value = null;
                 for (var j = 0; j < input.length; j++) {
-                    if (input[j].children[0].checked) {
-                        value = input[j].children[0].value;
+                    if (input[j].checked) {
+                        value = input[j].value;
                     }
                 }
                 content.answer[i] = value;
                 break;
-            case '1':
+            case 1:
                 break;
         }
     }
