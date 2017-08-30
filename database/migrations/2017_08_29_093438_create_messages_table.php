@@ -18,6 +18,8 @@ class CreateMessagesTable extends Migration
             $table->integer('user_id');
             $table->integer('to');
             $table->integer('reply')->nullable();
+            $table->string('conversation');
+            $table->boolean('read');
             $table->text('content');
             $table->timestamps();
         });

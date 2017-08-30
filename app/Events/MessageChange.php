@@ -10,7 +10,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class CoursesChange implements ShouldBroadcast
+class MessageChange implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,8 +19,12 @@ class CoursesChange implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct()
+
+    private $to;
+
+    public function __construct($to)
     {
+        $this->to = $to;
     }
 
     /**
@@ -30,6 +34,6 @@ class CoursesChange implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('user-' . auth()->id());
+        return new Channel('user-' . $this->to);
     }
 }

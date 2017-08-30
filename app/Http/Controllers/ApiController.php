@@ -82,6 +82,12 @@ class ApiController extends ControllerWithMid
         return $this->jsonResponse($grade->answer);
     }
 
+    public function getMessageAmount()
+    {
+        $amount = auth()->user()->receivedMessages->where('read', false)->count();
+        return response()->json(['amount' => $amount]);
+    }
+
     public function jsonResponse($data)
     {
         if (is_array($data))
