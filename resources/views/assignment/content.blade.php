@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" id="wrapping_card">
     <ul class="list-group list-group-flush">
         <li class="list-group-item" v-for="(question, index) in questions">
             <div v-if="question.type === 0" v-bind:id="index" v-bind:type="question.type">
@@ -9,7 +9,6 @@
                         <input type="radio" v-bind:name="index" v-bind:value="i"/>
                         <div class="control__indicator"></div>
                     </label>
-                    <!-- <span><input type="radio" class="custom_radio" v-bind:name="index" v-bind:value="i">@{{ i }}.&nbsp;@{{ choice }}</span> -->
                 </div>
             </div>
             <div v-else-if="question.type === 1" v-bind:id="index" v-bind:type="question.type">
@@ -17,6 +16,25 @@
             </div>
         </li>
     </ul>
+    <div class="matching_questions">
+        <h6 class="text-center">Matching Questions:</h6>
+        <div class="btn-group-vertical pull-left" id="left_group">
+            <button class="left_choice btn btn-secondary mb-1" id="left_1">1</button>
+            <button class="left_choice btn btn-secondary mb-1" id="left_2">2</button>
+            <button class="left_choice btn btn-secondary mb-1" id="left_3">3</button>
+            <button class="left_choice btn btn-secondary mb-1" id="left_4">4</button>
+            <button class="left_choice btn btn-secondary mb-1" id="left_5">5</button>
+        </div>
+        <div class="btn-group-vertical pull-right" id="right_group">
+            <button class="right_choice btn btn-secondary mb-1" id="right_1">A</button>
+            <button class="right_choice btn btn-secondary mb-1" id="right_2">B</button>
+            <button class="right_choice btn btn-secondary mb-1" id="right_3">C</button>
+            <button class="right_choice btn btn-secondary mb-1" id="right_4">D</button>
+            <button class="right_choice btn btn-secondary mb-1" id="right_5">E</button>
+        </div>
+        <div class="completed_choices">
+        </div>
+    </div>
 </div>
 <div class="mt-3">
     <div class="btn-group pull-left">
