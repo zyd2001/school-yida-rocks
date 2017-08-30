@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/verify', 'HomeController@verify');
 Route::get('/home/setting', 'HomeController@showSetting');
-Route::post('/home/resetPassword', 'HomeController@resetPassword');
+Route::post('/home/setting/resetPassword', 'HomeController@resetPassword');
 Route::get('/verify', function () {
     if (session('isVerified'))
         return back()->with(['err' => __('You have already verified')]);
@@ -28,22 +28,24 @@ Route::get('/verify', function () {
         return response()->view('home.verify', [], 403);
 });
 
-Route::post('/assignments/{assignment}', 'GradeController@store');
 
-Route::resource('assignments', 'AssignmentController');
+Route::post('/assignments/{assignment}', 'GradeController@store')->where('id', '[0-9]+');;
 
 Route::get('/setLocale', 'ApiController@locale');
-Route::get('/courses/{course}/files', 'ApiController@getFiles');
+Route::get('/courses/{course}/files', 'ApiController@getFiles')->where('course', '[0-9]+');;
 Route::get('/courses/getCourses', 'ApiController@getCourses');
-Route::get('/assignments/{assignment}/questions', 'ApiController@getAssignmentQuestions');
-Route::get('/assignments/{assignment}/grade', 'ApiController@getAssignmentGrade');
-Route::post('/assignments/{assignment}/save', 'ApiController@saveAssignmentAnswer');
-Route::get('/assignments/{assignment}/save', 'ApiController@getSavedAssignmentAnswer');
+Route::get('/courses/{course}/assignments', 'ApiController@getAssignmentsInCourse')->where('course', '[0-9]+');;
+Route::get('/assignments/{assignment}/questions', 'ApiController@getAssignmentQuestions')->where('assignment', '[0-9]+');;
+Route::get('/assignments/{assignment}/grade', 'ApiController@getAssignmentGrade')->where('assignment', '[0-9]+');;
+Route::post('/assignments/{assignment}/save', 'ApiController@saveAssignmentAnswer')->where('assignment', '[0-9]+');;
+Route::get('/assignments/{assignment}/save', 'ApiController@getSavedAssignmentAnswer')->where('assignment', '[0-9]+');;
 Route::get('/assignments', 'ApiController@getAssignments');
 Route::get('/grades', 'ApiController@getGrades');
-Route::get('/courses/{course}/assignments', 'ApiController@getAssignmentsInCourse');
+Route::get('/messages/amount', 'ApiController@getMessageAmount');
 
-Route::resource('courses', 'CourseController');// return view
 Route::post('/courses/join', 'CourseController@join');
 
+Route::resource('messages', 'MessageController');
+Route::resource('assignments', 'AssignmentController', ['except' => ['store', 'index']]);
+Route::resource('courses', 'CourseController');// return view
 Route::resource('files', 'FileController');// return view

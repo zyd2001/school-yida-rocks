@@ -41,7 +41,7 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a href="#" class="navbar-brand dropdown-toggle" id="dropdownUser"
+                        <a v-on:click="getMessageAmount" href="#" class="navbar-brand dropdown-toggle" id="dropdownUser"
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="true"><img src="{{ auth()->user()->avatar }}" width="30"
                                                      height="30">&nbsp;{{ auth()->user()->name }}</a>
@@ -49,7 +49,7 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
                             <a href="#" class="dropdown-item"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
                             <a href="/home/setting" class="dropdown-item"><i class="fa fa-sliders fa-fw" aria-hidden="true"></i>&nbsp;Setting</a>
-                            <a href="/home/messsage" class="dropdown-item"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;Message&nbsp;<span class="badge badge-pill badge-danger"></span></a>
+                            <a href="/home/messsage" class="dropdown-item"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;Message&nbsp;<span v-if="messageAmount > 0" class="badge badge-pill badge-danger">@{{ messageAmount }}</span></a>
                             <div class="dropdown-divider"></div>
 
                             <form action="{{ route('logout') }}" method="post" id="logout-form">

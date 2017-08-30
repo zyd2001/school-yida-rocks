@@ -35,10 +35,22 @@ const header = new Vue({
     el: '#header',
     data: {
         courses: null,
+        messageAmount: 0,
     },
     methods: {
+        getMessageAmount: function (updated) {
+            if (updated === true)
+                sessionStorage.removeItem('messageAmount');
+            var self = this;
+            this.messageAmount = sessionStorage.getItem('messageAmount');
+            if (!this.messageAmount)
+                axios.get('/messages/amount').then(function (res) {
+                    self.messageAmount = res.data.amount;
+                    sessionStorage.setItem('messageAmount', res.data.amount);
+                });
+        },
         getCourses: function (updated) {
-            if (updated)
+            if (updated === true)
                 sessionStorage.removeItem('courses');
             if (!this.courses) {
                 this.courses = sessionStorage.getItem('courses');
@@ -59,4 +71,5 @@ const header = new Vue({
 function expose() {
     vue['header'] = header;
 }
+
 expose();

@@ -11,7 +11,7 @@ const setting = new Vue({
             if (this.password !== this.passwordConfirm)
                 this.match = false;
             else
-                axios.post('/home/resetPassword', {
+                axios.post('/home/setting/resetPassword', {
                     password: this.password,
                 }).then(function (res) {
                     showMessage(res.data.msg.content, res.data.msg.type);

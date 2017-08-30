@@ -55,8 +55,11 @@ function echo() {
     if (user_id.length === 1) {
         user_id = user_id.attr('content');
         Echo.channel('user-' + user_id)
-            .listen('CoursesChange', function (event) {
-                event.signal ? vue['header'].getCourses(event.signal) : null;
+            .listen('CoursesChange', function () {
+                vue['header'].getCourses(true)
+            })
+            .listen('MessageChange', function () {
+                vue['header'].getMessageAmount(true);
             })
             .listen('.Message', function (event) {
                 showMessage(event.msg.content, event.msg.type, 5);
