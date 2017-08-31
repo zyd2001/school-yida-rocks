@@ -31,10 +31,10 @@ footer {
 
 .control-group {
     display: inline-block;
-    width: 150px;
-    height: 160px;
+    width: 100px;
+    height: 105px;
     margin: 10px;
-    padding: 30px;
+    padding: 20px;
     text-align: left;
     vertical-align: top;
     background: #fff;
@@ -45,7 +45,7 @@ footer {
     font-size: 15px;
     position: relative;
     display: block;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     padding-left: 30px;
     cursor: pointer;
 }
@@ -60,8 +60,8 @@ footer {
     position: absolute;
     top: 2px;
     left: 0;
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     background: #e6e6e6;
 }
 
@@ -77,7 +77,7 @@ footer {
 
 /* Checked state */
 .control input:checked ~ .control__indicator {
-    background: #000000;
+    background: #0099CC;
 }
 
 /* Check mark */
@@ -94,14 +94,13 @@ footer {
 
 /* Radio button inner circle */
 .control--radio .control__indicator:after {
-    top: 7px;
-    left: 7px;
-    width: 6px;
-    height: 6px;
+    top: 5.3px;
+    left: 5px;
+    width: 5px;
+    height: 5px;
     border-radius: 50%;
     background: #fff;
 }
-
 .matching-list {
     list-style-type: none;
     margin: 7px;
