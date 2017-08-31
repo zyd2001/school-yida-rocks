@@ -80,7 +80,6 @@ const content = new Vue({
             }
         },
         match: function (event) {
-            console.log(event);
             var current = $(event.target);
             var index = current.attr('index');
             var c = $('#canvas-' + index);
@@ -90,25 +89,11 @@ const content = new Vue({
                 c[0].width = w;
                 c[0].height = h;
             }
+            var ctx = c[0].getContext('2d');
             var choices = $('a[index=' + index + '].disabled');
             current.addClass('disabled').siblings().addClass('disabled');
             choices.on('click', function (e) {
                 var choice = $(e.target);
-                var ctx = c[0].getContext('2d');
-                var prev = current.prevAll();
-                var x1 = 0, x2 = c.width(), y1 = 0, y2 = 0;
-                for (var i = 0; i < prev.length; i++)
-                    y1 += $(prev[i]).height();
-                y1 += current.height() / 2.0;
-                prev = choice.prevAll();
-                for (var i = 0; i < prev.length; i++)
-                    y2 += $(prev[i]).height();
-                y2 += choice.height() / 2.0;
-                ctx.strokeStyle = '#007bff';
-                drawLine(ctx, x1, y1, x2, y2);
-                choices.unbind('click');
-                choices.addClass('disabled');
-                current.removeClass('disabled').siblings().removeClass('disabled');
                 var input = $('#' + index).contents('input[name=result]');
                 var result = input.val();
                 if (!result)
@@ -116,6 +101,27 @@ const content = new Vue({
                 else
                     result = JSON.parse(result);
                 result[current.attr('order')] = choice.attr('value');
+                ctx.clearRect(0, 0, c.width(), c.height());
+                ctx.strokeStyle = '#007bff';
+                for (var i in result) {
+                    if (result[i])
+                        draw(ctx, $('[index=' + index + '][order=' + i + ']'), $('[index=' + index + '][value=' + result[i] + ']'), c);
+                }
+
+                // var prev = current.prevAll();
+                // var x1 = 0, x2 = c.width(), y1 = 0, y2 = 0;
+                // for (var i = 0; i < prev.length; i++)
+                //     y1 += $(prev[i]).height();
+                // y1 += current.height() / 2.0;
+                // prev = choice.prevAll();
+                // for (var i = 0; i < prev.length; i++)
+                //     y2 += $(prev[i]).height();
+                // y2 += choice.height() / 2.0;
+                // ctx.strokeStyle = '#007bff';
+                // drawLine(ctx, x1, y1, x2, y2);
+                choices.unbind('click');
+                choices.addClass('disabled');
+                current.removeClass('disabled').siblings().removeClass('disabled');
                 result = JSON.stringify(result);
                 input.val(result);
             });
@@ -315,4 +321,17 @@ function fill() {
                 break;
         }
     }
+}
+
+function draw(ctx, current, choice, c) {
+    var prev = current.prevAll();
+    var x1 = 0, x2 = c.width(), y1 = 0, y2 = 0;
+    for (var i = 0; i < prev.length; i++)
+        y1 += ($(prev[i]).height() + 7);
+    y1 += current.height() / 2.0 + 7;
+    prev = choice.prevAll();
+    for (var i = 0; i < prev.length; i++)
+        y2 += ($(prev[i]).height() + 7);
+    y2 += choice.height() / 2.0 + 7;
+    drawLine(ctx, x1, y1, x2, y2);
 }
