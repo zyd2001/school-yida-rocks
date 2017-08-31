@@ -79,166 +79,209 @@ const content = new Vue({
                 showMessage('Something went wrong!', 0);
             }
         },
-        addColor: function (className) {
-            var elem = document.getElementsByClassName(className);
-            for (var i = 0; i < elem.length; i++) {
-                var sty = elem[i].style;
-                // sty.backgroundColor = sty.backgroundColor? "":"#00C851";
-                sty.backgroundColor = "#00C851";
+        match: function (event) {
+            console.log(event);
+            var current = $(event.target);
+            var index = current.attr('index');
+            var c = $('#canvas-' + index);
+            if (!c.width()) {
+                var w = c.parent().width();
+                var h = c.parent().height();
+                c[0].width = w;
+                c[0].height = h;
             }
-        },
-        deleteColor: function (className) {
-            var elem = document.getElementsByClassName(className);
-            for (var i = 0; i < elem.length; i++) {
-                var sty = elem[i].style;
-                // sty.backgroundColor = sty.backgroundColor? "":"#00C851";
-                sty.backgroundColor = "";
-            }
-        },
+            var choices = $('a[index=' + index + '].disabled');
+            current.addClass('disabled').siblings().addClass('disabled');
+            choices.on('click', function (e) {
+                var choice = $(e.target);
+                var ctx = c[0].getContext('2d');
+                var prev = current.prevAll();
+                var x1 = 0, x2 = c.width(), y1 = 0, y2 = 0;
+                for (var i = 0; i < prev.length; i++)
+                    y1 += $(prev[i]).height();
+                y1 += current.height() / 2.0;
+                prev = choice.prevAll();
+                for (var i = 0; i < prev.length; i++)
+                    y2 += $(prev[i]).height();
+                y2 += choice.height() / 2.0;
+                ctx.strokeStyle = '#007bff';
+                drawLine(ctx, x1, y1, x2, y2);
+                choices.unbind('click');
+                choices.addClass('disabled');
+                current.removeClass('disabled').siblings().removeClass('disabled');
+                var input = $('#' + index).contents('input[name=result]');
+                var result = input.val();
+                if (!result)
+                    result = [];
+                else
+                    result = JSON.parse(result);
+                result[current.attr('order')] = choice.attr('value');
+                result = JSON.stringify(result);
+                input.val(result);
+            });
+            choices.removeClass('disabled');
+        }
+        // addColor: function (className) {
+        //     var elem = document.getElementsByClassName(className);
+        //     for (var i = 0; i < elem.length; i++) {
+        //         var sty = elem[i].style;
+        //         // sty.backgroundColor = sty.backgroundColor? "":"#00C851";
+        //         sty.backgroundColor = "#00C851";
+        //     }
+        // },
+        // deleteColor: function (className) {
+        //     var elem = document.getElementsByClassName(className);
+        //     for (var i = 0; i < elem.length; i++) {
+        //         var sty = elem[i].style;
+        //         // sty.backgroundColor = sty.backgroundColor? "":"#00C851";
+        //         sty.backgroundColor = "";
+        //     }
+        // },
     },
 });
 
 $('#get_content').on('click', function (event) {
     content.fetch();
-    for (var i = 0; i < 5; i++) {
-        content.matching[i] = 0;
-    }
-    /*    console.log(content.matching);
-        function createLineElement(x, y, length, angle) {
-            var line = document.createElement("div");
-            var styles = 'border: 1px solid black; '
-                       + 'width: ' + length + 'px; '
-                       + 'height: 0px; '
-                       + '-moz-transform: rotate(' + angle + 'rad); '
-                       + '-webkit-transform: rotate(' + angle + 'rad); '
-                       + '-o-transform: rotate(' + angle + 'rad); '
-                       + '-ms-transform: rotate(' + angle + 'rad); '
-                       + 'position: absolute; '
-                       + 'top: ' + y + 'px; '
-                       + 'left: ' + x + 'px; ';
-            line.setAttribute('style', styles);
-            return line;
-        }
-        function createLine(x1, y1, x2, y2) {
-            var a = x1 - x2,
-                b = y1 - y2,
-                c = Math.sqrt(a * a + b * b);
-            var sx = (x1 + x2) / 2,
-                sy = (y1 + y2) / 2;
-            var x = sx - c / 2,
-                y = sy;
-            var alpha = Math.PI - Math.atan2(-b, a);
-            return createLineElement(x, y, c, alpha);
-        }
-        function findPos(ele) {
-            var currentLeft = currentTop = 0;
-            if (ele.offsetParent) {
-                do {
-                    currentLeft += ele.offsetLeft;
-                    currentTop += ele.offsetTop;
-                } while(ele = ele.offsetParent);
-            }
-            return [currentLeft, currentTop];
-        }
-        for (var i = 1; i <= 5; i++) {
-            for (var j = 1; j <= 5; j++) {
-                var leftEle = document.getElementById("left_" + i);
-                var rightEle = document.getElementById("right_" + j);
-                var left = findPos(leftEle);
-                var right = findPos(rightEle);
-                document.body.appendChild(createLine(left[0], left[1], right[0], right[1]));
-                // console.log(left[0], left[1], i, j);
-            }
-        }*/
-    // document.body.appendChild(createLine(100, 100, 500, 200));
 });
-
-$('.left_choice').on('focus', function (event) {
-    content.addColor('right_choice');
-    content.in_focus = true;
-    content.choice_complete = false;
-    for (var i = 1; i <= content.matching.length; i++) {
-        var leftEle = document.getElementById("left_" + i);
-        if (leftEle === document.activeElement) {
-            current_index = i;
-            console.log("current_index-->" + current_index);
-            var leftEle = document.getElementById("left_" + i);
-            var sty = leftEle.style;
-            sty.outline = "0";
-            sty.webkitBoxShadow = "0 0 0 3px rgba(134, 142, 150, 0.5)";
-            sty.boxShadow = "0 0 0 3px rgba(134, 142, 150, 0.5)";
-        }
-        else {
-            var leftEle = document.getElementById("left_" + i);
-            var sty = leftEle.style;
-            sty.outline = "0";
-            sty.webkitBoxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
-            sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
-        }
-    }
-});
-$('.right_choice').on('focus', function (event) {
-    if (content.in_focus && current_index != 0) {
-        for (var i = 1; i <= content.matching.length; i++) {
-            var rightEle = document.getElementById("right_" + i);
-            var leftChoice = document.getElementById("left_" + current_index);
-            if (rightEle === document.activeElement) {
-                content.matching[current_index - 1] = i;
-                console.log(content.matching);
-                content.in_focus = false;
-                content.deleteColor('right_choice');
-                $(".completed_choices").append("<p class='text-center mb-0'>" + leftChoice.innerHTML + "<——>" + rightEle.innerHTML + "</p>");
-                var all_stuff = document.getElementsByClassName('completed_choices');
-                // console.log(all_stuff.innerText);
-                /*                for (var i = 0; i < all_stuff.length; i++) {
-                                    console.log(all_stuff[i].innerText);
-                                }*/
-            }
-            var leftEle = document.getElementById("left_" + i);
-            var sty = leftEle.style;
-            sty.outline = "0";
-            sty.webkitBoxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
-            sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
-        }
-    }
-});
-$('.left_choice').on('focusout', function (event) {
-    /*    var flag = false;
-        for (var i = 1; i <= content.matching.length; i++) {
-            var rightEle = document.getElementById("right_" + i);
-            console.log(document.activeElement.id);
-            if (rightEle === document.activeElement) {
-                content.changeColor('right_choice');
-                console.log("right active");
-                flag = true;
-            }
-        }
-        if (!flag) {
-            content.changeColor('right_choice');
-            content.in_focus = false;
-            console.log("right not active");
-        }*/
-    if (content.in_focus) {
-        for (var i = 1; i <= content.matching.length; i++) {
-            if (i == current_index) {
-                var leftEle = document.getElementById("left_" + i);
-                var sty = leftEle.style;
-                sty.outline = "0";
-                sty.webkitBoxShadow = "0 0 0 3px rgba(134, 142, 150, 0.5)";
-                sty.boxShadow = "0 0 0 3px rgba(134, 142, 150, 0.5)";
-            }
-            else {
-                var leftEle = document.getElementById("left_" + i);
-                var sty = leftEle.style;
-                sty.outline = "0";
-                sty.webkitBoxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
-                sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
-            }
-        }
-    }
-});
-$('.right_choice').on('focusout', function (event) {
-});
+//     for (var i = 0; i < 5; i++) {
+//         content.matching[i] = 0;
+//     }
+//     /*    console.log(content.matching);
+//         function createLineElement(x, y, length, angle) {
+//             var line = document.createElement("div");
+//             var styles = 'border: 1px solid black; '
+//                        + 'width: ' + length + 'px; '
+//                        + 'height: 0px; '
+//                        + '-moz-transform: rotate(' + angle + 'rad); '
+//                        + '-webkit-transform: rotate(' + angle + 'rad); '
+//                        + '-o-transform: rotate(' + angle + 'rad); '
+//                        + '-ms-transform: rotate(' + angle + 'rad); '
+//                        + 'position: absolute; '
+//                        + 'top: ' + y + 'px; '
+//                        + 'left: ' + x + 'px; ';
+//             line.setAttribute('style', styles);
+//             return line;
+//         }
+//         function createLine(x1, y1, x2, y2) {
+//             var a = x1 - x2,
+//                 b = y1 - y2,
+//                 c = Math.sqrt(a * a + b * b);
+//             var sx = (x1 + x2) / 2,
+//                 sy = (y1 + y2) / 2;
+//             var x = sx - c / 2,
+//                 y = sy;
+//             var alpha = Math.PI - Math.atan2(-b, a);
+//             return createLineElement(x, y, c, alpha);
+//         }
+//         function findPos(ele) {
+//             var currentLeft = currentTop = 0;
+//             if (ele.offsetParent) {
+//                 do {
+//                     currentLeft += ele.offsetLeft;
+//                     currentTop += ele.offsetTop;
+//                 } while(ele = ele.offsetParent);
+//             }
+//             return [currentLeft, currentTop];
+//         }
+//         for (var i = 1; i <= 5; i++) {
+//             for (var j = 1; j <= 5; j++) {
+//                 var leftEle = document.getElementById("left_" + i);
+//                 var rightEle = document.getElementById("right_" + j);
+//                 var left = findPos(leftEle);
+//                 var right = findPos(rightEle);
+//                 document.body.appendChild(createLine(left[0], left[1], right[0], right[1]));
+//                 // console.log(left[0], left[1], i, j);
+//             }
+//         }*/
+//     // document.body.appendChild(createLine(100, 100, 500, 200));
+// });
+//
+// $('.left_choice').on('focus', function (event) {
+//     content.addColor('right_choice');
+//     content.in_focus = true;
+//     content.choice_complete = false;
+//     for (var i = 1; i <= content.matching.length; i++) {
+//         var leftEle = document.getElementById("left_" + i);
+//         if (leftEle === document.activeElement) {
+//             current_index = i;
+//             console.log("current_index-->" + current_index);
+//             var leftEle = document.getElementById("left_" + i);
+//             var sty = leftEle.style;
+//             sty.outline = "0";
+//             sty.webkitBoxShadow = "0 0 0 3px rgba(134, 142, 150, 0.5)";
+//             sty.boxShadow = "0 0 0 3px rgba(134, 142, 150, 0.5)";
+//         }
+//         else {
+//             var leftEle = document.getElementById("left_" + i);
+//             var sty = leftEle.style;
+//             sty.outline = "0";
+//             sty.webkitBoxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
+//             sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
+//         }
+//     }
+// });
+// $('.right_choice').on('focus', function (event) {
+//     if (content.in_focus && current_index != 0) {
+//         for (var i = 1; i <= content.matching.length; i++) {
+//             var rightEle = document.getElementById("right_" + i);
+//             var leftChoice = document.getElementById("left_" + current_index);
+//             if (rightEle === document.activeElement) {
+//                 content.matching[current_index - 1] = i;
+//                 console.log(content.matching);
+//                 content.in_focus = false;
+//                 content.deleteColor('right_choice');
+//                 $(".completed_choices").append("<p class='text-center mb-0'>" + leftChoice.innerHTML + "<——>" + rightEle.innerHTML + "</p>");
+//                 var all_stuff = document.getElementsByClassName('completed_choices');
+//                 // console.log(all_stuff.innerText);
+//                 /*                for (var i = 0; i < all_stuff.length; i++) {
+//                                     console.log(all_stuff[i].innerText);
+//                                 }*/
+//             }
+//             var leftEle = document.getElementById("left_" + i);
+//             var sty = leftEle.style;
+//             sty.outline = "0";
+//             sty.webkitBoxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
+//             sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
+//         }
+//     }
+// });
+// $('.left_choice').on('focusout', function (event) {
+//     /*    var flag = false;
+//         for (var i = 1; i <= content.matching.length; i++) {
+//             var rightEle = document.getElementById("right_" + i);
+//             console.log(document.activeElement.id);
+//             if (rightEle === document.activeElement) {
+//                 content.changeColor('right_choice');
+//                 console.log("right active");
+//                 flag = true;
+//             }
+//         }
+//         if (!flag) {
+//             content.changeColor('right_choice');
+//             content.in_focus = false;
+//             console.log("right not active");
+//         }*/
+//     if (content.in_focus) {
+//         for (var i = 1; i <= content.matching.length; i++) {
+//             if (i == current_index) {
+//                 var leftEle = document.getElementById("left_" + i);
+//                 var sty = leftEle.style;
+//                 sty.outline = "0";
+//                 sty.webkitBoxShadow = "0 0 0 3px rgba(134, 142, 150, 0.5)";
+//                 sty.boxShadow = "0 0 0 3px rgba(134, 142, 150, 0.5)";
+//             }
+//             else {
+//                 var leftEle = document.getElementById("left_" + i);
+//                 var sty = leftEle.style;
+//                 sty.outline = "0";
+//                 sty.webkitBoxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
+//                 sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
+//             }
+//         }
+//     }
+// });
+// $('.right_choice').on('focusout', function (event) {
+// });
 
 
 function getAnswer() {
