@@ -99,8 +99,8 @@ footer {
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: #ffffff;
-}  
+    background: #fff;
+}
 .matching-list {
     list-style-type: none;
     margin: 2%;
