@@ -30,7 +30,7 @@ class ApiController extends ControllerWithMid
 
     public function getAssignmentsInCourse(Course $course)
     {
-        return $course->assignments()->select('id', 'name', 'done', 'dueTime')->get();
+        return $course->assignments()->select('id', 'name', 'dueTime')->get();
     }
 
     public function getAssignmentQuestions(Assignment $assignment)

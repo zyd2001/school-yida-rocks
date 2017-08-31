@@ -103,53 +103,53 @@ $('#get_content').on('click', function (event) {
     for (var i = 0; i < 5; i++) {
         content.matching[i] = 0;
     }
-/*    console.log(content.matching);
-    function createLineElement(x, y, length, angle) {
-        var line = document.createElement("div");
-        var styles = 'border: 1px solid black; '
-                   + 'width: ' + length + 'px; '
-                   + 'height: 0px; '
-                   + '-moz-transform: rotate(' + angle + 'rad); '
-                   + '-webkit-transform: rotate(' + angle + 'rad); '
-                   + '-o-transform: rotate(' + angle + 'rad); '  
-                   + '-ms-transform: rotate(' + angle + 'rad); '  
-                   + 'position: absolute; '
-                   + 'top: ' + y + 'px; '
-                   + 'left: ' + x + 'px; ';
-        line.setAttribute('style', styles);  
-        return line;
-    }
-    function createLine(x1, y1, x2, y2) {
-        var a = x1 - x2,
-            b = y1 - y2,
-            c = Math.sqrt(a * a + b * b);
-        var sx = (x1 + x2) / 2,
-            sy = (y1 + y2) / 2;
-        var x = sx - c / 2,
-            y = sy;
-        var alpha = Math.PI - Math.atan2(-b, a);
-        return createLineElement(x, y, c, alpha);
-    }
-    function findPos(ele) {
-        var currentLeft = currentTop = 0;
-        if (ele.offsetParent) {
-            do {
-                currentLeft += ele.offsetLeft;
-                currentTop += ele.offsetTop;
-            } while(ele = ele.offsetParent);
+    /*    console.log(content.matching);
+        function createLineElement(x, y, length, angle) {
+            var line = document.createElement("div");
+            var styles = 'border: 1px solid black; '
+                       + 'width: ' + length + 'px; '
+                       + 'height: 0px; '
+                       + '-moz-transform: rotate(' + angle + 'rad); '
+                       + '-webkit-transform: rotate(' + angle + 'rad); '
+                       + '-o-transform: rotate(' + angle + 'rad); '
+                       + '-ms-transform: rotate(' + angle + 'rad); '
+                       + 'position: absolute; '
+                       + 'top: ' + y + 'px; '
+                       + 'left: ' + x + 'px; ';
+            line.setAttribute('style', styles);
+            return line;
         }
-        return [currentLeft, currentTop];
-    }
-    for (var i = 1; i <= 5; i++) {
-        for (var j = 1; j <= 5; j++) {
-            var leftEle = document.getElementById("left_" + i);
-            var rightEle = document.getElementById("right_" + j);
-            var left = findPos(leftEle);
-            var right = findPos(rightEle);
-            document.body.appendChild(createLine(left[0], left[1], right[0], right[1]));
-            // console.log(left[0], left[1], i, j);
+        function createLine(x1, y1, x2, y2) {
+            var a = x1 - x2,
+                b = y1 - y2,
+                c = Math.sqrt(a * a + b * b);
+            var sx = (x1 + x2) / 2,
+                sy = (y1 + y2) / 2;
+            var x = sx - c / 2,
+                y = sy;
+            var alpha = Math.PI - Math.atan2(-b, a);
+            return createLineElement(x, y, c, alpha);
         }
-    }*/
+        function findPos(ele) {
+            var currentLeft = currentTop = 0;
+            if (ele.offsetParent) {
+                do {
+                    currentLeft += ele.offsetLeft;
+                    currentTop += ele.offsetTop;
+                } while(ele = ele.offsetParent);
+            }
+            return [currentLeft, currentTop];
+        }
+        for (var i = 1; i <= 5; i++) {
+            for (var j = 1; j <= 5; j++) {
+                var leftEle = document.getElementById("left_" + i);
+                var rightEle = document.getElementById("right_" + j);
+                var left = findPos(leftEle);
+                var right = findPos(rightEle);
+                document.body.appendChild(createLine(left[0], left[1], right[0], right[1]));
+                // console.log(left[0], left[1], i, j);
+            }
+        }*/
     // document.body.appendChild(createLine(100, 100, 500, 200));
 });
 
@@ -173,13 +173,13 @@ $('.left_choice').on('focus', function (event) {
             var sty = leftEle.style;
             sty.outline = "0";
             sty.webkitBoxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
-            sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";               
+            sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
         }
     }
 });
 $('.right_choice').on('focus', function (event) {
     if (content.in_focus && current_index != 0) {
-         for (var i = 1; i <= content.matching.length; i++) {
+        for (var i = 1; i <= content.matching.length; i++) {
             var rightEle = document.getElementById("right_" + i);
             var leftChoice = document.getElementById("left_" + current_index);
             if (rightEle === document.activeElement) {
@@ -190,9 +190,9 @@ $('.right_choice').on('focus', function (event) {
                 $(".completed_choices").append("<p class='text-center mb-0'>" + leftChoice.innerHTML + "<——>" + rightEle.innerHTML + "</p>");
                 var all_stuff = document.getElementsByClassName('completed_choices');
                 // console.log(all_stuff.innerText);
-/*                for (var i = 0; i < all_stuff.length; i++) {
-                    console.log(all_stuff[i].innerText);
-                }*/
+                /*                for (var i = 0; i < all_stuff.length; i++) {
+                                    console.log(all_stuff[i].innerText);
+                                }*/
             }
             var leftEle = document.getElementById("left_" + i);
             var sty = leftEle.style;
@@ -203,21 +203,21 @@ $('.right_choice').on('focus', function (event) {
     }
 });
 $('.left_choice').on('focusout', function (event) {
-/*    var flag = false;
-    for (var i = 1; i <= content.matching.length; i++) {
-        var rightEle = document.getElementById("right_" + i);
-        console.log(document.activeElement.id);
-        if (rightEle === document.activeElement) {
-            content.changeColor('right_choice');
-            console.log("right active");
-            flag = true;
+    /*    var flag = false;
+        for (var i = 1; i <= content.matching.length; i++) {
+            var rightEle = document.getElementById("right_" + i);
+            console.log(document.activeElement.id);
+            if (rightEle === document.activeElement) {
+                content.changeColor('right_choice');
+                console.log("right active");
+                flag = true;
+            }
         }
-    }
-    if (!flag) {
-        content.changeColor('right_choice');
-        content.in_focus = false;
-        console.log("right not active");
-    }*/
+        if (!flag) {
+            content.changeColor('right_choice');
+            content.in_focus = false;
+            console.log("right not active");
+        }*/
     if (content.in_focus) {
         for (var i = 1; i <= content.matching.length; i++) {
             if (i == current_index) {
@@ -232,9 +232,9 @@ $('.left_choice').on('focusout', function (event) {
                 var sty = leftEle.style;
                 sty.outline = "0";
                 sty.webkitBoxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
-                sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";               
+                sty.boxShadow = "0 0 0 0px rgba(134, 142, 150, 0.5)";
             }
-        }        
+        }
     }
 });
 $('.right_choice').on('focusout', function (event) {

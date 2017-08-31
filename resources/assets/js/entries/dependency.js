@@ -38,5 +38,5 @@ window.axios = require('axios');
 // });
 window.Vue = require('vue');
 
-window.Pusher = require('pusher-js');
-
+// window.Pusher = require('pusher-js');
+window.wangEditor = require('wangeditor');

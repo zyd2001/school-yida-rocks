@@ -15,9 +15,9 @@ class AssignmentController extends ControllerWithMid
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Course $course)
     {
-//        return view('assignment');
+        return view('assignment.create', compact('course'));
     }
 
     /**
@@ -26,23 +26,24 @@ class AssignmentController extends ControllerWithMid
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Course $course)
     {
         try
         {
-            $this->checkContent($request->content);
+//            $this->checkContent($request->content);
             $id = Assignment::create([
                 'name' => $request->name,
-                'course_id' => $request->course_id,
-                'content' => $request->content,
+                'course_id' => $course->id,
+                'questions' => $request->questions,
+                'correct' => $request->correct,
                 'setting' => $request->setting,
                 'dueTime' => $request->dueTime,
                 ])->id;//add Assignment
-            $users = Course::find($request->course_id)->users;
+            $users = $course->users;
             foreach ($users as $user)
                 Grade::create([
                     'user_id' => $user->id,
-                    'course_id' => $request->course_id,
+                    'course_id' => $course->id,
                     'assignment_id' => $id,
                     ]);
             return redirect('/assignments/'.$id)->with(['msg' => __()]);
@@ -63,7 +64,7 @@ class AssignmentController extends ControllerWithMid
     {
         $grade = $assignment->grades->where('user_id', auth()->user()->id)->first();
         $setting = json_decode($assignment->setting);
-        return view('assignment.main', compact('assignment', 'grade', 'setting'));
+        return view('assignment.do', compact('assignment', 'grade', 'setting'));
     }
 
     /**
