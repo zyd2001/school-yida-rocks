@@ -30,27 +30,6 @@
                 <input type="hidden" name="result">
             </div>
         </li>
-        <li class="list-group-item">
-            <h6>10.&nbsp;asdasdasd</h6>
-            <br>
-            <div class="row">
-                <ul class="col-4 h-100">
-                   <a href="#" index="1" class="matching-list">1.&nbsp;adasdalsjdlajsflkjasljdflajlskdjlaskjdlkasjd</a>
-                   <a href="#" index="1" class="matching-list">2.&nbsp;adasdalsjdlajsflkjasljdflajlskdjlaskjdlkasjd</a>
-                   <a href="#" index="1" class="matching-list">3.&nbsp;adasdalsjdlajsflkjasljdflajlskdjlaskjdlkasjd</a>
-                </ul>
-                <div class="col-4">
-                    <canvas id="canvas-1" height="0" width="0"></canvas>
-                </div>
-                <ul class="col-4">
-                    <a href="#" index="1" class="disabled matching-list">A.&nbsp;adasdalsjdlajsflkjasljdflajlskdjlaskjdlkasjd</a>
-                    <a href="#" index="1" class="disabled matching-list">B.&nbsp;adasdalsjdlajsflkjasljdflajlskdjlaskjdlkasjd</a>
-                    <a href="#" index="1" class="disabled matching-list">C.&nbsp;adasdalsjdlajsflkjasljdflajlskdjlaskjdlkasjd</a>
-                </ul>
-            </div>
-            <input type="hidden" name="result">
-
-        </li>
     </ul>
 </div>
 <div class="mt-3">
