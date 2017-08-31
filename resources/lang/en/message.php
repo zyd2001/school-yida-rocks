@@ -30,4 +30,5 @@ return [
     'essayPrompt' => 'Enter the requirements for this essay question here:',
     'selectQuestionType' => 'Select Question Type:',
     'addQuestion' => 'Add Question',
+    'nextQuestion' => 'Next Question',
 ];

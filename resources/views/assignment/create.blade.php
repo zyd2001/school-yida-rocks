@@ -2,8 +2,9 @@
 @section('assignment')
 <div id="assignment_create">
     <div id="editor_test" class="mb-3"></div>
-    <div id="all_questions"></div>
-    <div class="multiple_choice mb-5 card">
+    <div id="all_questions">
+    </div>
+    <div class="multiple_choice mb-5 card hidden">
         <h5 class="card-header col-md-12">{{ __('message.multipleChoiceQuestion') }}</h5>
         <div class="card-body">
             <textarea rows="5" class="form-control col-md-12" style="display: none"></textarea>
@@ -19,7 +20,6 @@
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description"></span>
                 </label>
-                <!-- <input type="checkbox" class="form-control col-md-2"> -->
             </div>
             <div class="row">
                 <input placeholder="{{ __('message.choice') }}2" class="form-control col-md-10 mb-3 mr-4 ml-3">
@@ -28,7 +28,6 @@
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description"></span>
                 </label>
-                <!-- <input type="checkbox" class="form-control col-md-2"> -->
             </div>
             <div class="row">
                 <input placeholder="{{ __('message.choice') }}3" class="form-control col-md-10 mb-3 mr-4 ml-3">
@@ -37,7 +36,6 @@
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description"></span>
                 </label>
-                <!-- <input type="checkbox" class="form-control col-md-2"> -->
             </div>
             <div class="row">
                 <input placeholder="{{ __('message.choice') }}4" class="form-control col-md-10 mb-3 mr-4 ml-3">
@@ -46,11 +44,10 @@
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description"></span>
                 </label>
-                <!-- <input type="checkbox" class="form-control col-md-2"> -->
-            </div>
+            </div>..
         </div>
     </div>
-    <div class="fill_in_the_blank mb-5 card">
+    <div class="fill_in_the_blank mb-5 card hidden">
         <h5 class="card-header col-md-12">{{ __('message.fitbQuestion') }}</h5>
         <div class="card-body">
             <textarea rows="5" class="form-control col-md-12" style="display: none"></textarea>
@@ -64,7 +61,7 @@
             </div>
         </div>
     </div>
-    <div class="matching mb-5 card">
+    <div class="matching mb-5 card hidden">
         <h5 class="mb-3 card-header col-md-12">{{ __('message.matchingQuestions') }}</h5>
         <div class="card-body">
             <textarea rows="5" class="form-control col-md-12" style="display: none"></textarea>
@@ -92,7 +89,7 @@
             </div>
         </div>
     </div>
-    <div class="essay mb-5 card">
+    <div class="essay mb-5 card hidden">
         <h5 class="mb-3 card-header col-md-12">{{ __('message.essayQuestion') }}</h5>
         <div class="card-body">
             <textarea rows="5" class="form-control col-md-12" style="display: none"></textarea>
@@ -100,15 +97,20 @@
         </div>
     </div>
 
-    <div class="row">
-        <label for="select_question_type">{{ __('message.selectQuestionType') }}&nbsp;</label>
-        <select class="custom-select" id="select_question_type">
-            <option value="0">{{ __('message.multipleChoiceQuestion')}}</option>
-            <option value="1">{{ __('message.fitbQuestion')}}</option>
-            <option value="2">{{ __('message.matchingQuestions')}}</option>
-            <option value="3">{{ __('message.essayQuestion')}}</option>
-        </select>
-        <button class="btn btn-outline-info ml-5" id="add_question" v-on:click="createNewQuestion">{{ __('message.addQuestion')}}</button>
+    <div class="card">
+        <h6 class="text-center card-header">{{ __('message.addQuestion') }}</h6>
+        <div class="card-body">
+            <label for="select_question_type" class="text-center">{{ __('message.selectQuestionType') }}&nbsp;</label>
+            <div class="row">
+                <select class="custom-select col-md-8" id="select_question_type">
+                    <option value="0">{{ __('message.multipleChoiceQuestion')}}</option>
+                    <option value="1">{{ __('message.fitbQuestion')}}</option>
+                    <option value="2">{{ __('message.matchingQuestions')}}</option>
+                    <option value="3">{{ __('message.essayQuestion')}}</option>
+                </select>
+                <button class="btn btn-outline-info col-md-4" id="add_question" v-on:click="nextQuestion">{{ __('message.nextQuestion')}}</button>
+            </div>
+        </div>
     </div>
     <form action="/courses/{{ $course->id }}/assignments" method="post">
         {{ csrf_field() }}
@@ -117,5 +119,8 @@
         <input type="hidden" name="setting">
         <input type="hidden" name="dueTime">
     </form>
+    <div class="hidden">
+        <span name="multipleChoiceQuestion">{{ __('message.multipleChoiceQuestion')}}</span>
+    </div>
 </div>
 @endsection
