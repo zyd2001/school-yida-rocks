@@ -28,4 +28,6 @@ return [
     'leftChoice' => 'Left Choice',
     'rightChoice' => 'Right Choice',
     'essayPrompt' => 'Enter the requirements for this essay question here:',
+    'selectQuestionType' => 'Select Question Type:',
+    'addQuestion' => 'Add Question',
 ];

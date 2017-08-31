@@ -29,4 +29,6 @@ return [
     'leftChoice' => '左侧选项',
     'rightChoice' => '右侧选项',
     'essayPrompt' => '在此键入此简答题的写作要求:',
+    'selectQuestionType' => '选择题目类型:',
+    'addQuestion' => '添加题目',    
 ];
