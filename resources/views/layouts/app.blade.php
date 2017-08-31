@@ -47,11 +47,13 @@
         <script src="https://cdn.bootcss.com/axios/0.16.2/axios.min.js"></script>
         <script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
         {{--<script src="https://cdn.bootcss.com/pusher/4.1.0/pusher.min.js"></script>--}}
+        <script src="https://cdn.bootcss.com/ckeditor/4.7.2/ckeditor.js"></script>
         <script src="{{ asset('js/laravel-echo.js') }}"></script>
         <script src="{{ asset('js/global.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
     @else
         <script src="{{ asset('js/dependency.js') }}"></script>
+        <script src="https://cdn.bootcss.com/ckeditor/4.7.2/ckeditor.js"></script>
         <script src="{{ asset('js/laravel-echo.js') }}"></script>
         <script src="{{ asset('js/global.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
