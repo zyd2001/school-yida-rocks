@@ -44,7 +44,8 @@
                   <span class="custom-control-indicator"></span>
                   <span class="custom-control-description"></span>
                 </label>
-            </div>..
+            </div>
+            <button class='btn btn-outline-secondary'>{{ __('message.addChoice')}}</button>
         </div>
     </div>
     <div class="fill_in_the_blank mb-5 card hidden">
@@ -102,13 +103,14 @@
         <div class="card-body">
             <label for="select_question_type" class="text-center">{{ __('message.selectQuestionType') }}&nbsp;</label>
             <div class="row">
-                <select class="custom-select col-md-8" id="select_question_type">
+                <select class="custom-select col-md-6" id="select_question_type">
                     <option value="0">{{ __('message.multipleChoiceQuestion')}}</option>
                     <option value="1">{{ __('message.fitbQuestion')}}</option>
                     <option value="2">{{ __('message.matchingQuestions')}}</option>
                     <option value="3">{{ __('message.essayQuestion')}}</option>
                 </select>
-                <button class="btn btn-outline-info col-md-4" id="add_question" v-on:click="nextQuestion">{{ __('message.nextQuestion')}}</button>
+                <!-- <button class="btn btn-outline-info col-md-3" id="next_question" v-on:click="nextQuestion">{{ __('message.nextQuestion')}}</button> -->
+                <button class="btn btn-outline-info col-md-3" id="add_question" v-on:click="addQuestion">{{ __('message.addQuestion')}}</button>
             </div>
         </div>
     </div>
@@ -121,6 +123,21 @@
     </form>
     <div class="hidden">
         <span name="multipleChoiceQuestion">{{ __('message.multipleChoiceQuestion')}}</span>
+        <span name="fitbQuestion">{{ __('message.fitbQuestion')}}</span>
+        <span name="matchingQuestions">{{ __('message.matchingQuestions')}}</span>
+        <span name="essayQuestion">{{ __('message.essayQuestion')}}</span>
+        <span name="leftChoice">{{ __('message.leftChoice')}}</span>
+        <span name="rightChoice">{{ __('message.rightChoice')}}</span>
+        <span name="essayPrompt">{{ __('message.essayPrompt')}}</span>
+        <span name="choices">{{ __('message.choices')}}</span>
+        <span name="prompt">{{ __('message.prompt')}}</span>
+        <span name="answer">{{ __('message.answer')}}</span>
+        <span name="fitbCreate">{{ __('message.fitbCreate')}}</span>
+        <span name="correct">{{ __('message.correct')}}</span>
+        <span name="choice">{{ __('message.answer')}}</span>
+        <span name="multipleChoiceCreate">{{ __('message.multipleChoiceCreate')}}</span> 
+        <span name="addChoice">{{ __('message.addChoice')}}</span>
+        <span name="addMatch">{{ __('message.answer')}}</span>       
     </div>
 </div>
 @endsection

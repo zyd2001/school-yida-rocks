@@ -32,4 +32,7 @@ return [
     'selectQuestionType' => '选择题目类型:',
     'addQuestion' => '添加题目',    
     'nextQuestion' => '下一题目',
+    'addChoice' => '添加选项',
+    'addMatch' => '添加一对选项',
+
 ];

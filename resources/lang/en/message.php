@@ -31,4 +31,6 @@ return [
     'selectQuestionType' => 'Select Question Type:',
     'addQuestion' => 'Add Question',
     'nextQuestion' => 'Next Question',
+    'addChoice' => 'Add a Choice',
+    'addMatch' => 'Add a Pair',
 ];
