@@ -4,7 +4,7 @@
     <div id="editor_test" class="mb-3"></div>
     <div id="all_questions">
     </div>
-    <div class="multiple_choice mb-5 card hidden">
+<!--     <div class="multiple_choice mb-5 card hidden">
         <h5 class="card-header col-md-12">{{ __('message.multipleChoiceQuestion') }}</h5>
         <div class="card-body">
             <textarea rows="5" class="form-control col-md-12" style="display: none"></textarea>
@@ -96,7 +96,7 @@
             <textarea rows="5" class="form-control col-md-12" style="display: none"></textarea>
             <textarea rows="6" class="form-control text-left col-md-12" placeholder="{{ __('message.essayPrompt') }}"></textarea>      
         </div>
-    </div>
+    </div> -->
 
     <div class="card">
         <h6 class="text-center card-header">{{ __('message.addQuestion') }}</h6>
@@ -137,7 +137,7 @@
         <span name="choice">{{ __('message.answer')}}</span>
         <span name="multipleChoiceCreate">{{ __('message.multipleChoiceCreate')}}</span> 
         <span name="addChoice">{{ __('message.addChoice')}}</span>
-        <span name="addMatch">{{ __('message.answer')}}</span>       
+        <span name="addMatch">{{ __('message.addMatch')}}</span>       
     </div>
 </div>
 @endsection
