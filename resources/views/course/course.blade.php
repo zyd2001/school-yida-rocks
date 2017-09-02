@@ -12,7 +12,7 @@
 			<button class="btn btn-outline-secondary list-group-item mt-1" id="button_assignments" onclick="show_assignments();">{{ __('message.assignments') }}</button>
 		</ul>
 	</div>
-	@include('course.description')
+	@include('course.course.description')
 </div>
 
 <div class="row" id="course_materials" style="display:none">
@@ -25,7 +25,7 @@
 			<button class="btn btn-outline-secondary list-group-item mt-1" id="button_assignments" onclick="show_assignments();">{{ __('message.assignments') }}</button>
 		</ul>
 	</div>
-	@include('course.materials')
+	@include('course.course.materials')
 </div>
 
 <div class="row" id="course_updates" style="display:none">
@@ -38,7 +38,7 @@
 			<button class="btn btn-outline-secondary list-group-item mt-1" id="button_assignments" onclick="show_assignments();">{{ __('message.assignments') }}</button>
 		</ul>
 	</div>
-	@include('course.updates')
+	@include('course.course.updates')
 </div>
 
 <div class="row" id="course_assignments" style="display:none">
@@ -51,7 +51,7 @@
 			<button class="btn btn-outline-primary list-group-item mt-1" id="button_assignments" onclick="show_assignments();">{{ __('message.assignments') }}</button>
 		</ul>
 	</div>
-	@include('course.assignments')
+	@include('course.course.assignments')
 </div>
  -->
 <div class="card">
@@ -75,16 +75,16 @@
 </ul>
 <div class="tab-content" id="myTabContent">
 	<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
-		@include('course.description')
+		@include('course.course.description')
 	</div>
 	<div class="tab-pane fade" id="materials" role="tabpanel" aria-labelledby="materials-tab">
-		@include('course.materials')
+		@include('course.course.materials')
 	</div>
 	<div class="tab-pane fade" id="updates" role="tabpanel" aria-labelledby="updates-tab">
-		@include('course.updates')
+		@include('course.course.updates')
 	</div>
 	<div class="tab-pane fade" id="assignments" role="tabpanel" aria-labelledby="assignments-tab">
-		@include('course.assignments')
+		@include('course.course.assignments')
 	</div>
 </div>
 </div>

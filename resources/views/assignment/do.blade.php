@@ -2,13 +2,13 @@
 @section('assignment')
     <div id="assignment">
         <div id="assignment_description">
-            @include('assignment.description')
+            @include('assignment.do.description')
         </div>
         <div id="assignment_content" style="display:none">
-            @include('assignment.content')
+            @include('assignment.do.content')
         </div>
         <div id="assignment_grade" style="display:none">
-            @include('assignment.grade')
+            @include('assignment.do.grade')
         </div>
     </div>
 @endsection

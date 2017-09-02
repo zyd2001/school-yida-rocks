@@ -1,7 +1,7 @@
 if (window.location.pathname.search('assignments/[0-9]+') !== -1) {
-    require('./description');
-    require('./content');
-    require('./grade');
+    require('./do/description');
+    require('./do/content');
+    require('./do/grade');
 }
 if (window.location.pathname.search('create+') !== -1)
     require('./create');

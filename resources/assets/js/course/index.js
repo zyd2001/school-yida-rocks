@@ -1,1 +1,2 @@
 require('./course');
+require('./create');
