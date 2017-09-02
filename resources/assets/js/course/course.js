@@ -1,0 +1,3 @@
+const course = new Vue({
+
+});
