@@ -43,5 +43,10 @@ return [
     'makeCoursePublic' => 'Make This Course Public',
     'createCourseNow' => 'Create Course',
     'courseDescription' => 'A Brief Description of Your Course',
+    'courseType' => 'Type of Course',
+    'courseClass' => 'Class',
+    'courseCourse' => 'Course',
+    'courseGroup' => 'Group',
+    'chooseAvatar' => 'Change Avatar',
 
 ];

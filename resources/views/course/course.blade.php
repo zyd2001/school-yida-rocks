@@ -54,11 +54,11 @@
 	@include('course.course.assignments')
 </div>
  -->
-<div class="card">
-	<div class="card-header text-left">
-		<img src="{{ $course->avatar }}" class="ml-1 pull-left">
-		<h5 class="ml-1 mt-3">&nbsp;{{ $course->name }}</h5>
-	</div>
+<div class="card" id="course">
+	<h5 class="card-header text-left" id="course_avatar_name">
+		<img src="{{ $course->avatar }}" height="48" width="48" class="ml-1 pull-left" id="course_avatar">
+		<div class="ml-1" style="margin-top: 0.85rem">&nbsp;{{ $course->name }}</div>
+	</h5>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
 	<li class="nav-item">
 		<a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-expanded="true">{{ __('message.description') }}</a>
@@ -98,4 +98,9 @@
 {{--	@endif --}}
 </div>
 </div>
+@endsection
+
+@section('head')
+    @parent
+    <meta name="id" content="{{ $course->id }}">
 @endsection

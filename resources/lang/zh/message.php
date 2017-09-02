@@ -44,5 +44,10 @@ return [
     'makeCoursePublic' => '设置这个课程为公开课程',
     'createCourseNow' => '创建课程',
     'courseDescription' => '课程简介',
+    'courseType' => '课程类型',
+    'courseClass' => '班级',
+    'courseCourse' => '课程',
+    'courseGroup' => '小组',
+    'chooseAvatar' => '更换课程头像',
 
 ];
