@@ -34,8 +34,15 @@ return [
     'nextQuestion' => '下一题目',
     'addChoice' => '添加选项',
     'addMatch' => '添加一对选项',
-    'description' => '介绍',
+    'description' => '简介',
     'materials' => '材料',
     'updates' => '更新',
     'assignments' => '作业',
+    'settings' => '设置',
+    'nameOfCourse' => '课程名称',
+    'createCourse' => '创建课程',
+    'makeCoursePublic' => '设置这个课程为公开课程',
+    'createCourseNow' => '创建课程',
+    'courseDescription' => '课程简介',
+
 ];

@@ -37,4 +37,11 @@ return [
     'materials' => 'Materials',
     'updates' => 'Updates',
     'assignments' => 'Assignments',
+    'settings' => 'Settings',
+    'nameOfCourse' => 'Name of Course',
+    'createCourse' => 'Create a New Course',
+    'makeCoursePublic' => 'Make This Course Public',
+    'createCourseNow' => 'Create Course',
+    'courseDescription' => 'A Brief Description of Your Course',
+
 ];
