@@ -74,10 +74,6 @@ class CourseController extends ControllerWithMid
      * @param  \App\Course $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
-    {
-        return view('course.main', compact('course'));
-    }
 
     /**
      * Show the form for editing the specified resource.
