@@ -15,6 +15,7 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('name');
             $table->boolean('public')->default(true);
             $table->string('avatar')->default('http://orjf65xeb.bkt.clouddn.com/default.png');

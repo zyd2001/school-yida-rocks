@@ -45,6 +45,7 @@ class CourseController extends ControllerWithMid
     public function store(Request $request)
     {
         $id = Course::create([
+            'user_id'    => auth()->id(),
             'name'       => $request->name,
             'public'     => $request->public,
             'avatar'     => $request->avatar,
@@ -95,7 +96,11 @@ class CourseController extends ControllerWithMid
      */
     public function update(Request $request, Course $course)
     {
-        //
+        if (isset($request->avatar))
+        {
+            $course->avatar = $request->avatar;
+            $course->save();
+        }
     }
 
     /**
