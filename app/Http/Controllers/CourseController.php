@@ -31,6 +31,11 @@ class CourseController extends ControllerWithMid
         return view('course.create');
     }
 
+    public function show(Course $course)
+    {
+        return view('course.course', compact('course'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

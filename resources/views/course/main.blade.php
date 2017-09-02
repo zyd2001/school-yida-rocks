@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
+    @yield('course')
 @endsection
 
 @section('script')
     @parent
+    <script src="{{ asset('js/course.js') }}"></script>
 @endsection
 
 @section('head')

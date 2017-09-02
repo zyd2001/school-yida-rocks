@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/test', function (){
+   return view('test');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/verify', 'HomeController@verify');
 Route::get('/home/setting', 'HomeController@showSetting');
