@@ -8,7 +8,7 @@
     <script src="{{ asset('js/course.js') }}"></script>
 @endsection
 
-@section('head')
-    @parent
-    <meta name="id" content="{{ $course->id }}">
-@endsection
+{{--@section('head')--}}
+    {{--@parent--}}
+    {{--<meta name="id" content="{{ $course->id }}">--}}
+{{--@endsection--}}
