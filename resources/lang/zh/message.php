@@ -9,7 +9,7 @@ return [
     'wrong_verify_code' => '错误的验证码',
     'test' => '中文',
     'exitConfirm' => '确定要退出吗？未保存的答案将会在离开本页面时丢失.',
-    'changeLocaleSuccess' => '您已成功地修改显示语言.',
+    'changeLocaleSuccess' => 'You have changed the display language successfully.',
     'notice' => '通知',
     'correctAnswer' => '您的答案是正确的.',
     'wrongAnswer1' => '您选择了',
@@ -34,5 +34,8 @@ return [
     'nextQuestion' => '下一题目',
     'addChoice' => '添加选项',
     'addMatch' => '添加一对选项',
-
+    'description' => '介绍',
+    'materials' => '材料',
+    'updates' => '更新',
+    'assignments' => '作业',
 ];

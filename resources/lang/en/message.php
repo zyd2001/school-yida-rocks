@@ -8,7 +8,7 @@
 return [
     'test' => 'English',
     'exitConfirm' => 'Are you sure you want to exit? Unsaved answers will be lost once you leave this webpage.',
-    'changeLocaleSuccess' => 'You have changed the display language successfully.',
+    'changeLocaleSuccess' => '您已成功地修改显示语言.',
     'notice' => 'Notice',
     'correctAnswer' => 'Your answer is correct.',
     'wrongAnswer1' => 'You chose',
@@ -33,4 +33,8 @@ return [
     'nextQuestion' => 'Next Question',
     'addChoice' => 'Add a Choice',
     'addMatch' => 'Add a Pair',
+    'description' => 'Description',
+    'materials' => 'Materials',
+    'updates' => 'Updates',
+    'assignments' => 'Assignments',
 ];
