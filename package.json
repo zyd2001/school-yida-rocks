@@ -19,6 +19,7 @@
     "lodash": "^4.17.4",
     "popper.js": "^1.12.2",
     "pusher-js": "^4.1.0",
+    "qiniu4js": "^1.0.13",
     "vue": "^2.1.10",
     "wangeditor": "^3.0.8"
   }
