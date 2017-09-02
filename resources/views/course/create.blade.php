@@ -18,17 +18,17 @@
             	<div class="row ml-3 mt-3">
             		<span>{{ __('message.courseType') }}:</span>
 	                <label class="control control--radio ml-3 mt-1">{{ __('message.courseClass')}}
-	                    <input type="radio" v-bind:value="0"/>
+	                    <input name="choose_Course_Type" type="radio" v-bind:value="0"/>
 	                    <div class="control__indicator"></div>
 	                </label>
 	                <label class="control control--radio ml-5 mt-1">{{ __('message.courseCourse')}}
-	                    <input checked="true" type="radio" v-bind:value="1" />
+	                    <input name="choose_Course_Type" checked="true" type="radio" v-bind:value="1" />
 	                    <div class="control__indicator"></div>
 	                </label>
 	                <label class="control control--radio ml-5 mt-1">{{ __('message.courseGroup')}}
-	                    <input type="radio" v-bind:value="2"/>
+	                    <input name="choose_Course_Type" type="radio" v-bind:value="2"/>
 	                    <div class="control__indicator"></div>
-	                </label>
+	                </label>                
                 </div>
 		        <input type="hidden" name="settings">
 		        <button type="submit" class="btn btn-outline-success mt-3">{{ __('message.createCourseNow') }}</button>
