@@ -15,13 +15,6 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="message" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="alert alert-info text-center">
-                    @{{ msg }}
-                </div>
-            </div>
-        </div>
     </div>
 @endsection
 @section('script')
