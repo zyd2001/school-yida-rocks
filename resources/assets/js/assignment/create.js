@@ -73,8 +73,7 @@ const create = new Vue({
     methods: {
         submit: function () {
             var questions = $('.question');
-            for (var i = 0; i < questions.length; i++)
-            {
+            for (var i = 0; i < questions.length; i++) {
                 var temp = $(questions[i]);
                 var type = temp.attr('type');
                 switch (Number(type)) {
@@ -97,10 +96,28 @@ const create = new Vue({
                     case 1:
                         break;
                     case 2:
-
+                        this.correct[i] = [];
+                        this.questions[i] = {'answer': {}};
+                        this.questions[i].question = {'content':{}};
+                        this.questions[i].question.title = temp.find('textarea').val();
+                        this.questions[i].type = 2;
+                        this.questions[i].option = null;
+                        // if (choices.length > 26)
+                        //     showMessage('Too much pairs in question' + i + 1, 0);
+                        var pairs = temp.find('.pairs').children();
+                        for (var j = 0; j < pairs.length; j++) {
+                            var input = $(pairs[j]).find('input');
+                            this.questions[i].question.content[j] = input[0].value;
+                            this.questions[i].answer[j] = input[1].value;
+                            // this.correct[i].push(this.alphabet[j])
+                        }
+                        break;
                     case 3:
+                        break;
                 }
             }
+            console.log(this.questions);
+            console.log(this.correct);
         },
         addQuestion: function () {
             var root = $('#all_questions');

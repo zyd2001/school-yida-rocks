@@ -80,7 +80,7 @@
             </h5>
             <div class="card-body"><textarea rows="5" class="form-control col-md-12"></textarea>
                 <br>
-                <div class="form-group-vertical">
+                <div class="form-group-vertical pairs">
                     <div class="row" id="matching_pair"><a class="remove_choice"><i class="fa fa-times mt-2 ml-4"
                                                                                     aria-hidden="true"></i></a><input
                                 class="form-control col-md-5 mb-3 ml-3 mr-4"
