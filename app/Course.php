@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Course extends Model
 {
 
-    protected $fillable = ['name']; //allow to use App\Course::create()
+    protected $guarded = []; //allow to use App\Course::create()
 
     public function assignments()
     {

@@ -101,6 +101,7 @@ class CourseController extends ControllerWithMid
             $course->avatar = $request->avatar;
             $course->save();
         }
+        return response()->json(['msg' => [ 'content' => __(), 'type' => 1]]);
     }
 
     /**

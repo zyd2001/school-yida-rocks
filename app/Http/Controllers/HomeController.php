@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VerifyCodeGenerated;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -46,8 +47,9 @@ class HomeController extends Controller
             $user = auth()->user();
             $user->verifyCode = strtoupper(bin2hex(random_bytes(3)));
             $user->save();
-            \Mail::to($user->email)->send(new \App\Mail\VerifyCode($user));
-            return response()->json(['msg' => __('success')]);
+            event(new VerifyCodeGenerated($user));
+//            \Mail::to($user->email)->send(new \App\Mail\VerifyCode($user));
+            return response()->json(['msg' => ['content' => __('success'), 'type' => 1]]);
         }
         else
         {

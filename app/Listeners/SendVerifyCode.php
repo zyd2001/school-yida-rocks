@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\UserRegistered;
+use App\Events\VerifyCodeGenerated;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Mail\VerifyCode;
@@ -22,10 +22,10 @@ class SendVerifyCode implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  UserRegistered $event
+     * @param  VerifyCodeGenerated $event
      * @return void
      */
-    public function handle(UserRegistered $event)
+    public function handle(VerifyCodeGenerated $event)
     {
         \Mail::to($event->user->email)->send(new VerifyCode($event->user));
     }
