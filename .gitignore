@@ -12,4 +12,3 @@ npm-debug.log
 pushAll.sh
 dump.rdb
 laravel-echo-server.json
-/public
