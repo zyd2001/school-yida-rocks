@@ -3,7 +3,6 @@ const verify = new Vue({
     data: {
         time: 0,
         text: 'regenerate the verify code',
-        msg: '',
     },
     methods: {
         click: function (event) {
@@ -14,9 +13,7 @@ const verify = new Vue({
                     re: true,
                 }).then(function (res) {
                     $('#re').addClass('disabled');
-                    self.msg = res.data.msg;
-                    $('#message').modal('show');
-                    window.setTimeout("$('#message').modal('hide')", 2000);
+                    showMessage(res.data.msg.content, res.data.msg.type);
                     self.time = 60;
                     var save = self.text;
                     var interval = setInterval(function () {
@@ -28,9 +25,7 @@ const verify = new Vue({
                             self.text = save;
                         }
                     }, 1000);
-                }).catch(function (err) {
-                    console.log(err);
-                });
+                })
             }
         }
     }

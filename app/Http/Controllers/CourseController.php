@@ -48,7 +48,7 @@ class CourseController extends ControllerWithMid
             'user_id'    => auth()->id(),
             'name'       => $request->name,
             'public'     => $request->public,
-            'avatar'     => $request->avatar,
+//            'avatar'     => $request->avatar,
             'accessCode' => strtoupper(bin2hex(random_bytes(3))),
             'setting'    => $request->setting,
         ])->id;
