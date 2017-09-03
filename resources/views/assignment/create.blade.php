@@ -8,12 +8,12 @@
             </h5>
             <div class="card-body"><textarea rows="5"
                                              class="form-control col-md-12"
-                                             placeholder="{{ __('message.multipleChoiceCreate') }}" name="editor"></textarea>
+                                             placeholder="{{ __('message.multipleChoiceCreate') }}"></textarea>
                 <div class="row mt-3">
                     <p class="col-md-10 text-center">{{ __('message.choices') }}</p>
                     <p class="col-md-2 text-center">{{ __('message.correct') }}</p>
                 </div>
-                <div>
+                <div class="choice">
                     <div class="row" id="multiple_choice_choice"><i class="remove_choice fa fa-times ml-3"
                                                                     aria-hidden="true"
                                                                     style="margin-top: 0.65rem"></i><input
