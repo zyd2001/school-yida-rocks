@@ -49,5 +49,17 @@ return [
     'courseCourse' => '课程',
     'courseGroup' => '小组',
     'chooseAvatar' => '更换课程头像',
+    'enterPassword' => '输入密码',
+    'confirmPassword' => '确认密码',
+    'changePassword' => '更换密码',
+    'submit' => '提交',
+    'chooseUserAvatar' => '更换头像',
+    'userDescription' => '更改个人简介',
+    'promptUserDescription' => '在此键入您的个人介绍',
+    'save' => '保存',
+    'changeName' => '更改姓名',
+    'firstName' => '名',
+    'lastName' => '姓',
+    'checkEmail' => '绑定的电子邮箱',
 
 ];

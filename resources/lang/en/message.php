@@ -48,5 +48,17 @@ return [
     'courseCourse' => 'Course',
     'courseGroup' => 'Group',
     'chooseAvatar' => 'Change Avatar',
+    'enterPassword' => 'Enter Password',
+    'confirmPassword' => 'Confirm Password',
+    'changePassword' => 'Change Password',
+    'submit' => 'Submit',
+    'chooseUserAvatar' => 'Change Your Avatar',
+    'userDescription' => 'Change Your Description',
+    'promptUserDescription' => 'Type Your Description Here',
+    'save' => 'Save',
+    'changeName' => 'Edit Your Alias',
+    'firstName' => 'First Name',
+    'lastName' => 'Last Name',
+    'checkEmail' => 'Linked Email Address',
 
 ];

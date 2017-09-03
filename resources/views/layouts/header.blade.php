@@ -28,7 +28,7 @@
                             <span v-else>
                                 <a v-for="course in courses" class="dropdown-item h5"
                                    v-bind:href="'/courses/' + course.id"> <img
-                                            v-bind:src="course.avatar" v-bind:alt="course.name">&nbsp;@{{
+                                            v-bind:src="course.avatar" v-bind:alt="course.name" height="48">&nbsp;@{{
                                     course.name
                                     }}</a>
                             </span>
@@ -44,7 +44,7 @@
                         <a v-on:click="getMessageAmount" href="#" class="navbar-brand dropdown-toggle" id="dropdownUser"
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="true"><img src="{{ auth()->user()->avatar }}" width="30"
-                                                     height="30">&nbsp;{{ auth()->user()->name }}</a>
+                                                     height="30" id="user_avatar_display">&nbsp;{{ auth()->user()->name }}</a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
                             <a href="#" class="dropdown-item"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>

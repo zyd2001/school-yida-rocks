@@ -43,7 +43,9 @@ var uploader = new Qiniu.UploaderBuilder()
         course.avatar = "http://ovnbee5ws.bkt.clouddn.com/" + task.result.key;
         // var course_id = document.getElementsbyTagName('meta')['id'];
 		var course_id = $('meta[name=id]').attr('content');
-		axios.patch('/courses/' + course_id, {avatar:course.avatar}).then(showMessage("Successfully saved", 1))
+		axios.patch('/courses/' + course_id, {avatar:course.avatar}).then(function(res){
+            showMessage(res.msg.content, res.msg.type)
+        });
 
     },onTaskFail(task) {
         //一个任务在经历重传后依然失败后回调此函数

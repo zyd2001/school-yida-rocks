@@ -291,6 +291,7 @@ $('#get_content').on('click', function (event) {
 
 
 function getAnswer() {
+    content.answer = [];
     for (var i in content.questions) {
         var type = content.questions[i].type;
         switch (type) {

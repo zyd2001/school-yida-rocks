@@ -56,8 +56,8 @@
  -->
 <div class="card" id="course">
 	<h5 class="card-header text-left" id="course_avatar_name">
-		<img src="{{ $course->avatar }}" height="48" width="48" class="ml-1 pull-left" id="course_avatar">
-		<div class="ml-1" style="margin-top: 0.85rem">&nbsp;{{ $course->name }}</div>
+		<img src="{{ $course->avatar }}" height="100" class="ml-1 pull-left" id="course_avatar">
+		<div class="ml-1" style="margin-top: 2.3rem">&nbsp;{{ $course->name }}</div>
 	</h5>
 <ul class="nav nav-tabs" id="myTab" role="tablist">
 	<li class="nav-item">
