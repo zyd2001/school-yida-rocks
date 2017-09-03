@@ -97,10 +97,18 @@ class CourseController extends ControllerWithMid
      */
     public function update(Request $request, Course $course)
     {
-        if (isset($request->avatar))
+        foreach ($request->all() as $key => $value)
         {
-            $course->avatar = $request->avatar;
-            $course->save();
+            if ($key == 'setting')
+            {
+                $setting = json_decode($course->setting);
+                $new = json_decode($request->setting);
+                foreach ($new as $i => $item)
+                    $setting->$i = $new->$i;
+                $course->setting = json_encode($setting);
+            }
+            else
+                $course->$key = $request->$key;
         }
         return response()->json(['msg' => ['content' => __(), 'type' => 1]]);
     }

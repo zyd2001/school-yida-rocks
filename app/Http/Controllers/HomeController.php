@@ -40,6 +40,26 @@ class HomeController extends Controller
         return view('home.setting');
     }
 
+    public function update(Request $request)
+    {
+        $user = auth()->user();
+        foreach ($request->all() as $key => $value)
+        {
+            if ($key == 'setting')
+            {
+                $setting = json_decode($user->setting);
+                $new = json_decode($request->setting);
+                foreach ($new as $i => $item)
+                    $setting->$i = $new->$i;
+                $user->setting = json_encode($setting);
+            }
+            else
+                $user->$key = $request->$key;
+        }
+        $user->save();
+        return response()->json(['msg' => ['content' => __(), 'type' => 1]]);
+    }
+
     public function verify(Request $request)
     {
         if ($request->re)

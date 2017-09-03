@@ -24,6 +24,7 @@ Route::get('/test', function (){
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/verify', 'HomeController@verify');
 Route::get('/home/setting', 'HomeController@showSetting');
+Route::patch('/home/setting', 'HomeController@update');
 Route::post('/home/setting/resetPassword', 'HomeController@resetPassword');
 Route::get('/verify', function () {
     if (session('isVerified'))
