@@ -47,8 +47,9 @@ class CourseController extends ControllerWithMid
         $id = Course::create([
             'user_id'    => auth()->id(),
             'name'       => $request->name,
-            'public'     => $request->public,
-//            'avatar'     => $request->avatar,
+            'public'     => isset($request->public),
+            //            'avatar'     => $request->avatar,
+            'type'       => $request->type,
             'accessCode' => strtoupper(bin2hex(random_bytes(3))),
             'setting'    => $request->setting,
         ])->id;
@@ -101,7 +102,7 @@ class CourseController extends ControllerWithMid
             $course->avatar = $request->avatar;
             $course->save();
         }
-        return response()->json(['msg' => [ 'content' => __(), 'type' => 1]]);
+        return response()->json(['msg' => ['content' => __(), 'type' => 1]]);
     }
 
     /**
