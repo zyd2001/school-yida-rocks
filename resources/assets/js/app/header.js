@@ -62,6 +62,8 @@ const header = new Vue({
                             if (!res.data.length)
                                 sessionStorage.setItem('courses', JSON.stringify(res.data));
                         })
+                } else {
+                    this.courses = JSON.parse(this.courses);
                 }
             }
         },
