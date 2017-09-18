@@ -74,21 +74,22 @@ const create = new Vue({
         submit: function () {
             var questions = $('.question');
             for (var i = 0; i < questions.length; i++) {
+                var q = this.questions[i];
                 var temp = $(questions[i]);
                 var type = temp.attr('type');
                 switch (Number(type)) {
                     case 0:
                         this.correct[i] = [];
-                        this.questions[i] = {'answer': {}};
-                        this.questions[i].question = temp.find('textarea').val();
-                        this.questions[i].type = 0;
-                        this.questions[i].option = null;
+                        q = {'answer': {}};
+                        q.question = temp.find('textarea').val();
+                        q.type = 0;
+                        q.option = null;
                         var choices = temp.find('.choice').children();
                         if (choices.length > 52)
                             showMessage('Too much choices in question' + i + 1, 0);
                         for (var j = 0; j < choices.length; j++) {
                             var input = $(choices[j]).find('input');
-                            this.questions[i].answer[this.alphabet[j]] = input[0].value;
+                            q.answer[this.alphabet[j]] = input[0].value;
                             if (input[1].checked)
                                 this.correct[i].push(this.alphabet[j]);
                         }
@@ -97,18 +98,18 @@ const create = new Vue({
                         break;
                     case 2:
                         this.correct[i] = [];
-                        this.questions[i] = {'answer': {}};
-                        this.questions[i].question = {'content':{}};
-                        this.questions[i].question.title = temp.find('textarea').val();
-                        this.questions[i].type = 2;
-                        this.questions[i].option = null;
+                        q = {'answer': {}};
+                        q.question = {'content':{}};
+                        q.question.title = temp.find('textarea').val();
+                        q.type = 2;
+                        q.option = null;
                         // if (choices.length > 26)
                         //     showMessage('Too much pairs in question' + i + 1, 0);
                         var pairs = temp.find('.pairs').children();
                         for (var j = 0; j < pairs.length; j++) {
                             var input = $(pairs[j]).find('input');
-                            this.questions[i].question.content[j] = input[0].value;
-                            this.questions[i].answer[j] = input[1].value;
+                            q.question.content[j] = input[0].value;
+                            q.answer[j] = input[1].value;
                             // this.correct[i].push(this.alphabet[j])
                         }
                         break;
