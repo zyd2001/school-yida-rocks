@@ -546,7 +546,7 @@ function bindRemove() {
 
 // var match_pair = "<a class='remove_choice'><i class='fa fa-times mt-2 ml-4' aria-hidden='true'></i></a><input class='form-control col-md-5 mb-3 ml-3 mr-4' placeholder='" + messages['leftChoice'] + "'><input class='form-control col-md-5 mb-3 ml-5' placeholder='" + messages['rightChoice'] + "'>";
 var create = new Vue({
-    el: '#assignment_create',
+    el: '#create',
     data: {
         select_question_type: 0,
         alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
@@ -560,49 +560,61 @@ var create = new Vue({
         submit: function submit() {
             var questions = $('.question');
             for (var i = 0; i < questions.length; i++) {
-                var q = this.questions[i];
                 var temp = $(questions[i]);
                 var type = temp.attr('type');
                 switch (Number(type)) {
                     case 0:
                         this.correct[i] = [];
-                        q = { 'answer': {} };
-                        q.question = temp.find('textarea').val();
-                        q.type = 0;
-                        q.option = null;
+                        this.questions[i] = { 'answer': {} };
+                        this.questions[i].question = temp.find('textarea').val();
+                        this.questions[i].type = 0;
+                        this.questions[i].option = null;
                         var choices = temp.find('.choice').children();
                         if (choices.length > 52) showMessage('Too much choices in question' + i + 1, 0);
                         for (var j = 0; j < choices.length; j++) {
                             var input = $(choices[j]).find('input');
-                            q.answer[this.alphabet[j]] = input[0].value;
+                            this.questions[i].answer[this.alphabet[j]] = input[0].value;
                             if (input[1].checked) this.correct[i].push(this.alphabet[j]);
                         }
                         break;
                     case 1:
+                        this.questions[i] = {};
+                        this.questions[i].question = temp.find('textarea').val();
+                        this.correct[i] = temp.find('input').val();
+                        this.questions[i].type = 1;
+                        this.questions[i].option = null;
                         break;
                     case 2:
-                        this.correct[i] = [];
-                        q = { 'answer': {} };
-                        q.question = { 'content': {} };
-                        q.question.title = temp.find('textarea').val();
-                        q.type = 2;
-                        q.option = null;
+                        this.correct[i] = null;
+                        this.questions[i] = { 'answer': {} };
+                        this.questions[i].question = { 'content': {} };
+                        this.questions[i].question.title = temp.find('textarea').val();
+                        this.questions[i].type = 2;
+                        this.questions[i].option = null;
                         // if (choices.length > 26)
                         //     showMessage('Too much pairs in question' + i + 1, 0);
                         var pairs = temp.find('.pairs').children();
                         for (var j = 0; j < pairs.length; j++) {
                             var input = $(pairs[j]).find('input');
-                            q.question.content[j] = input[0].value;
-                            q.answer[j] = input[1].value;
+                            this.questions[i].question.content[j] = input[0].value;
+                            this.questions[i].answer[j] = input[1].value;
                             // this.correct[i].push(this.alphabet[j])
                         }
                         break;
                     case 3:
+                        this.questions[i] = {};
+                        this.correct[i] = null;
+                        this.questions[i].question = temp.find('textarea').val();
+                        this.questions[i].type = 3;
+                        this.questions[i].option = null;
                         break;
                 }
             }
-            console.log(this.questions);
-            console.log(this.correct);
+            var form = document.getElementById('submit_form');
+            form.children[1].value = JSON.stringify(this.questions);
+            form.children[2].value = JSON.stringify(this.correct);
+            form.children[3].value = "{\"open\":true,\"attempt\":3}";
+            form.submit();
         },
         addQuestion: function addQuestion() {
             var root = $('#all_questions');
