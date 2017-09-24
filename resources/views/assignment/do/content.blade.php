@@ -5,9 +5,13 @@
                 {{--multiple choice--}}
                 <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question }}</h6>
                 <div v-for="(choice, i) in question.answer">
-                    <label class="control control--radio">@{{ i }}.&nbsp;@{{ choice}}
+                    {{--<label class="control control--radio">@{{ i }}.&nbsp;@{{ choice}}--}}
+                        {{--<input type="radio" v-bind:name="index" v-bind:value="i"/>--}}
+                        {{--<div class="control__indicator"></div>--}}
+                    {{--</label>--}}
+                    <label>
                         <input type="radio" v-bind:name="index" v-bind:value="i"/>
-                        <div class="control__indicator"></div>
+                        @{{ i }}.&nbsp;@{{ choice }}
                     </label>
                 </div>
             </div>
@@ -28,6 +32,10 @@
                     </ul>
                 </div>
                 <input type="hidden" name="result">
+            </div>
+            <div v-else-if="question.type === 3" v-bind:id="index">
+                <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question }}</h6>
+                <textarea name="essay" class="form-control"></textarea>
             </div>
         </li>
     </ul>

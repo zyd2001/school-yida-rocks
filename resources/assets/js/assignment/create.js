@@ -63,7 +63,7 @@ const create = new Vue({
         select_question_type: 0,
         alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
         questions: {},
-        correct: {},
+        correct: [],
         index: 0,
         amount: 1,
     },

@@ -8,8 +8,8 @@
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        @if (auth()->check())
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            @if (auth()->check())
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="/home">Home</a>
@@ -44,12 +44,16 @@
                         <a v-on:click="getMessageAmount" href="#" class="navbar-brand dropdown-toggle" id="dropdownUser"
                            data-toggle="dropdown" aria-haspopup="true"
                            aria-expanded="true"><img src="{{ auth()->user()->avatar }}" width="30"
-                                                     height="30" id="user_avatar_display">&nbsp;{{ auth()->user()->name }}</a>
+                                                     height="30"
+                                                     id="user_avatar_display">&nbsp;{{ auth()->user()->name }}</a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
                             <a href="#" class="dropdown-item"><i class="fa fa-user fa-fw" aria-hidden="true"></i>&nbsp;Profile</a>
-                            <a href="/home/setting" class="dropdown-item"><i class="fa fa-sliders fa-fw" aria-hidden="true"></i>&nbsp;Setting</a>
-                            <a href="/home/messsage" class="dropdown-item"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i>&nbsp;Message&nbsp;<span v-if="messageAmount > 0" class="badge badge-pill badge-danger">@{{ messageAmount }}</span></a>
+                            <a href="/home/setting" class="dropdown-item"><i class="fa fa-sliders fa-fw"
+                                                                             aria-hidden="true"></i>&nbsp;Setting</a>
+                            <a href="/home/messsage" class="dropdown-item"><i class="fa fa-envelope fa-fw"
+                                                                              aria-hidden="true"></i>&nbsp;Message&nbsp;<span
+                                        v-if="messageAmount > 0" class="badge badge-pill badge-danger">@{{ messageAmount }}</span></a>
                             <div class="dropdown-divider"></div>
 
                             <form action="{{ route('logout') }}" method="post" id="logout-form">
@@ -64,15 +68,15 @@
                         </div>
                     </li>
                 </ul>
-            </div>
-        @else
-            <div class="ml-auto">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
-                    <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
-                </ul>
-            </div>
-        @endif
+            @else
+                <div class="ml-auto">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+                        <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
+                    </ul>
+                </div>
+            @endif
+        </div>
     </div>
 </nav>
 <!-- Modal -->

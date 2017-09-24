@@ -3,15 +3,15 @@
 <div id="create">
     <ul class="nav nav-tabs">
         <li class="nav-item">
-            <a class="nav-link active" id="create-tab" data-toggle="tab" href="#assignment_create" role="tab"
+            <a class="nav-link" id="create-tab" data-toggle="tab" href="#assignment_create" role="tab"
                aria-controls="assignment_create" aria-expanded="true">Create</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting">Setting</a>
+            <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting">Setting</a>
         </li>
     </ul>
     <div class="tab-content">
-        <div id="assignment_create" class="tab-pane fade show active">
+        <div id="assignment_create" class="tab-pane fade">
             <div class="mb-5 card question" type="0">
                 <h5 class="card-header">
                     <a class="remove_question"><i class="fa fa-times" aria-hidden="true"></i></a>
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </div>
-            <div id="setting" class="card tab-pane fade">
+            <div id="setting" class="card tab-pane fade show active">
                 <form action="/courses/{{ $course->id }}/assignments" method="post" id="submit_form">
                     {{ csrf_field() }}
                     <input type="hidden" name="questions">
