@@ -9,3 +9,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 .env
+pushAll.sh
+dump.rdb
+laravel-echo-server.json
