@@ -46,7 +46,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 70px;
             }
 
             .links > a {
@@ -78,10 +78,12 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    School
-                </div>
-
+                {{--<div class="title m-b-md">--}}
+                    {{--School--}}
+                {{--</div>--}}
+                <div class="title m-b-md">Still in construction</div>
+                <div class="title m-b-md">Go to my <a href="https://github.com/zyd2001/school-yida-rocks/tree/dev">repository</a> to see the progress</div>
+                <div class="title m-b md">Another project: <a href="https://github.com/zyd2001/NewBie">NewBie Lang</a></div>
 <!--                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
