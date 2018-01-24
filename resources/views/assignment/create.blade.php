@@ -4,10 +4,10 @@
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link" id="create-tab" data-toggle="tab" href="#assignment_create" role="tab"
-               aria-controls="assignment_create" aria-expanded="true">Create</a>
+               aria-controls="assignment_create" aria-expanded="true">{{ __('message.create') }}</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting">Setting</a>
+            <a class="nav-link active" id="setting-tab" data-toggle="tab" href="#setting" role="tab" aria-controls="setting">{{ __('message.setting') }}</a>
         </li>
     </ul>
     <div class="tab-content">
@@ -163,8 +163,8 @@
                     <input type="hidden" name="questions">
                     <input type="hidden" name="correct">
                     <input type="hidden" name="setting">
-                    <input type="text" name="name" placeholder="name">
-                    <input type="datetime-local" name="dueTime">
+                    <input required="required" class="settings" type="text" name="name" placeholder="name">
+                    <input required="required" class="settings" type="datetime-local" name="dueTime">
                 </form>
             </div>
         </div>

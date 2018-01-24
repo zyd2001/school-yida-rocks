@@ -60,5 +60,8 @@ return [
     'firstName' => 'First Name',
     'lastName' => 'Last Name',
     'checkEmail' => 'Linked Email Address',
+    'setting' => 'Settings',
+    'setting' => 'Create',
+
 
 ];

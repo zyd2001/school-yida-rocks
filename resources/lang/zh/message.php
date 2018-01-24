@@ -61,5 +61,7 @@ return [
     'firstName' => '名',
     'lastName' => '姓',
     'checkEmail' => '绑定的电子邮箱',
+    'setting' => '设置',
+    'create' => '创建',
 
 ];
