@@ -32,17 +32,15 @@ const create = new Vue({
         correct: [],
         index: 0,
         amount: 1,
-        settings: 0,
     },
     mounted: function () {
-        this.settings = $('.settings');
-
     },
     methods: {
         submit: function () {
-            for (var i = 0; i < this.settings.length; i++) {
-                if ($(this.settings[i]).val().length === 0) {
-                    showMessage('asdasd', 0);
+            var settings = $('.settings');
+            for (var i = 0; i < settings.length; i++) {
+                if ($(settings[i]).val().length === 0) {
+                    showMessage('settings', 0);
                     return;
                 }
             }
