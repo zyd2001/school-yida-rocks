@@ -63,5 +63,7 @@ return [
     'checkEmail' => '绑定的电子邮箱',
     'setting' => '设置',
     'create' => '创建',
+    'addBlank' => '添加一个空',
+    'blank' => '填空内容',
 
 ];

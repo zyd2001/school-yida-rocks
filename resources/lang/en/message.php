@@ -62,6 +62,8 @@ return [
     'checkEmail' => 'Linked Email Address',
     'setting' => 'Settings',
     'setting' => 'Create',
+    'addBlank' => 'Add a Blank',
+    'blank' => 'Blank',
 
 
 ];

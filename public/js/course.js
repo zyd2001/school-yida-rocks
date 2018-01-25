@@ -60,35 +60,35 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 33);
+/******/ 	return __webpack_require__(__webpack_require__.s = 36);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 33:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(34);
-
-
-/***/ }),
-
-/***/ 34:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(35);
-
-/***/ }),
-
-/***/ 35:
-/***/ (function(module, exports, __webpack_require__) {
-
-if (window.location.pathname.search('courses/[0-9]+') !== -1) __webpack_require__(36);
-if (window.location.pathname.search('courses/create') !== -1) __webpack_require__(37);
-
-/***/ }),
-
 /***/ 36:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(37);
+
+
+/***/ }),
+
+/***/ 37:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(38);
+
+/***/ }),
+
+/***/ 38:
+/***/ (function(module, exports, __webpack_require__) {
+
+if (window.location.pathname.search('courses/[0-9]+') !== -1) __webpack_require__(39);
+if (window.location.pathname.search('courses/create') !== -1) __webpack_require__(40);
+
+/***/ }),
+
+/***/ 39:
 /***/ (function(module, exports) {
 
 var course = new Vue({
@@ -142,7 +142,7 @@ var uploader = new Qiniu.UploaderBuilder().debug(false).button('upload_button').
 
 /***/ }),
 
-/***/ 37:
+/***/ 40:
 /***/ (function(module, exports) {
 
 

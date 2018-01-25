@@ -67,7 +67,8 @@
                     </div>
                     <button class="btn btn-outline-secondary pull-right add_choice">{{ __('message.addChoice')}}</button>
                 </div>
-            </div>
+            </div> <!--MCQ-->
+
             <div class="question mb-5 card" type="1">
                 <h5 class="card-header">
                     <a class="remove_question"><i class="fa fa-times"
@@ -77,12 +78,18 @@
                     <p class="col-md-7 ml-5 text-center">{{ __('message.prompt') }}</p>
                     <p class="col-md-4 ml-3 text-center">{{ __('message.answer') }}</p>
                 </div>
-                <div class="row"><textarea rows="3" class="form-control col-md-7 mb-3 ml-5"
-                                           placeholder="{{ __('message.fitbCreate') }}"></textarea><input
-                            placeholder="{{ __('message.answer') }}"
-                            class="form-control col-md-4 mb-3 ml-3">
+                <div class="row">
+                    <textarea rows="3" class="form-control col-md-7 mb-3 ml-5" placeholder="{{ __('message.fitbCreate') }}"></textarea>
+                    <!-- <input placeholder="{{ __('message.answer') }}" class="form-control col-md-4 mb-3 ml-3"> -->
+                    <div class="col-md-4 mb-3 ml-3 blanks">
+                        <button class="btn btn-outline-info w-100 mb-3 add_choice">{{ __('message.addBlank')}}</button>
+                        <div class="row" id="fitb_blank" aria-hidden="true" hidden="true"><i class="remove_blank fa fa-times ml-3"
+                                                                        style="margin-top: 0.65rem"></i><input
+                                    placeholder="{{ __('message.blank') }}" class="form-control col-md-10 mb-2 ml-2">
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </div> <!--FITB-->
             <div class="question mb-5 card" type="2">
                 <h5 class="card-header mb-3">
                     <a class="remove_question"><i class="fa fa-times"
@@ -124,7 +131,7 @@
                     <button class="btn btn-outline-secondary pull-right add_choice">{{ __('message.addMatch') }}
                     </button>
                 </div>
-            </div>
+            </div> <!--MATCHING-->
             <div class="question mb-5 card" type="3">
                 <h5 class="card-header mb-3">
                     <a class="remove_question"><i class="fa fa-times"
@@ -134,7 +141,7 @@
                 <div class="card-body"><textarea rows="6" class="form-control text-left col-md-12"
                                                  placeholder="{{ __('message.essayPrompt') }}"></textarea>
                 </div>
-            </div>
+            </div> <!--SRQ-->
             <div id="all_questions">
             </div>
 

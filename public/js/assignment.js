@@ -60,39 +60,39 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 24);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 21:
+/***/ 24:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(22);
+module.exports = __webpack_require__(25);
 
 
 /***/ }),
 
-/***/ 22:
+/***/ 25:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(23);
+__webpack_require__(26);
 
 /***/ }),
 
-/***/ 23:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 if (window.location.pathname.search('assignments/[0-9]+') !== -1) {
-    __webpack_require__(24);
-    __webpack_require__(25);
-    __webpack_require__(26);
+    __webpack_require__(27);
+    __webpack_require__(28);
+    __webpack_require__(29);
 }
-if (window.location.pathname.search('create+') !== -1) __webpack_require__(27);
+if (window.location.pathname.search('create+') !== -1) __webpack_require__(30);
 
 /***/ }),
 
-/***/ 24:
+/***/ 27:
 /***/ (function(module, exports) {
 
 var description = new Vue({
@@ -111,7 +111,7 @@ var description = new Vue({
 
 /***/ }),
 
-/***/ 25:
+/***/ 28:
 /***/ (function(module, exports) {
 
 var content = new Vue({
@@ -292,7 +292,7 @@ function draw(ctx, current, choice, c) {
 
 /***/ }),
 
-/***/ 26:
+/***/ 29:
 /***/ (function(module, exports) {
 
 var grade = new Vue({
@@ -326,7 +326,7 @@ $('#get_detail').on('click', function (event) {
 
 /***/ }),
 
-/***/ 27:
+/***/ 30:
 /***/ (function(module, exports) {
 
 if (window.innerWidth <= 800) showMessage('Please use PC or tablet', 0);
@@ -337,6 +337,8 @@ $(function () {
     template['questions'] = temp.clone();
     template['choice'] = $('#multiple_choice_choice').clone();
     template['pair'] = $('#matching_pair').clone();
+    template['blank'] = $('#fitb_blank').clone();
+    $(template['questions'][1]).children('#fitb_blank').remove();
     temp.remove();
 });
 
@@ -351,6 +353,11 @@ function bindRemove() {
             $(this).remove();
         });
     });
+    $('.remove_blank').on('click', function (event) {
+        $(event.target).parent().hide('fast', function () {
+            $(this).remove();
+        });
+    });
 }
 
 var create = new Vue({
@@ -361,17 +368,15 @@ var create = new Vue({
         questions: {},
         correct: [],
         index: 0,
-        amount: 1,
-        settings: 0
+        amount: 1
     },
-    mounted: function mounted() {
-        this.settings = $('.settings');
-    },
+    mounted: function mounted() {},
     methods: {
         submit: function submit() {
-            for (var i = 0; i < this.settings.length; i++) {
-                if ($(this.settings[i]).val().length === 0) {
-                    showMessage('asdasd', 0);
+            var settings = $('.settings');
+            for (var i = 0; i < settings.length; i++) {
+                if ($(settings[i]).val().length === 0) {
+                    showMessage('settings', 0);
                     return;
                 }
             }
@@ -448,6 +453,9 @@ var create = new Vue({
                 switch (Number(type)) {
                     case 0:
                         $(event.target).prev().append(template['choice'].clone());
+                        break;
+                    case 1:
+                        $(event.target).parents('.blanks').append(template['blank'].clone().attr('hidden', false));
                         break;
                     case 2:
                         $(event.target).siblings('.form-group-vertical').append(template['pair'].clone());

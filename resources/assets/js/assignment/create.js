@@ -7,6 +7,8 @@ $(function () {
     template['questions'] = temp.clone();
     template['choice'] = $('#multiple_choice_choice').clone();
     template['pair'] = $('#matching_pair').clone();
+    template['blank'] = $('#fitb_blank').clone();
+    $(template['questions'][1]).children('#fitb_blank').remove();
     temp.remove();
 });
 
@@ -18,6 +20,11 @@ function bindRemove() {
     });
     $('.remove_choice').on('click', function (event) {
         $(event.target).parents('.row').hide('fast', function () {
+            $(this).remove();
+        });
+    });
+    $('.remove_blank').on('click', function (event) {
+        $(event.target).parent().hide('fast', function () {
             $(this).remove();
         });
     });
@@ -40,7 +47,7 @@ const create = new Vue({
             var settings = $('.settings');
             for (var i = 0; i < settings.length; i++) {
                 if ($(settings[i]).val().length === 0) {
-                    showMessage('settings', 0);
+                      showMessage('settings', 0);
                     return;
                 }
             }
@@ -120,12 +127,15 @@ const create = new Vue({
                     case 0:
                         $(event.target).prev().append(template['choice'].clone());
                         break;
+                    case 1:
+                        $(event.target).parents('.blanks').append(template['blank'].clone().attr('hidden', false));
+                        break;                        
                     case 2:
                         $(event.target).siblings('.form-group-vertical').append(template['pair'].clone());
                         break;
                 }
                 bindRemove();
-            })
+            });         
         },
     },
 });

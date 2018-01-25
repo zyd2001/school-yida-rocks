@@ -60,35 +60,35 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 28:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(29);
-
-
-/***/ }),
-
-/***/ 29:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(30);
-
-/***/ }),
-
-/***/ 30:
-/***/ (function(module, exports, __webpack_require__) {
-
-if (window.location.pathname === '/home') __webpack_require__(31);
-if (window.location.pathname.search('setting+') !== -1) __webpack_require__(32);
-
-/***/ }),
-
 /***/ 31:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(32);
+
+
+/***/ }),
+
+/***/ 32:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(33);
+
+/***/ }),
+
+/***/ 33:
+/***/ (function(module, exports, __webpack_require__) {
+
+if (window.location.pathname === '/home') __webpack_require__(34);
+if (window.location.pathname.search('setting+') !== -1) __webpack_require__(35);
+
+/***/ }),
+
+/***/ 34:
 /***/ (function(module, exports) {
 
 /**
@@ -129,7 +129,7 @@ var assignments = new Vue({
 
 /***/ }),
 
-/***/ 32:
+/***/ 35:
 /***/ (function(module, exports) {
 
 var setting = new Vue({
