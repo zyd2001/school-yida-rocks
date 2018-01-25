@@ -12,7 +12,7 @@
     </ul>
     <div class="tab-content">
         <div id="assignment_create" class="tab-pane fade">
-            <div class="mb-5 card question" type="0">
+            <div class="mb-5 card question" type="multiple_choice">
                 <h5 class="card-header">
                     <a class="remove_question"><i class="fa fa-times" aria-hidden="true"></i></a>
                     &nbsp;{{ __('message.multipleChoiceQuestion') }}
@@ -69,7 +69,7 @@
                 </div>
             </div> <!--MCQ-->
 
-            <div class="question mb-5 card" type="1">
+            <div class="question mb-5 card" type="fill_in_the_blank">
                 <h5 class="card-header">
                     <a class="remove_question"><i class="fa fa-times"
                                                   aria-hidden="true"></i></a>&nbsp;{{ __('message.fitbQuestion') }}
@@ -79,7 +79,7 @@
                     <p class="col-md-4 ml-3 text-center">{{ __('message.answer') }}</p>
                 </div>
                 <div class="row">
-                    <textarea rows="3" class="form-control col-md-7 mb-3 ml-5" placeholder="{{ __('message.fitbCreate') }}"></textarea>
+                    <div rows="3" class="form-control col-md-7 mb-3 ml-5 fitb_prompt" placeholder="{{ __('message.fitbCreate') }}" contentEditable="true"></div>
                     <!-- <input placeholder="{{ __('message.answer') }}" class="form-control col-md-4 mb-3 ml-3"> -->
                     <div class="col-md-4 mb-3 ml-3 blanks">
                         <button class="btn btn-outline-info w-100 mb-3 add_choice">{{ __('message.addBlank')}}</button>
@@ -90,7 +90,7 @@
                     </div>
                 </div>
             </div> <!--FITB-->
-            <div class="question mb-5 card" type="2">
+            <div class="question mb-5 card" type="matching">
                 <h5 class="card-header mb-3">
                     <a class="remove_question"><i class="fa fa-times"
                                                   aria-hidden="true"></i></a>
@@ -132,7 +132,7 @@
                     </button>
                 </div>
             </div> <!--MATCHING-->
-            <div class="question mb-5 card" type="3">
+            <div class="question mb-5 card" type="short_answer">
                 <h5 class="card-header mb-3">
                     <a class="remove_question"><i class="fa fa-times"
                                                   aria-hidden="true"></i></a>
@@ -152,10 +152,10 @@
                         &nbsp;</label>
                     <div class="row ml-3">
                         <select class="custom-select col-md-6" v-model="select_question_type">
-                            <option value="0">{{ __('message.multipleChoiceQuestion')}}</option>
-                            <option value="1">{{ __('message.fitbQuestion')}}</option>
-                            <option value="2">{{ __('message.matchingQuestions')}}</option>
-                            <option value="3">{{ __('message.essayQuestion')}}</option>
+                            <option value="multiple_choice">{{ __('message.multipleChoiceQuestion')}}</option>
+                            <option value="fill_in_the_blank">{{ __('message.fitbQuestion')}}</option>
+                            <option value="matching">{{ __('message.matchingQuestions')}}</option>
+                            <option value="short_answer">{{ __('message.essayQuestion')}}</option>
                         </select>
                         <input type="number" v-model="amount">
                         <button class="btn btn-outline-info col-md-3"
@@ -177,23 +177,5 @@
         </div>
         <br>
         <button class="btn btn-outline-primary pull-right" v-on:click="submit">Submit</button>
-
-    {{--<div class="hidden">--}}
-    {{--<span name="multipleChoiceQuestion">{{ __('message.multipleChoiceQuestion')}}</span>--}}
-    {{--<span name="fitbQuestion">{{ __('message.fitbQuestion')}}</span>--}}
-    {{--<span name="matchingQuestions">{{ __('message.matchingQuestions')}}</span>--}}
-    {{--<span name="essayQuestion">{{ __('message.essayQuestion')}}</span>--}}
-    {{--<span name="leftChoice">{{ __('message.leftChoice')}}</span>--}}
-    {{--<span name="rightChoice">{{ __('message.rightChoice')}}</span>--}}
-    {{--<span name="essayPrompt">{{ __('message.essayPrompt')}}</span>--}}
-    {{--<span name="choices">{{ __('message.choices')}}</span>--}}
-    {{--<span name="prompt">{{ __('message.prompt')}}</span>--}}
-    {{--<span name="answer">{{ __('message.answer')}}</span>--}}
-    {{--<span name="fitbCreate">{{ __('message.fitbCreate')}}</span>--}}
-    {{--<span name="correct">{{ __('message.correct')}}</span>--}}
-    {{--<span name="choice">{{ __('message.answer')}}</span>--}}
-    {{--<span name="multipleChoiceCreate">{{ __('message.multipleChoiceCreate')}}</span>--}}
-    {{--<span name="addChoice">{{ __('message.addChoice')}}</span>--}}
-    {{--<span name="addMatch">{{ __('message.addMatch')}}</span>--}}
 </div>
 @endsection

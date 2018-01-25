@@ -8,6 +8,10 @@ $(function () {
     template['choice'] = $('#multiple_choice_choice').clone();
     template['pair'] = $('#matching_pair').clone();
     template['blank'] = $('#fitb_blank').clone();
+    template['questions']['multiple_choice'] = template['questions'][0];
+    template['questions']['fill_in_the_blank'] = template['questions'][1];
+    template['questions']['matching'] = template['questions'][2];
+    template['questions']['short_answer'] = template['questions'][3];
     $(template['questions'][1]).children('#fitb_blank').remove();
     temp.remove();
 });
@@ -33,7 +37,7 @@ function bindRemove() {
 const create = new Vue({
     el: '#create',
     data: {
-        select_question_type: 0,
+        select_question_type: 'multiple_choice',
         alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
         questions: {},
         correct: [],
@@ -47,7 +51,7 @@ const create = new Vue({
             var settings = $('.settings');
             for (var i = 0; i < settings.length; i++) {
                 if ($(settings[i]).val().length === 0) {
-                      showMessage('settings', 0);
+                    showMessage('settings', 0);
                     return;
                 }
             }
@@ -55,8 +59,8 @@ const create = new Vue({
             for (var i = 0; i < questions.length; i++) {
                 var temp = $(questions[i]);
                 var type = temp.attr('type');
-                switch (Number(type)) {
-                    case 0:
+                switch (type) {
+                    case 'multiple_choice':
                         this.correct[i] = [];
                         this.questions[i] = {'answer': {}};
                         this.questions[i].question = temp.find('textarea').val();
@@ -73,7 +77,7 @@ const create = new Vue({
                         }
                         break; //Case 0: MCQ
 
-                    case 1:
+                    case 'fill_in_the_blank':
                         this.questions[i] = {};
                         this.questions[i].question = temp.find('textarea').val();
                         this.correct[i] = temp.find('input').val();
@@ -81,7 +85,7 @@ const create = new Vue({
                         this.questions[i].option = null;
                         break; //Case 1: Fill-in-the-blank Questions
 
-                    case 2:
+                    case 'matching':
                         this.correct[i] = null;
                         this.questions[i] = {'answer': {}};
                         this.questions[i].question = {'content':{}};
@@ -99,7 +103,7 @@ const create = new Vue({
                         }
                         break; //Case 2: Matching Questions
 
-                    case 3:
+                    case 'short_answer':
                         this.questions[i] = {};
                         this.correct[i] = null;
                         this.questions[i].question = temp.find('textarea').val();
@@ -117,20 +121,51 @@ const create = new Vue({
         addQuestion: function () {
             var root = $('#all_questions');
             for (var i = 0; i < this.amount; i++) {
-                root.append($(template['questions'][this.select_question_type]).clone().attr('index', this.index));
+                var newNode = $(template['questions'][this.select_question_type]).clone().attr('index', this.index);
+                if (this.select_question_type == 'fill_in_the_blank')
+                    newNode.children().children('.fitb_prompt').on('keydown', (event) => {
+                        switch (event.originalEvent.key)
+                        {
+                            case 'BackSpace':
+                            case 'Enter':
+                                break;
+                        }
+                    });
+                root.append(newNode);
                 this.index++;
             }
             bindRemove();
             $('.add_choice').on('click', function (event) {
                 var type = $(event.target).parents('.card').attr('type');
-                switch (Number(type)) {
-                    case 0:
+                switch (type) {
+                    case 'multiple_choice':
                         $(event.target).prev().append(template['choice'].clone());
                         break;
-                    case 1:
-                        $(event.target).parents('.blanks').append(template['blank'].clone().attr('hidden', false));
-                        break;                        
-                    case 2:
+                    case 'fill_in_the_blank':
+                        var selection = getSelection();
+                        var anchorNodeIndex = event.target.childNodes.indexOf(selection.anchorNode);
+                        if (anchorNodeIndex === -1)
+                        {
+                            showMessage('Please set ...', 0);
+                            break;
+                        }
+                        else
+                        {
+                            if (selection.isCollapsed)
+                            {
+                                event.target.childNodes[anchorNodeIndex];
+                            }
+                            else
+                            {
+
+                            }
+                            $(event.target).parents('.blanks').append(template['blank'].clone().attr('hidden', false).on('input', () => {
+                                // sync the input
+                                
+                            }));
+                            break;
+                        }
+                    case 'matching':
                         $(event.target).siblings('.form-group-vertical').append(template['pair'].clone());
                         break;
                 }
