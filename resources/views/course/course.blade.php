@@ -72,6 +72,9 @@
 	<li class="nav-item">
 		<a class="nav-link" id="assignments-tab" data-toggle="tab" href="#assignments" role="tab" aria-controls="assignments">{{ __('message.assignments') }}</a>
 	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="grades-tab" data-toggle="tab" href="#grades" role="tab" aria-controls="grades">{{ __('message.grades') }}</a>
+	</li>	
 {{--	@if(auth()->user()->isTeacher) --}}
 	<li class="nav-item">
 		<a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings">{{ __('message.settings') }}</a>
@@ -90,6 +93,9 @@
 	</div>
 	<div class="tab-pane fade" id="assignments" role="tabpanel" aria-labelledby="assignments-tab">
 		@include('course.course.assignments')
+	</div>
+	<div class="tab-pane fade" id="grades" role="tabpanel" aria-labelledby="assignments-tab">
+		@include('course.course.grades')
 	</div>
 {{--	@if(auth()->user()->isTeacher) --}}
 		<div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">

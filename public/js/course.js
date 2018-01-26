@@ -96,15 +96,27 @@ var course = new Vue({
     data: {
         assignments: null,
         status: 1,
-        avatar: ""
+        avatar: "",
+        timeNow: null
     },
     mounted: function mounted() {
         var self = this;
         axios.get('/courses/' + document.getElementsByTagName('meta')['id'].content + '/assignments').then(function (res) {
-            console.log(res);
             if (res.data.length === 0) self.status = 0;
             for (var i in res.data) {
-                res.data[i].dueTime = res.data[i].dueTime.split(' ');
+                var dueTime = Date.parse(res.data[i].dueTime);
+                res.data[i].dueTime = res.data[i].dueTime.split('T');
+                try {
+                    this.timeNow = Date.now();
+                    console.log(dueTime - this.timeNow);
+                    var diff = dueTime - this.timeNow;
+                    if (diff > 0) {
+                        res.data[i].dueTime['upcoming'] = 1;
+                    } else {
+                        res.data[i].dueTime['upcoming'] = 0;
+                    }
+                    console.log(res.data[i].dueTime['upcoming']);
+                } catch (e) {}
             }
             self.assignments = res.data;
         });
