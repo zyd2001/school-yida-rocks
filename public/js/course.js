@@ -94,7 +94,20 @@ if (window.location.pathname.search('courses/create') !== -1) __webpack_require_
 var course = new Vue({
     el: "#course",
     data: {
+        assignments: null,
+        status: 1,
         avatar: ""
+    },
+    mounted: function mounted() {
+        var self = this;
+        axios.get('/courses/' + document.getElementsByTagName('meta')['id'].content + '/assignments').then(function (res) {
+            console.log(res);
+            if (res.data.length === 0) self.status = 0;
+            for (var i in res.data) {
+                res.data[i].dueTime = res.data[i].dueTime.split(' ');
+            }
+            self.assignments = res.data;
+        });
     }
 });
 

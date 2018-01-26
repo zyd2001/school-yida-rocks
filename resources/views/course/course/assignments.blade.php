@@ -1,12 +1,10 @@
 <ul class="list-group list-group-flush">
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
-	<li class="list-group-item"></li>
+    <a v-cloak v-for="assignment in assignments" class="list-group-item"
+       v-bind:href="'/assignments/' + assignment.id">
+           <div class="row"><div class="col my-auto">@{{ assignment.name }}</div>
+            <span style="font-size: 0.8rem" class="text-muted ml-auto">due:&nbsp;</span>
+            <span style="font-size: 0.65rem" class="text-muted order-2">@{{ assignment.dueTime[0] }}<br>&nbsp;@{{ assignment.dueTime[1] }}</span>
+        </div>
+    </a>
+    <li v-cloak v-if="status === 0" class="list-group-item">No Assignment</li>
 </ul>
