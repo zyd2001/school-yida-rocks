@@ -63,7 +63,7 @@ return [
     'setting' => 'Settings',
     'setting' => 'Create',
     'addBlank' => 'Add a Blank',
-    'blank' => 'Blank',
+    'blank' => 'Blank'
 
 
 ];

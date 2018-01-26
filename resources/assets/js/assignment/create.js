@@ -13,6 +13,7 @@ $(function () {
     template['questions']['matching'] = template['questions'][2];
     template['questions']['short_answer'] = template['questions'][3];
     $(template['questions'][1]).children('#fitb_blank').remove();
+    $(template['questions'][0]).find('#multiple_choice_choice').remove();
     temp.remove();
 });
 
@@ -131,6 +132,17 @@ const create = new Vue({
                                 break;
                         }
                     });
+                if (this.select_question_type == 'multiple_choice') {
+                    newNode.attr('count', 4);
+                    for (var i = 0; i < 4; i++) {
+                        var id = this.index + '_' + i;
+                        console.log(id);
+                        var temp = template['choice'].clone();
+                        temp.find('.custom-control-input').attr('id', id);
+                        temp.find('.custom-control-label').attr('for', id);
+                        newNode.find('.choice').append(temp);
+                    }
+                }
                 root.append(newNode);
                 this.index++;
             }
@@ -139,7 +151,17 @@ const create = new Vue({
                 var type = $(event.target).parents('.card').attr('type');
                 switch (type) {
                     case 'multiple_choice':
-                        $(event.target).prev().append(template['choice'].clone());
+                        var questionIndex = $(event.target).parents('.question').attr('index');
+                        var choiceIndex = $(event.target).parents('.question').attr('count');
+                        console.log(questionIndex + " " + choiceIndex);
+                        var temp = template['choice'].clone();
+                        var id = questionIndex + '_' + choiceIndex
+                        temp.find('.custom-control-input').attr('id', id);
+                        console.log(temp.find('.custom-control-input').attr('id'));
+                        temp.find('.custom-control-label').attr('for', id);
+                        $(event.target).prev().append(temp);
+                        choiceIndex++;
+                        $(event.target).parents('.question').attr('count', choiceIndex);
                         break;
                     case 'fill_in_the_blank':
                         var selection = getSelection();

@@ -29,41 +29,11 @@
                                                                         aria-hidden="true"
                                                                         style="margin-top: 0.65rem"></i><input
                                     placeholder="{{ __('message.choice') }}" class="form-control col-md-10 mb-3 ml-2">
-                            <label class="custom-control custom-checkbox ml-5" style="margin-top: 0.4rem"><input
-                                        class="custom-control-input col-md-2" type="checkbox"><span
-                                        class="custom-control-indicator"></span>
-                                <span class="custom-control-description"></span>
-                            </label>
-                        </div>
-                        <div class="row"><i class="remove_choice fa fa-times ml-3" aria-hidden="true"
-                                            style="margin-top: 0.65rem"></i><input
-                                    placeholder="{{ __('message.choice') }}" class="form-control col-md-10 mb-3 ml-2">
-                            <label
-                                    class="custom-control custom-checkbox ml-5" style="margin-top: 0.4rem"><input
-                                        class="custom-control-input col-md-2" type="checkbox"><span
-                                        class="custom-control-indicator"></span>
-                                <span
-                                        class="custom-control-description"></span>
-                            </label>
-                        </div>
-                        <div class="row"><i class="remove_choice fa fa-times ml-3" aria-hidden="true"
-                                            style="margin-top: 0.65rem"></i><input
-                                    placeholder="{{ __('message.choice') }}" class="form-control col-md-10 mb-3 ml-2">
-                            <label class="custom-control custom-checkbox ml-5" style="margin-top: 0.4rem"><input
-                                        class="custom-control-input col-md-2" type="checkbox"><span
-                                        class="custom-control-indicator"></span>
-                                <span class="custom-control-description"></span>
-                            </label>
-                        </div>
-                        <div class="row"><i class="remove_choice fa fa-times ml-3" aria-hidden="true"
-                                            style="margin-top: 0.65rem"></i><input
-                                    placeholder="{{ __('message.choice') }}" class="form-control col-md-10 mb-3 ml-2">
-                            <label class="custom-control custom-checkbox ml-5" style="margin-top: 0.4rem"><input
-                                        class="custom-control-input col-md-2" type="checkbox"><span
-                                        class="custom-control-indicator"></span>
-                                <span class="custom-control-description"></span>
-                            </label>
-                        </div>
+                            <div class="custom-control custom-checkbox ml-5" style="margin-top: 0.4rem">
+                                <input type="checkbox" class="custom-control-input">
+                                <label class="custom-control-label"></label>
+                            </div>
+                        </div>                                                                       
                     </div>
                     <button class="btn btn-outline-secondary pull-right add_choice">{{ __('message.addChoice')}}</button>
                 </div>
