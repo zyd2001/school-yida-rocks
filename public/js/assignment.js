@@ -346,6 +346,41 @@ $(function () {
     temp.remove();
 });
 
+function rerender() {
+    this.innerHTML = '';
+    var blanksIndex = 0;
+    var _iteratorNormalCompletion = true;
+    var _didIteratorError = false;
+    var _iteratorError = undefined;
+
+    try {
+        for (var _iterator = this.slices[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var str = _step.value;
+
+            if (str[str.length - 1] == '\n') this.innerHTML += str.replace(/\n/g, '<br>');else {
+                this.innerHTML += str;
+                if (blanksIndex < this.blanks.length) {
+                    this.innerHTML += '<span style="color:blue;text-decoration:underline"> ' + (this.blanks[blanksIndex].length > 0 ? this.blanks[blanksIndex] : '_') + ' </span>';
+                    blanksIndex++;
+                }
+            }
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally {
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return) {
+                _iterator.return();
+            }
+        } finally {
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+}
+
 function bindRemove() {
     $('.remove_question').on('click', function (event) {
         $(event.target).parents('.question').hide('fast', function () {
@@ -378,64 +413,64 @@ var create = new Vue({
     methods: {
         submit: function submit() {
             var settings = $('.settings');
-            for (var i = 0; i < settings.length; i++) {
-                if ($(settings[i]).val().length === 0) {
+            for (var _i = 0; _i < settings.length; _i++) {
+                if ($(settings[_i]).val().length === 0) {
                     showMessage('settings', 0);
                     return;
                 }
             }
             var questions = $('.question');
-            for (var i = 0; i < questions.length; i++) {
-                var temp = $(questions[i]);
+            for (var _i2 = 0; _i2 < questions.length; _i2++) {
+                var temp = $(questions[_i2]);
                 var type = temp.attr('type');
                 switch (type) {
                     case 'multiple_choice':
-                        this.correct[i] = [];
-                        this.questions[i] = { 'answer': {} };
-                        this.questions[i].question = temp.find('textarea').val();
-                        this.questions[i].type = 0;
-                        this.questions[i].option = null;
+                        this.correct[_i2] = [];
+                        this.questions[_i2] = { 'answer': {} };
+                        this.questions[_i2].question = temp.find('textarea').val();
+                        this.questions[_i2].type = 0;
+                        this.questions[_i2].option = null;
                         var choices = temp.find('.choice').children();
-                        if (choices.length > 52) showMessage('Too much choices in question' + i + 1, 0);
+                        if (choices.length > 52) showMessage('Too much choices in question' + _i2 + 1, 0);
                         for (var j = 0; j < choices.length; j++) {
                             var input = $(choices[j]).find('input');
-                            this.questions[i].answer[this.alphabet[j]] = input[0].value;
-                            if (input[1].checked) this.correct[i].push(this.alphabet[j]);
+                            this.questions[_i2].answer[this.alphabet[j]] = input[0].value;
+                            if (input[1].checked) this.correct[_i2].push(this.alphabet[j]);
                         }
                         break; //Case 0: MCQ
 
                     case 'fill_in_the_blank':
-                        this.questions[i] = {};
-                        this.questions[i].question = temp.find('textarea').val();
-                        this.correct[i] = temp.find('input').val();
-                        this.questions[i].type = 1;
-                        this.questions[i].option = null;
+                        this.questions[_i2] = {};
+                        this.questions[_i2].question = temp.find('textarea').val();
+                        this.correct[_i2] = temp.find('input').val();
+                        this.questions[_i2].type = 1;
+                        this.questions[_i2].option = null;
                         break; //Case 1: Fill-in-the-blank Questions
 
                     case 'matching':
-                        this.correct[i] = null;
-                        this.questions[i] = { 'answer': {} };
-                        this.questions[i].question = { 'content': {} };
-                        this.questions[i].question.title = temp.find('textarea').val();
-                        this.questions[i].type = 2;
-                        this.questions[i].option = null;
+                        this.correct[_i2] = null;
+                        this.questions[_i2] = { 'answer': {} };
+                        this.questions[_i2].question = { 'content': {} };
+                        this.questions[_i2].question.title = temp.find('textarea').val();
+                        this.questions[_i2].type = 2;
+                        this.questions[_i2].option = null;
                         // if (choices.length > 26)
                         //     showMessage('Too much pairs in question' + i + 1, 0);
                         var pairs = temp.find('.pairs').children();
-                        for (var j = 0; j < pairs.length; j++) {
-                            var input = $(pairs[j]).find('input');
-                            this.questions[i].question.content[j] = input[0].value;
-                            this.questions[i].answer[j] = input[1].value;
+                        for (var _j = 0; _j < pairs.length; _j++) {
+                            var _input = $(pairs[_j]).find('input');
+                            this.questions[_i2].question.content[_j] = _input[0].value;
+                            this.questions[_i2].answer[_j] = _input[1].value;
                             // this.correct[i].push(this.alphabet[j])
                         }
                         break; //Case 2: Matching Questions
 
                     case 'short_answer':
-                        this.questions[i] = {};
-                        this.correct[i] = null;
-                        this.questions[i].question = temp.find('textarea').val();
-                        this.questions[i].type = 3;
-                        this.questions[i].option = null;
+                        this.questions[_i2] = {};
+                        this.correct[_i2] = null;
+                        this.questions[_i2].question = temp.find('textarea').val();
+                        this.questions[_i2].type = 3;
+                        this.questions[_i2].option = null;
                         break; //Case 3: Short Answer Question
                 }
             }
@@ -447,15 +482,30 @@ var create = new Vue({
         },
         addQuestion: function addQuestion() {
             var root = $('#all_questions');
-            for (var i = 0; i < this.amount; i++) {
+            for (var _i3 = 0; _i3 < this.amount; _i3++) {
                 var newNode = $(template['questions'][this.select_question_type]).clone().attr('index', this.index);
-                if (this.select_question_type == 'fill_in_the_blank') newNode.children().children('.fitb_prompt').on('keydown', function (event) {
-                    switch (event.originalEvent.key) {
-                        case 'BackSpace':
-                        case 'Enter':
-                            break;
-                    }
-                });
+                if (this.select_question_type == 'fill_in_the_blank') {
+                    newNode.children().children('.fitb_prompt').on('keydown', function (event) {
+                        if (getSelection().anchorNode.parentNode !== event.target && getSelection().anchorNode !== event.target) {
+                            showMessage("don't modify blank", 0);
+                            event.preventDefault();
+                        }
+                    });
+                    newNode.children().children('.fitb_prompt').on('input', function (event) {
+                        if (event.target.slices && getSelection().anchorNode.parentNode === event.target) {
+                            if (event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)][event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)].length - 1] == '\n') event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)] = getSelection().anchorNode.wholeText + '\n';else event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)] = getSelection().anchorNode.wholeText;
+                        }
+                    });
+                    newNode.children().children('.fitb_prompt')[0].rerender = rerender;
+                    newNode.children().children('.fitb_prompt')[0].blanksCount = 0;
+                    newNode.children().children('.fitb_prompt')[0].childNodes.indexOf = function (node) {
+                        var index = 0;
+                        for (var _i4 = 0; _i4 < this.length; _i4++) {
+                            if (this[_i4].nodeName != '#text') continue;else if (this[_i4] === node) return index;else index++;
+                        }
+                        return -1;
+                    };
+                }
                 root.append(newNode);
                 this.index++;
             }
@@ -468,18 +518,37 @@ var create = new Vue({
                         break;
                     case 'fill_in_the_blank':
                         var selection = getSelection();
-                        var anchorNodeIndex = event.target.childNodes.indexOf(selection.anchorNode);
+                        var prompt = event.target.parentNode.previousElementSibling;
+                        var anchorNodeIndex = prompt.childNodes.indexOf(selection.anchorNode);
                         if (anchorNodeIndex === -1) {
                             showMessage('Please set ...', 0);
                             break;
                         } else {
                             if (selection.isCollapsed) {
-                                event.target.childNodes[anchorNodeIndex];
+                                if (!prompt.blanks) {
+                                    prompt.slices = prompt.innerText.split('\n');
+                                    for (i in prompt.slices) {
+                                        prompt.slices[i] += '\n';
+                                    }prompt.slices.splice(anchorNodeIndex + 1, 0, prompt.slices[anchorNodeIndex].slice(selection.anchorOffset));
+                                    prompt.slices[anchorNodeIndex] = prompt.slices[anchorNodeIndex].slice(0, selection.anchorOffset);
+                                    prompt.blanks = [];
+                                    prompt.blanks[prompt.blanksCount] = '_';
+                                    prompt.rerender();
+                                } else {
+                                    prompt.slices.splice(anchorNodeIndex + 1, 0, prompt.slices[anchorNodeIndex].slice(selection.anchorOffset));
+                                    prompt.slices[anchorNodeIndex] = prompt.slices[anchorNodeIndex].slice(0, selection.anchorOffset);
+                                    prompt.blanks[prompt.blanksCount] = '_';
+                                    prompt.rerender();
+                                }
                             } else {}
-                            $(event.target).parents('.blanks').append(template['blank'].clone().attr('hidden', false).on('input', function () {
+                            var newBlank = template['blank'].clone().attr('hidden', false).on('input', function (event) {
                                 // sync the input
-
-                            }));
+                                prompt.blanks[event.target.thisBlankIndex] = $(event.target).val();
+                                prompt.rerender();
+                            });
+                            newBlank[0].childNodes[1].thisBlankIndex = prompt.blanksCount;
+                            $(event.target).parents('.blanks').append(newBlank);
+                            prompt.blanksCount++;
                             break;
                         }
                     case 'matching':

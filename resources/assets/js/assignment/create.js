@@ -1,9 +1,9 @@
 if (window.innerWidth <= 800)
     showMessage('Please use PC or tablet', 0);
 
-var template = [];
+let template = [];
 $(function () {
-    var temp = $('.question');
+    let temp = $('.question');
     template['questions'] = temp.clone();
     template['choice'] = $('#multiple_choice_choice').clone();
     template['pair'] = $('#matching_pair').clone();
@@ -15,6 +15,26 @@ $(function () {
     $(template['questions'][1]).children('#fitb_blank').remove();
     temp.remove();
 });
+
+function rerender()
+{
+    this.innerHTML = '';
+    let blanksIndex = 0;
+    for (let str of this.slices)
+    {
+        if (str[str.length - 1] == '\n')
+            this.innerHTML += str.replace(/\n/g, '<br>');
+        else 
+        {
+            this.innerHTML += str;
+            if (blanksIndex < this.blanks.length)
+            {
+                this.innerHTML += '<span style="color:blue;text-decoration:underline"> ' + (this.blanks[blanksIndex].length > 0 ? this.blanks[blanksIndex] : '_') + ' </span>';
+                blanksIndex++;
+            }
+        }
+    }
+}
 
 function bindRemove() {
     $('.remove_question').on('click', function (event) {
@@ -48,17 +68,17 @@ const create = new Vue({
     },
     methods: {
         submit: function () {
-            var settings = $('.settings');
-            for (var i = 0; i < settings.length; i++) {
+            let settings = $('.settings');
+            for (let i = 0; i < settings.length; i++) {
                 if ($(settings[i]).val().length === 0) {
                     showMessage('settings', 0);
                     return;
                 }
             }
-            var questions = $('.question');
-            for (var i = 0; i < questions.length; i++) {
-                var temp = $(questions[i]);
-                var type = temp.attr('type');
+            let questions = $('.question');
+            for (let i = 0; i < questions.length; i++) {
+                let temp = $(questions[i]);
+                let type = temp.attr('type');
                 switch (type) {
                     case 'multiple_choice':
                         this.correct[i] = [];
@@ -66,11 +86,11 @@ const create = new Vue({
                         this.questions[i].question = temp.find('textarea').val();
                         this.questions[i].type = 0;
                         this.questions[i].option = null;
-                        var choices = temp.find('.choice').children();
+                        let choices = temp.find('.choice').children();
                         if (choices.length > 52)
                             showMessage('Too much choices in question' + i + 1, 0);
-                        for (var j = 0; j < choices.length; j++) {
-                            var input = $(choices[j]).find('input');
+                        for (let j = 0; j < choices.length; j++) {
+                            let input = $(choices[j]).find('input');
                             this.questions[i].answer[this.alphabet[j]] = input[0].value;
                             if (input[1].checked)
                                 this.correct[i].push(this.alphabet[j]);
@@ -94,9 +114,9 @@ const create = new Vue({
                         this.questions[i].option = null;
                         // if (choices.length > 26)
                         //     showMessage('Too much pairs in question' + i + 1, 0);
-                        var pairs = temp.find('.pairs').children();
-                        for (var j = 0; j < pairs.length; j++) {
-                            var input = $(pairs[j]).find('input');
+                        let pairs = temp.find('.pairs').children();
+                        for (let j = 0; j < pairs.length; j++) {
+                            let input = $(pairs[j]).find('input');
                             this.questions[i].question.content[j] = input[0].value;
                             this.questions[i].answer[j] = input[1].value;
                             // this.correct[i].push(this.alphabet[j])
@@ -112,38 +132,64 @@ const create = new Vue({
                         break; //Case 3: Short Answer Question
                 }
             }
-            var form = document.getElementById('submit_form');
+            let form = document.getElementById('submit_form');
             form.children[1].value = JSON.stringify(this.questions);
             form.children[2].value = JSON.stringify(this.correct);
             form.children[3].value = "{\"open\":true,\"attempt\":3}";
             form.submit();
         },
         addQuestion: function () {
-            var root = $('#all_questions');
-            for (var i = 0; i < this.amount; i++) {
-                var newNode = $(template['questions'][this.select_question_type]).clone().attr('index', this.index);
+            let root = $('#all_questions');
+            for (let i = 0; i < this.amount; i++) {
+                let newNode = $(template['questions'][this.select_question_type]).clone().attr('index', this.index);
                 if (this.select_question_type == 'fill_in_the_blank')
+                {
                     newNode.children().children('.fitb_prompt').on('keydown', (event) => {
-                        switch (event.originalEvent.key)
+                        if (getSelection().anchorNode.parentNode !== event.target && getSelection().anchorNode !== event.target)
                         {
-                            case 'BackSpace':
-                            case 'Enter':
-                                break;
+                            showMessage("don't modify blank", 0);
+                            event.preventDefault();
                         }
                     });
+                    newNode.children().children('.fitb_prompt').on('input', (event) => {
+                        if (event.target.slices && getSelection().anchorNode.parentNode === event.target)
+                        {
+                            if (event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)][event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)].length - 1] == '\n')
+                                event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)] = getSelection().anchorNode.wholeText + '\n';
+                            else
+                                event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)] = getSelection().anchorNode.wholeText;
+                        }
+                    })
+                    newNode.children().children('.fitb_prompt')[0].rerender = rerender;
+                    newNode.children().children('.fitb_prompt')[0].blanksCount = 0;                
+                    newNode.children().children('.fitb_prompt')[0].childNodes.indexOf = function (node) {
+                        let index = 0;
+                        for (let i = 0; i < this.length; i++)
+                        {
+                            if (this[i].nodeName != '#text')
+                                continue;
+                            else if (this[i] === node)
+                                return index;
+                            else
+                                index++;
+                        }
+                        return -1;
+                    };
+                }
                 root.append(newNode);
                 this.index++;
             }
             bindRemove();
             $('.add_choice').on('click', function (event) {
-                var type = $(event.target).parents('.card').attr('type');
+                let type = $(event.target).parents('.card').attr('type');
                 switch (type) {
                     case 'multiple_choice':
                         $(event.target).prev().append(template['choice'].clone());
                         break;
                     case 'fill_in_the_blank':
-                        var selection = getSelection();
-                        var anchorNodeIndex = event.target.childNodes.indexOf(selection.anchorNode);
+                        let selection = getSelection();
+                        let prompt = event.target.parentNode.previousElementSibling;
+                        let anchorNodeIndex = prompt.childNodes.indexOf(selection.anchorNode);
                         if (anchorNodeIndex === -1)
                         {
                             showMessage('Please set ...', 0);
@@ -153,16 +199,37 @@ const create = new Vue({
                         {
                             if (selection.isCollapsed)
                             {
-                                event.target.childNodes[anchorNodeIndex];
+                                if (!prompt.blanks)
+                                {
+                                    prompt.slices = prompt.innerText.split('\n');
+                                    for (i in prompt.slices)
+                                        prompt.slices[i] += '\n'
+                                    prompt.slices.splice(anchorNodeIndex + 1, 0, prompt.slices[anchorNodeIndex].slice(selection.anchorOffset));
+                                    prompt.slices[anchorNodeIndex] = prompt.slices[anchorNodeIndex].slice(0, selection.anchorOffset);
+                                    prompt.blanks = [];
+                                    prompt.blanks[prompt.blanksCount] = '_';
+                                    prompt.rerender();
+                                }
+                                else
+                                {
+                                    prompt.slices.splice(anchorNodeIndex + 1, 0, prompt.slices[anchorNodeIndex].slice(selection.anchorOffset));
+                                    prompt.slices[anchorNodeIndex] = prompt.slices[anchorNodeIndex].slice(0, selection.anchorOffset);
+                                    prompt.blanks[prompt.blanksCount] = '_';
+                                    prompt.rerender();
+                                }
                             }
                             else
                             {
-
-                            }
-                            $(event.target).parents('.blanks').append(template['blank'].clone().attr('hidden', false).on('input', () => {
-                                // sync the input
                                 
-                            }));
+                            }
+                            let newBlank = template['blank'].clone().attr('hidden', false).on('input', (event) => {
+                                // sync the input
+                                prompt.blanks[event.target.thisBlankIndex] = $(event.target).val();
+                                prompt.rerender();
+                            })
+                            newBlank[0].childNodes[1].thisBlankIndex = prompt.blanksCount;
+                            $(event.target).parents('.blanks').append(newBlank);
+                            prompt.blanksCount++;                            
                             break;
                         }
                     case 'matching':

@@ -1,4 +1,4 @@
-var vue = [];
+let vue = [];
 
 window.onerror = function (msg, url, line) {
     localStorage.setItem('last_error', JSON.stringify([msg, url, line]));
@@ -9,7 +9,7 @@ window.onerror = function (msg, url, line) {
 
 axios.interceptors.response.use(null, function (err) {
     localStorage.setItem('last_error', JSON.stringify(err));
-    var msg = 'An error occurs! <br> Please contact maintainer';
+    let msg = 'An error occurs! <br> Please contact maintainer';
     showMessage(msg, 0, 5);
     return Promise.reject(err);
 });
@@ -17,7 +17,7 @@ axios.interceptors.response.use(null, function (err) {
 function showMessage(msg, type, time) {
     if (!time)
         time = 2;
-    var modal;
+    let modal;
     switch (type) {
         case 0:
             modal = $('#message_danger');
@@ -35,14 +35,14 @@ function showMessage(msg, type, time) {
 }
 
 function assignmentStatus() {
-    var setting = $('meta[name=setting]');
-    var attempt = $('#attempt').html();
-    var status = $('meta[name=status]');
+    let setting = $('meta[name=setting]');
+    let attempt = $('#attempt').html();
+    let status = $('meta[name=status]');
     if (status.length === 1)
         status = status.attr('content');
     if (setting.length === 1)
         setting = JSON.parse(setting.attr('content'));
-    var value = [];
+    let value = [];
     value['gradeStatus'] = status;
     value['open'] = setting.open && attempt < setting.attempt;
     if (!value['open'])
@@ -51,7 +51,7 @@ function assignmentStatus() {
 }
 
 function echo() {
-    var user_id = $('meta[name=user_id]');
+    let user_id = $('meta[name=user_id]');
     if (user_id.length === 1) {
         user_id = user_id.attr('content');
         Echo.channel('user-' + user_id)
@@ -76,4 +76,27 @@ function drawLine(ctx, x1, y1, x2, y2) {
     ctx.lineTo(x2, y2);
     ctx.stroke();
 }
+
+function getNthIndexinString(str, searchValue, n)
+{
+    let index = 0;
+    let cursor = 0;
+    for (let i = 0; i < n; i++)
+    {
+        index = str.indexOf(searchValue, cursor);
+        cursor = index + searchValue.length;
+    }
+    return index;
+}
+
+function indexOf(elem)
+{
+    for (let i = 0; i < this.length; i++)
+    {
+        if (elem === this[i])
+            return i;
+    }
+    return -1;
+}
+
 $(echo());
