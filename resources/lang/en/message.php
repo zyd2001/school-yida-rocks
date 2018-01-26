@@ -64,6 +64,19 @@ return [
     'setting' => 'Create',
     'addBlank' => 'Add a Blank',
     'blank' => 'Blank',
+    'due' => 'Due',
+    'no' => "No",
+    'dueTimeExceed' => 'You have exceeded the Due Time',
+    'grade' => 'Grade',
+    'grades' => 'Grades',
+    'youHave' => 'You have',
+    'attemptsLeft' => 'attempts left',
+    'contact' => 'Contact',
+    'instructor' => 'Instructor',
+    'engspace' => ' ',
+    'chnspace' => '',
+    'upcoming' => 'Upcoming',
+    'history' => 'History',
 
 
 ];

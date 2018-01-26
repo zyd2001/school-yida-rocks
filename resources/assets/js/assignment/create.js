@@ -13,6 +13,7 @@ $(function () {
     template['questions']['matching'] = template['questions'][2];
     template['questions']['short_answer'] = template['questions'][3];
     $(template['questions'][1]).children('#fitb_blank').remove();
+    $(template['questions'][0]).find('#multiple_choice_choice').remove();
     temp.remove();
 });
 
@@ -24,7 +25,7 @@ function rerender()
     {
         if (str[str.length - 1] == '\n')
             this.innerHTML += str.replace(/\n/g, '<br>');
-        else 
+        else
         {
             this.innerHTML += str;
             if (blanksIndex < this.blanks.length)
@@ -144,14 +145,14 @@ const create = new Vue({
                 let newNode = $(template['questions'][this.select_question_type]).clone().attr('index', this.index);
                 if (this.select_question_type == 'fill_in_the_blank')
                 {
-                    newNode.children().children('.fitb_prompt').on('keydown', (event) => {
+                    newNode.children().children('.fitb_prompt').on('keydown', function (event) {
                         if (getSelection().anchorNode.parentNode !== event.target && getSelection().anchorNode !== event.target)
                         {
                             showMessage("don't modify blank", 0);
                             event.preventDefault();
                         }
                     });
-                    newNode.children().children('.fitb_prompt').on('input', (event) => {
+                    newNode.children().children('.fitb_prompt').on('input', function (event) {
                         if (event.target.slices && getSelection().anchorNode.parentNode === event.target)
                         {
                             if (event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)][event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)].length - 1] == '\n')
@@ -159,9 +160,9 @@ const create = new Vue({
                             else
                                 event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)] = getSelection().anchorNode.wholeText;
                         }
-                    })
+                    });
                     newNode.children().children('.fitb_prompt')[0].rerender = rerender;
-                    newNode.children().children('.fitb_prompt')[0].blanksCount = 0;                
+                    newNode.children().children('.fitb_prompt')[0].blanksCount = 0;
                     newNode.children().children('.fitb_prompt')[0].childNodes.indexOf = function (node) {
                         let index = 0;
                         for (let i = 0; i < this.length; i++)
@@ -176,6 +177,17 @@ const create = new Vue({
                         return -1;
                     };
                 }
+                if (this.select_question_type == 'multiple_choice') {
+                    newNode.attr('count', 4);
+                    for (var i = 0; i < 4; i++) {
+                        var id = this.index + '_' + i;
+                        console.log(id);
+                        var temp = template['choice'].clone();
+                        temp.find('.custom-control-input').attr('id', id);
+                        temp.find('.custom-control-label').attr('for', id);
+                        newNode.find('.choice').append(temp);
+                    }
+                }
                 root.append(newNode);
                 this.index++;
             }
@@ -184,7 +196,17 @@ const create = new Vue({
                 let type = $(event.target).parents('.card').attr('type');
                 switch (type) {
                     case 'multiple_choice':
-                        $(event.target).prev().append(template['choice'].clone());
+                        var questionIndex = $(event.target).parents('.question').attr('index');
+                        var choiceIndex = $(event.target).parents('.question').attr('count');
+                        console.log(questionIndex + " " + choiceIndex);
+                        var temp = template['choice'].clone();
+                        var id = questionIndex + '_' + choiceIndex
+                        temp.find('.custom-control-input').attr('id', id);
+                        console.log(temp.find('.custom-control-input').attr('id'));
+                        temp.find('.custom-control-label').attr('for', id);
+                        $(event.target).prev().append(temp);
+                        choiceIndex++;
+                        $(event.target).parents('.question').attr('count', choiceIndex);
                         break;
                     case 'fill_in_the_blank':
                         let selection = getSelection();
@@ -220,7 +242,7 @@ const create = new Vue({
                             }
                             else
                             {
-                                
+
                             }
                             let newBlank = template['blank'].clone().attr('hidden', false).on('input', (event) => {
                                 // sync the input
@@ -229,7 +251,7 @@ const create = new Vue({
                             })
                             newBlank[0].childNodes[1].thisBlankIndex = prompt.blanksCount;
                             $(event.target).parents('.blanks').append(newBlank);
-                            prompt.blanksCount++;                            
+                            prompt.blanksCount++;
                             break;
                         }
                     case 'matching':

@@ -1,8 +1,41 @@
 const course = new Vue({
 	el: "#course",
 	data: {
+        assignments: null,
+        status: 1,
 		avatar: "",
+        timeNow: null,
+        numof: 0,
 	},
+    mounted: function () {
+        var self = this;
+        axios.get('/courses/' + document.getElementsByTagName('meta')['id'].content + '/assignments').then(
+            function (res) {
+                this.numof = res.data.length;
+                console.log(this.numof);
+                if (res.data.length === 0)
+                    self.status = 0;
+                for (var i in res.data) {
+                    var dueTime = Date.parse(res.data[i].dueTime);
+                    res.data[i].dueTime = res.data[i].dueTime.split('T');
+                    try{
+                        this.timeNow = Date.now();
+                        console.log(dueTime - this.timeNow);
+                        var diff = dueTime - this.timeNow;
+                        if (diff > 0) {
+                            res.data[i].dueTime['upcoming'] = 1;
+                        }
+                        else {
+                            res.data[i].dueTime['upcoming'] = 0;                            
+                        }
+                        console.log(res.data[i].dueTime['upcoming']);
+                    }catch (e){
+                    }
+                }
+                self.assignments = res.data;
+            }
+        );
+    },
 });
 
 course.avatar = $('#course_avatar').attr('src');

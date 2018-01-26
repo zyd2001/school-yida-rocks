@@ -65,5 +65,19 @@ return [
     'create' => '创建',
     'addBlank' => '添加一个空',
     'blank' => '填空内容',
+    'due' => '截止时间',
+    'no' => '无',
+    'dueTimeExceed' => '你已超出截止时间',
+    'grade' => '成绩',
+    'grades' => '成绩',
+    'youHave' => '你有',
+    'attemptsLeft' => '次尝试机会',
+    'contact' => '联系',
+    'instructor' => '教师',
+    'engspace' => '',
+    'chnspace' => ' ',
+    'upcoming' => '进行中的作业',
+    'history' => '以往的作业',
+
 
 ];

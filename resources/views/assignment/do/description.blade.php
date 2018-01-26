@@ -5,17 +5,17 @@
             <!-- Add grades -->
             <div class="card-body">
                 <p id="attempt" class="hidden">{{ $grade->attempt }}</p>
-                <p>You have {{ $setting->attempt - $grade->attempt }} attempt(s) left</p>
+                <p>{{ __('message.youHave') }}&nbsp;{{ $setting->attempt - $grade->attempt }}&nbsp;{{ __('message.attemptsLeft') }}.</p>
                 @if (gettype($grade->percent) != 'NULL')
-                    <p class="card-text">Grade: {{ $grade->percent . '%' }}</p>
+                    <p class="card-text">{{ __('message.grade') }}: {{ $grade->percent . '%' }}</p>
                     <button id="get_detail" class="btn btn-info"
                             onclick="$('#assignment_grade').slideToggle();$('#assignment_description').slideToggle()">
                         View Detail
                     </button>
                 @else
-                    <p class="card-text">Grade: N/A</p>
+                    <p class="card-text">{{ __('message.grade') }}: N/A</p>
                 @endif
-                <button href="#" class="btn btn-info">Contact Instructor</button>
+                <button href="#" class="btn btn-info">{{ __('message.contact') }}{{ __('message.engspace') }}{{ __('message.instructor') }}</button>
             </div>
         </div>
     </div>
@@ -34,21 +34,21 @@
             @php
                 use Carbon\Carbon;
                 $due = new Carbon($assignment->dueTime);
-                $timeLeft = $due->diffForHumans();
-                $diff = Carbon::now()->diffInDays($due, false);
+                $diff = $due->diffForHumans(Carbon::now(), false);
+                $difference = $due->diffInMinutes(Carbon::now(), false);
             @endphp
-            @if ($diff > 0)
-            <div class="card-footer alert-warning mt-1">
-                <div class="row">
-                    <h5>Due Time: </h5>
+            @if ($difference < 0)
+            <div class="card-footer alert-success mt-1">
+                <div class="row ml-3">
+                    <h5>Due Time:&nbsp;</h5>
                     <p>{{ $assignment->dueTime }} ({{ $diff }})</p>
                 </div>
             </div>
             @else
             <div class="card-footer alert-danger mt-1">
-                <div class="row">
-                    <h5>You have exceeded the Due Time: </h5>
-                    <p>{{ $due }} ({{ $timeLeft }})</p>
+                <div class="row ml-3">
+                    <h5>{{ __('message.dueTimeExceed') }}:&nbsp;</h5>
+                    <p>{{ $assignment->dueTime }} ({{ $diff }})</p>
                 </div>
             </div>
             {{--<script type="text/javascript">--}}
