@@ -1,6 +1,6 @@
 <div class="card mb-3">
 	<div class="card-header">{{ __('message.upcoming') }}
-		<span>@{{ numof }}</span>
+		<span class="badge badge-danger badge-pill" id="tasklist"></span>
 	</div>
 	<ul class="list-group list-group-flush">
 	    <a v-cloak v-for="assignment in assignments" class="list-group-item"
@@ -15,7 +15,8 @@
 	</ul>
 </div>
 <div class="card mt-3">
-	<div class="card-header">{{ __('message.history') }}</div>
+	<div class="card-header">{{ __('message.history') }}
+	</div>
 	<ul class="list-group list-group-flush">
 	    <a v-cloak v-for="assignment in assignments" class="list-group-item"
 	       v-bind:href="'/assignments/' + assignment.id" v-if="assignment.dueTime['upcoming'] === 0">

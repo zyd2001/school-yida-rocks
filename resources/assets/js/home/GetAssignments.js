@@ -13,6 +13,7 @@ const assignments = new Vue({
         if ($('#assignments').length)
             axios.get('/assignments').then(
                 function (res) {
+                    var count = 0;
                     if (res.data.length === 0)
                         self.status = 0;
                     for (var i in res.data) {
@@ -24,6 +25,7 @@ const assignments = new Vue({
                             var diff = dueTime - this.timeNow;
                             if (diff > 0) {
                                 res.data[i].dueTime['upcoming'] = 1;
+                                count++;
                             }
                             else {
                                 res.data[i].dueTime['upcoming'] = 0;                            
@@ -34,6 +36,7 @@ const assignments = new Vue({
                         }                        
                         res.data[i].hoverMessage = '<img src="' + res.data[i].course.avatar + '" width="30" height="30">&nbsp;<a href="/courses/' + res.data[i].course.id + '">' + res.data[i].course.name + '</a>';
                     }
+                    $('#tasklist').text(count);
                     self.assignments = res.data;
                 }
             );
