@@ -106,3 +106,12 @@ footer {
     margin: 7px;
     display: block;
 }
+
+.blank-text {
+   color: rgb(0, 110, 255);
+   text-decoration: underline;
+}
+
+.blank-text:hover {
+    cursor: pointer;
+}

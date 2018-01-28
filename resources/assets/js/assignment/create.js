@@ -6,9 +6,9 @@ $(function ()
 {
     let temp = $('.question');
     template['questions'] = temp.clone();
-    template['choice'] = $('#multiple_choice_choice').clone();
-    template['pair'] = $('#matching_pair').clone();
-    template['blank'] = $('#fitb_blank').clone();
+    template['choice'] = $('#multiple_choice_choice').clone().attr('id', '');
+    template['pair'] = $('#matching_pair').clone().attr('id', '');
+    template['blank'] = $('#fitb_blank').clone().attr('id', '');
     template['questions']['multiple_choice'] = template['questions'][0];
     template['questions']['fill_in_the_blank'] = template['questions'][1];
     template['questions']['matching'] = template['questions'][2];
@@ -17,26 +17,6 @@ $(function ()
     $(template['questions'][0]).find('#multiple_choice_choice').remove();
     temp.remove();
 });
-
-function rerender()
-{
-    this.innerHTML = '';
-    let blanksIndex = 0;
-    for (let str of this.slices)
-    {
-        if (str[str.length - 1] == '\n')
-            this.innerHTML += str.replace(/\n/g, '<br>').replace(/ /g, '&nbsp;');
-        else
-        {
-            this.innerHTML += str;
-            if (blanksIndex < this.blanks.length)
-            {
-                this.innerHTML += '&nbsp;<span style="color:blue;text-decoration:underline">' + (this.blanks[blanksIndex].length > 0 ? this.blanks[blanksIndex] : '_') + '</span>&nbsp;';
-                blanksIndex++;
-            }
-        }
-    }
-}
 
 function bindRemove()
 {
@@ -58,6 +38,10 @@ function bindRemove()
     {
         $(event.target).parent().hide('fast', function ()
         {
+            let elem = event.target.nextSibling.blankElement;
+            elem.previousSibling.appendData(elem.nextSibling.textContent);
+            elem.nextSibling.remove();
+            elem.remove();
             $(this).remove();
         });
     });
@@ -171,32 +155,8 @@ const create = new Vue({
                                 event.preventDefault();
                             }
                         });
-                        newNode.children().children('.fitb_prompt').on('input', function (event)
-                        {
-                            if (event.target.slices && getSelection().anchorNode.parentNode === event.target)
-                            {
-                                if (event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)][event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)].length - 1] == '\n')
-                                    event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)] = getSelection().anchorNode.wholeText + '\n';
-                                else
-                                    event.target.slices[event.target.childNodes.indexOf(getSelection().anchorNode)] = getSelection().anchorNode.wholeText;
-                            }
-                        });
-                        newNode.children().children('.fitb_prompt')[0].rerender = rerender;
                         newNode.children().children('.fitb_prompt')[0].blanksCount = 0;
-                        newNode.children().children('.fitb_prompt')[0].childNodes.indexOf = function (node)
-                            {
-                                let index = 0;
-                                for (let i = 0; i < this.length; i++)
-                                {
-                                    if (this[i].nodeName != '#text')
-                                        continue;
-                                    else if (this[i] === node)
-                                        return index;
-                                    else
-                                        index++;
-                                }
-                                return -1;
-                            };
+                        newNode.children().children('.fitb_prompt')[0].childNodes.indexOf = indexOf;
                     }
                     if (this.select_question_type == 'multiple_choice')
                     {
@@ -225,7 +185,7 @@ const create = new Vue({
                             var choiceIndex = $(event.target).parents('.question').attr('count');
                             console.log(questionIndex + " " + choiceIndex);
                             var temp = template['choice'].clone();
-                            var id = questionIndex + '_' + choiceIndex
+                            var id = 'MC_' + questionIndex + '-' + choiceIndex
                             temp.find('.custom-control-input').attr('id', id);
                             console.log(temp.find('.custom-control-input').attr('id'));
                             temp.find('.custom-control-label').attr('for', id);
@@ -237,6 +197,7 @@ const create = new Vue({
                             let selection = getSelection();
                             let prompt = event.target.parentNode.previousElementSibling;
                             let anchorNodeIndex = prompt.childNodes.indexOf(selection.anchorNode);
+                            let blankID = 'FibT_' + $(event.target).parents('.question').attr('index') + '-' + prompt.blanksCount;
                             if (anchorNodeIndex === -1)
                             {
                                 showMessage('Please set ...', 0);
@@ -244,38 +205,42 @@ const create = new Vue({
                             }
                             else
                             {
+                                let newElement = document.createElement('span');
+                                newElement.classList.add('blank-text');
+                                newElement.onclick = () => {$('#' + blankID).focus();}
                                 if (selection.isCollapsed)
                                 {
-                                    if (!prompt.blanks)
-                                    {
-                                        prompt.slices = prompt.innerText.split('\n');
-                                        for (i in prompt.slices)
-                                            prompt.slices[i] += '\n'
-                                        prompt.slices.splice(anchorNodeIndex + 1, 0, prompt.slices[anchorNodeIndex].slice(selection.anchorOffset));
-                                        prompt.slices[anchorNodeIndex] = prompt.slices[anchorNodeIndex].slice(0, selection.anchorOffset);
-                                        prompt.blanks = [];
-                                        prompt.blanks[prompt.blanksCount] = '_';
-                                        prompt.rerender();
-                                    }
-                                    else
-                                    {
-                                        prompt.slices.splice(anchorNodeIndex + 1, 0, prompt.slices[anchorNodeIndex].slice(selection.anchorOffset));
-                                        prompt.slices[anchorNodeIndex] = prompt.slices[anchorNodeIndex].slice(0, selection.anchorOffset);
-                                        prompt.blanks[prompt.blanksCount] = '_';
-                                        prompt.rerender();
-                                    }
+                                    selection.anchorNode.splitText(selection.anchorOffset);
+                                    $(selection.anchorNode).after(newElement);
                                 }
                                 else
                                 {
-
+                                    if (selection.anchorOffset > selection.focusOffset)
+                                    {
+                                        selection.anchorNode.splitText(selection.focusOffset).splitText(selection.anchorOffset);                                        
+                                        newElement.textContent = selection.focusNode.nextSibling.textContent;
+                                        selection.focusNode.nextSibling.remove();
+                                        $(selection.focusNode).after(newElement);
+                                    }
+                                    else
+                                    {
+                                        selection.anchorNode.splitText(selection.anchorOffset).splitText(selection.focusOffset);
+                                        newElement.textContent = selection.anchorNode.nextSibling.textContent;
+                                        selection.anchorNode.nextSibling.remove();
+                                        $(selection.anchorNode).after(newElement);
+                                    }
                                 }
                                 let newBlank = template['blank'].clone().attr('hidden', false).on('input', (event) =>
                                 {
                                     // sync the input
-                                    prompt.blanks[event.target.thisBlankIndex] = $(event.target).val();
-                                    prompt.rerender();
+                                    event.target.blankElement.textContent = (event.target.value.length > 0 ? event.target.value : '_');
                                 })
-                                newBlank[0].childNodes[1].thisBlankIndex = prompt.blanksCount;
+                                newBlank[0].childNodes[1].id = blankID;
+                                newBlank[0].childNodes[1].blankElement = newElement;
+                                if (newElement.textContent.length === 0)
+                                    newElement.textContent = '_';
+                                else
+                                    newBlank[0].childNodes[1].value = newElement.textContent;
                                 $(event.target).parents('.blanks').append(newBlank);
                                 prompt.blanksCount++;
                                 break;
