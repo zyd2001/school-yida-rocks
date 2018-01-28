@@ -44,22 +44,25 @@
                     <a class="remove_question"><i class="fa fa-times"
                                                   aria-hidden="true"></i></a>&nbsp;{{ __('message.fitbQuestion') }}
                 </h5>
-                <div class="row mt-3">
-                    <p class="col-md-7 ml-5 text-center">{{ __('message.prompt') }}</p>
-                    <p class="col-md-4 ml-3 text-center">{{ __('message.answer') }}</p>
-                </div>
-                <div class="row">
-                    <div rows="3" class="form-control col-md-7 mb-3 ml-5 fitb_prompt" placeholder="{{ __('message.fitbCreate') }}" contentEditable="true"></div>
+                <div class="card-body">              
+                    <div class="row">
+                        <span class="col-md-1 ml-2 text-center">{{ __('message.prompt') }}</span>
+                        <div rows="3" style="height:300%" class="form-control col-md-8 mb-3 ml-3 fitb_prompt" placeholder="{{ __('message.fitbCreate') }}" contentEditable="true"><br><br><br></div>
+                        <button class="btn btn-outline-info ml-2 col-md-2 mb-3 h-25 add_choice">{{ __('message.addBlank')}}</button>
+                    </div>
                     <!-- <input placeholder="{{ __('message.answer') }}" class="form-control col-md-4 mb-3 ml-3"> -->
-                    <div class="col-md-4 mb-3 ml-3 blanks">
-                        <button class="btn btn-outline-info w-100 mb-3 add_choice">{{ __('message.addBlank')}}</button>
-                        <div class="row" id="fitb_blank" aria-hidden="true" hidden="true"><i class="remove_blank fa fa-times ml-3"
-                                                                        style="margin-top: 0.65rem"></i><input
-                                    placeholder="{{ __('message.blank') }}" class="form-control col-md-10 mb-2 ml-2">
+                    <div class="row">
+                        <span class="col-md-1 text-center ml-2">{{ __('message.answer') }}</span>  
+                        <div class="mb-3 blanks col-md-10">
+                            <div class="row" id="fitb_blank" aria-hidden="true" hidden="true"><i class="remove_blank fa fa-times"
+                                                                            style="margin-top: 0.65rem"></i><input
+                                        placeholder="{{ __('message.blank') }}" class="form-control col-md-10 mb-2 ml-2">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div> <!--FITB-->
+
             <div class="question mb-5 card" type="matching">
                 <h5 class="card-header mb-3">
                     <a class="remove_question"><i class="fa fa-times"
@@ -102,6 +105,7 @@
                     </button>
                 </div>
             </div> <!--MATCHING-->
+            
             <div class="question mb-5 card" type="short_answer">
                 <h5 class="card-header mb-3">
                     <a class="remove_question"><i class="fa fa-times"

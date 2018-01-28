@@ -61,7 +61,7 @@ return [
     'lastName' => 'Last Name',
     'checkEmail' => 'Linked Email Address',
     'setting' => 'Settings',
-    'setting' => 'Create',
+    'create' => 'Create',
     'addBlank' => 'Add a Blank',
     'blank' => 'Blank',
     'due' => 'Due',
