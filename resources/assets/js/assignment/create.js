@@ -39,7 +39,12 @@ function bindRemove()
         $(event.target).parent().hide('fast', function ()
         {
             let elem = event.target.nextSibling.blankElement;
-            elem.previousSibling.appendData(elem.nextSibling.textContent);
+            if (elem.spaceBefore)
+                elem.previousSibling.textContent = elem.previousSibling.textContent.slice(0, -1);
+            if (elem.spaceAfter)
+                elem.previousSibling.appendData(elem.nextSibling.textContent.slice(1));
+            else
+                elem.previousSibling.appendData(elem.nextSibling.textContent);
             elem.nextSibling.remove();
             elem.remove();
             $(this).remove();
@@ -99,8 +104,17 @@ const create = new Vue({
 
                         case 'fill_in_the_blank':
                             this.questions[i] = {};
-                            this.questions[i].question = temp.find('textarea').val();
-                            this.correct[i] = temp.find('input').val();
+                            this.questions[i].question = [];
+                            this.correct[i] = [];
+                            for (node of temp.find('.fibt_prompt')[0].childNodes)
+                            {
+                                if (node.nodeName === 'SPAN')
+                                    this.correct[i].push(node.textContent);
+                                else if (node.nodeName === 'BR')
+                                    this.questions[i].question.push('\n');
+                                else
+                                    this.questions[i].question.push(node.textContent);
+                            }
                             this.questions[i].type = 1;
                             this.questions[i].option = null;
                             break; //Case 1: Fill-in-the-blank Questions
@@ -147,16 +161,52 @@ const create = new Vue({
                     let newNode = $(template['questions'][this.select_question_type]).clone().attr('index', this.index);
                     if (this.select_question_type == 'fill_in_the_blank')
                     {
-                        newNode.children().children('.fitb_prompt').on('keydown', function (event)
+                        newNode.children('div').children().children('.fitb_prompt').on('keydown', function (event)
                         {
-                            if (getSelection().anchorNode.parentNode !== event.target && getSelection().anchorNode !== event.target)
+                            let selection = getSelection();
+                            if (selection.anchorNode.parentElement.nodeName === 'SPAN')
                             {
                                 showMessage("don't modify blank", 0);
                                 event.preventDefault();
                             }
+                            if (!selection.isCollapsed)
+                            {
+                                for (let node of event.target.childNodes)
+                                {
+                                    if (node.nodeName !== 'SPAN')
+                                        continue;
+                                    if (selection.containsNode(node, true))
+                                    {
+                                        showMessage("don't modify blank", 0);
+                                        event.preventDefault();
+                                    }
+                                }
+                            }
+                            if (event.originalEvent.key === 'Backspace')
+                            {
+                                if (selection.anchorOffset === 0)
+                                {
+                                    if (selection.anchorNode.previousSibling && selection.anchorNode.previousSibling.nodeName === 'SPAN')
+                                    {
+                                        showMessage("don't modify blank", 0);
+                                        event.preventDefault();
+                                    }
+                                }
+                            }
+                            else if (event.originalEvent.key === 'Delete')
+                            {
+                                if (selection.anchorOffset === selection.anchorNode.textContent.length)
+                                {
+                                    if (selection.anchorNode.nextSibling && selection.anchorNode.nextSibling.nodeName === 'SPAN')
+                                    {
+                                        showMessage("don't modify blank", 0);
+                                        event.preventDefault();
+                                    }
+                                }
+                            }
                         });
-                        newNode.children().children('.fitb_prompt')[0].blanksCount = 0;
-                        newNode.children().children('.fitb_prompt')[0].childNodes.indexOf = indexOf;
+                        newNode.children('div').children().children('.fitb_prompt')[0].blanksCount = 0;
+                        newNode.children('div').children().children('.fitb_prompt')[0].childNodes.indexOf = indexOf;
                     }
                     if (this.select_question_type == 'multiple_choice')
                     {
@@ -195,7 +245,7 @@ const create = new Vue({
                             break;
                         case 'fill_in_the_blank':
                             let selection = getSelection();
-                            let prompt = event.target.parentNode.previousElementSibling;
+                            let prompt = event.target.previousElementSibling;
                             let anchorNodeIndex = prompt.childNodes.indexOf(selection.anchorNode);
                             let blankID = 'FibT_' + $(event.target).parents('.question').attr('index') + '-' + prompt.blanksCount;
                             if (anchorNodeIndex === -1)
@@ -208,10 +258,23 @@ const create = new Vue({
                                 let newElement = document.createElement('span');
                                 newElement.classList.add('blank-text');
                                 newElement.onclick = () => {$('#' + blankID).focus();}
+                                let addSpace = () => {
+                                    if (newElement.previousSibling.textContent[newElement.previousSibling.textContent.length - 1] !== '\u00a0' && newElement.previousSibling.textContent[newElement.previousSibling.textContent.length - 1] !== ' ')
+                                    {
+                                        newElement.previousSibling.textContent += '\u00a0';
+                                        newElement.spaceAfter = true;
+                                    }
+                                    if (newElement.nextSibling.textContent[0] !== '\u00a0' && newElement.nextSibling.textContent[0] !== ' ')
+                                    {
+                                        newElement.nextSibling.textContent = '\u00a0' + newElement.nextSibling.textContent;
+                                        newElement.spaceBefore = true;
+                                    }
+                                }
                                 if (selection.isCollapsed)
                                 {
                                     selection.anchorNode.splitText(selection.anchorOffset);
                                     $(selection.anchorNode).after(newElement);
+                                    addSpace();
                                 }
                                 else
                                 {
@@ -221,6 +284,7 @@ const create = new Vue({
                                         newElement.textContent = selection.focusNode.nextSibling.textContent;
                                         selection.focusNode.nextSibling.remove();
                                         $(selection.focusNode).after(newElement);
+                                        addSpace();
                                     }
                                     else
                                     {
@@ -228,7 +292,9 @@ const create = new Vue({
                                         newElement.textContent = selection.anchorNode.nextSibling.textContent;
                                         selection.anchorNode.nextSibling.remove();
                                         $(selection.anchorNode).after(newElement);
+                                        addSpace();
                                     }
+                                    selection.collapseToEnd();
                                 }
                                 let newBlank = template['blank'].clone().attr('hidden', false).on('input', (event) =>
                                 {
@@ -241,7 +307,7 @@ const create = new Vue({
                                     newElement.textContent = '_';
                                 else
                                     newBlank[0].childNodes[1].value = newElement.textContent;
-                                $(event.target).parents('.blanks').append(newBlank);
+                                $(event.target.parentElement.nextElementSibling).find('.blanks').append(newBlank);
                                 prompt.blanksCount++;
                                 break;
                             }

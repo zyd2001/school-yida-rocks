@@ -47,7 +47,7 @@
                 <div class="card-body">              
                     <div class="row">
                         <span class="col-md-1 ml-2 text-center">{{ __('message.prompt') }}</span>
-                        <div rows="3" style="height:300%" class="form-control col-md-8 mb-3 ml-3 fitb_prompt" placeholder="{{ __('message.fitbCreate') }}" contentEditable="true"><br><br><br></div>
+                        <div class="form-control col-md-8 mb-3 ml-3 fitb_prompt" contentEditable="true"></div>
                         <button class="btn btn-outline-info ml-2 col-md-2 mb-3 h-25 add_choice">{{ __('message.addBlank')}}</button>
                     </div>
                     <!-- <input placeholder="{{ __('message.answer') }}" class="form-control col-md-4 mb-3 ml-3"> -->
