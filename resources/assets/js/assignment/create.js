@@ -106,7 +106,7 @@ const create = new Vue({
                             this.questions[i] = {};
                             this.questions[i].question = [];
                             this.correct[i] = [];
-                            for (node of temp.find('.fibt_prompt')[0].childNodes)
+                            for (node of temp.find('.fitb_prompt')[0].childNodes)
                             {
                                 if (node.nodeName === 'SPAN')
                                     this.correct[i].push(node.textContent);

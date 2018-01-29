@@ -15,8 +15,13 @@
                     </label>
                 </div>
             </div>
-            <div v-else-if="question.type === 1" v-bind:id="index">
+            <div v-else-if="question.type === 1" v-bind:id="index" class="row">
                 {{--fill the blank--}}
+                <h6>@{{ Number(index) + 1}}.&nbsp;</h6>
+                <span v-for="(content, key) in question.question">
+                    <span>@{{ content }}</span>
+                    <span v-if="key != question.question.length - 1" class="blank-text" contentEditable="true" v-on:input="blank">&nbsp;&nbsp;</span>
+                </span>
             </div>
             <div v-else-if="question.type === 2" v-bind:id="index">
                 {{--matching--}}
@@ -24,7 +29,7 @@
                 <br>
                 <div class="row">
                     <ul class="col-4">
-                        <a href="#" v-on:click.prevent="match" v-bind:order="i" v-bind:index="index" class="matching-list" v-for="(q, i) in question.question.questions">@{{ Number(i)+1 }}.&nbsp;@{{ q }}</a>
+                        <a href="#" v-on:click.prevent="match" v-bind:order="i" v-bind:index="index" class="matching-list" v-for="(q, i) in question.question.content">@{{ Number(i)+1 }}.&nbsp;@{{ q }}</a>
                     </ul>
                     <div class="col-4"><canvas v-bind:id="'canvas-' + index" height="0" width="0"></canvas></div>
                     <ul class="col-4">
