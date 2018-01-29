@@ -9,6 +9,8 @@ const content = new Vue({
         current_index: 0,
     },
     mounted: function () {
+
+        //Storage function:
         var id = document.getElementsByTagName('meta')['id'].content;
         var aStatus = assignmentStatus();
         if (aStatus['open']) {
@@ -79,6 +81,11 @@ const content = new Vue({
                 showMessage('Something went wrong!', 0);
             }
         },
+        blank: function (event) {
+            if (event.target.textContent.length === 0) {
+                event.target.textContent = "\u00a0\u00a0";
+            }
+        },
         match: function (event) {
             var current = $(event.target);
             var index = current.attr('index');
@@ -122,6 +129,7 @@ $('#get_content').on('click', function (event) {
     content.fetch();
 });
 
+
 function getAnswer() {
     content.answer = [];
     var result;
@@ -139,7 +147,11 @@ function getAnswer() {
                 content.answer[i] = value;
                 break;
             case 1:
-                /*not yet completed*/
+                let fitb = $('#' + i);
+                content.answer[i] = [];
+                fitb.find('.blank-text').each(function () {
+                    content.answer[i].push(this.textContent.trim());
+                })
                 break;
             case 2:
                 result = $('#' + i).contents('input[name=result]').val();
