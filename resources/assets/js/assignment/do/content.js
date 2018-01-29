@@ -147,7 +147,11 @@ function getAnswer() {
                 content.answer[i] = value;
                 break;
             case 1:
-                /*not yet completed*/
+                let fitb = $('#' + i);
+                content.answer[i] = [];
+                fitb.find('.blank-text').each(function () {
+                    content.answer[i].push(this.textContent.trim());
+                })
                 break;
             case 2:
                 result = $('#' + i).contents('input[name=result]').val();

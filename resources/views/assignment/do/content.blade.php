@@ -19,7 +19,7 @@
                 {{--fill the blank--}}
                 <h6>@{{ Number(index) + 1}}.&nbsp;</h6>
                 <span v-for="(content, key) in question.question">
-                    <span>@{{ content }}</span>
+                    @{{ content }}
                     <span v-if="key != question.question.length - 1" class="blank-text" contentEditable="true" v-on:input="blank">&nbsp;&nbsp;</span>
                 </span>
             </div>
