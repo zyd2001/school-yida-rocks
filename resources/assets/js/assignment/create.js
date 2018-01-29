@@ -46,6 +46,7 @@ function bindRemove()
             else
                 elem.previousSibling.appendData(elem.nextSibling.textContent);
             elem.nextSibling.remove();
+            elem.parentElement.blanksCount--;
             elem.remove();
             $(this).remove();
         });
@@ -88,7 +89,7 @@ const create = new Vue({
                             this.correct[i] = [];
                             this.questions[i] = {'answer': {}};
                             this.questions[i].question = temp.find('textarea').val();
-                            this.questions[i].type = 0;
+                            this.questions[i].type = 'multiple_choice';
                             this.questions[i].option = null;
                             let choices = temp.find('.choice').children();
                             if (choices.length > 52)
@@ -115,7 +116,7 @@ const create = new Vue({
                                 else
                                     this.questions[i].question.push(node.textContent);
                             }
-                            this.questions[i].type = 1;
+                            this.questions[i].type = 'fill_in_the_blank';
                             this.questions[i].option = null;
                             break; //Case 1: Fill-in-the-blank Questions
 
@@ -124,7 +125,7 @@ const create = new Vue({
                             this.questions[i] = {'answer': {}};
                             this.questions[i].question = {'content': {}};
                             this.questions[i].question.title = temp.find('textarea').val();
-                            this.questions[i].type = 2;
+                            this.questions[i].type = 'matching';
                             this.questions[i].option = null;
                             // if (choices.length > 26)
                             //     showMessage('Too much pairs in question' + i + 1, 0);
@@ -142,7 +143,7 @@ const create = new Vue({
                             this.questions[i] = {};
                             this.correct[i] = null;
                             this.questions[i].question = temp.find('textarea').val();
-                            this.questions[i].type = 3;
+                            this.questions[i].type = 'short_answer';
                             this.questions[i].option = null;
                             break; //Case 3: Short Answer Question
                     }
@@ -164,7 +165,12 @@ const create = new Vue({
                         newNode.children('div').children().children('.fitb_prompt').on('keydown', function (event)
                         {
                             let selection = getSelection();
-                            if (selection.anchorNode.parentElement.nodeName === 'SPAN')
+                            if (selection.anchorNode.nodeName === 'SPAN')
+                            {
+                                showMessage("don't modify blank", 0);
+                                event.preventDefault();
+                            }
+                            else if (selection.anchorNode.parentElement.nodeName === 'SPAN')
                             {
                                 showMessage("don't modify blank", 0);
                                 event.preventDefault();
@@ -181,25 +187,40 @@ const create = new Vue({
                                         event.preventDefault();
                                     }
                                 }
-                            }
-                            if (event.originalEvent.key === 'Backspace')
-                            {
-                                if (selection.anchorOffset === 0)
+                                if (event.target.blanksCount > 0 && (Math.abs(selection.anchorOffset - selection.focusOffset) >= selection.anchorNode.textContent.length))
                                 {
-                                    if (selection.anchorNode.previousSibling && selection.anchorNode.previousSibling.nodeName === 'SPAN')
+                                    showMessage("don't remove all text(include space) after or before a blank", 0);
+                                    event.preventDefault();
+                                }
+                            }
+                            else if (event.originalEvent.key === 'Backspace')
+                            {
+                                if (selection.anchorOffset === 0 && selection.anchorNode.previousSibling)
+                                {
+                                    if (selection.anchorNode.previousSibling.nodeName === 'SPAN')
                                     {
                                         showMessage("don't modify blank", 0);
+                                        event.preventDefault();
+                                    }
+                                    else if (selection.anchorNode.previousSibling.length === 1)
+                                    {
+                                        showMessage("don't remove all text(include space) after or before a blank", 0);
                                         event.preventDefault();
                                     }
                                 }
                             }
                             else if (event.originalEvent.key === 'Delete')
                             {
-                                if (selection.anchorOffset === selection.anchorNode.textContent.length)
+                                if (selection.anchorOffset === selection.anchorNode.textContent.length && selection.anchorNode.nextSibling)
                                 {
-                                    if (selection.anchorNode.nextSibling && selection.anchorNode.nextSibling.nodeName === 'SPAN')
+                                    if (selection.anchorNode.nextSibling.nodeName === 'SPAN')
                                     {
                                         showMessage("don't modify blank", 0);
+                                        event.preventDefault();
+                                    }
+                                    else if (selection.anchorNode.nextSibling.length === 1)
+                                    {
+                                        showMessage("don't remove all text(include space) after or before a blank", 0);
                                         event.preventDefault();
                                     }
                                 }
