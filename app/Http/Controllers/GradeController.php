@@ -26,9 +26,8 @@ class GradeController extends ControllerWithMid
                 return back()->with(['err' => __($msg)]);
             }
         }
-        $correct = json_decode($assignment->correct, true); //decode the assignment content, correct answer
         $answer = json_decode($request->answer, true);
-        $grade = $this->check($answer, $correct, 0); //grade the post
+        $grade = $this->check($answer, $assignment); //grade the post
         $temp->total = $grade['total'];
         $temp->raw = $grade['raw'];
         $temp->percent = $grade['percent'];
@@ -45,23 +44,30 @@ class GradeController extends ControllerWithMid
         return response()->json(['msg' => __()]);
     }
 
-    private function check(array $answer, array $correct, $type) //compare with the correct answer
-    {   //type: 0 => strict
+    private function check(array $answer, \App\Assignment $assignment) //compare with the correct answer
+    {   
         $count = 0;
-        switch ($type)
+        $questions = json_decode($assignment->questions, true);
+        $correct = json_decode($assignment->correct, true);
+
+        foreach ($questions as $key => $question)
         {
-            case 0:
-                foreach ($correct as $key => $value)
-                {
-                    if ($value == $answer[$key])
-                    {
+            switch ($question['type'])
+            {
+                case 'multiple_choice':
+                    if (count(array_diff($answer[$key], $correct[$key])) === 0)
                         $count++;
-                    }
-                }
-                break;
+                    break;
+                case 'fill_in_the_blank':
+                    if (count(array_diff($answer[$key], $correct[$key])) === 0)
+                        $count++;
+                    break;
+                case 'matching':
+                case 'short_answer':
+            }
         }
 
-        $total = count($correct);
+        $total = count($questions);
         return [
             'total'   => $total,
             'raw'     => $count,

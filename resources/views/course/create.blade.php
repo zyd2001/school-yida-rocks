@@ -21,16 +21,12 @@
             	<textarea class="form-control col-md-12" placeholder="{{ __('message.courseDescription') }}" required rows="5"></textarea>
             	<div class="row ml-3 mt-3">
             		<span>{{ __('message.courseType') }}:</span>
-	                <label class="control control--radio ml-3 mt-1">{{ __('message.courseClass')}}
-	                    <input name="type" type="radio" value="0"/>
-	                    <div class="control__indicator"></div>
-	                </label>
 	                <label class="control control--radio ml-5 mt-1">{{ __('message.courseCourse')}}
-	                    <input name="type" checked="true" type="radio" value="1" />
+	                    <input name="type" checked="true" type="radio" value="course" />
 	                    <div class="control__indicator"></div>
 	                </label>
 	                <label class="control control--radio ml-5 mt-1">{{ __('message.courseGroup')}}
-	                    <input name="type" type="radio" value="2"/>
+	                    <input name="type" type="radio" value="group"/>
 	                    <div class="control__indicator"></div>
 	                </label>                
                 </div>

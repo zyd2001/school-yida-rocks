@@ -4,9 +4,6 @@ const content = new Vue({
         questions: null,
         answer: null,
         matching: new Array(5),
-        in_focus: false,
-        choice_complete: false,
-        current_index: 0,
     },
     mounted: function () {
 
@@ -125,18 +122,13 @@ const content = new Vue({
     },
 });
 
-$('#get_content').on('click', function (event) {
-    content.fetch();
-});
-
-
 function getAnswer() {
     content.answer = [];
     var result;
     for (var i in content.questions) {
         var type = content.questions[i].type;
         switch (type) {
-            case 0:
+            case 'multiple_choice':
                 var input = $('input[name=' + i + ']');
                 let value = [];
                 for (var j = 0; j < input.length; j++) {
@@ -146,18 +138,18 @@ function getAnswer() {
                 }
                 content.answer[i] = value;
                 break;
-            case 1:
+            case 'fill_in_the_blank':
                 let fitb = $('#' + i);
                 content.answer[i] = [];
                 fitb.find('.blank-text').each(function () {
                     content.answer[i].push(this.textContent.trim());
                 })
                 break;
-            case 2:
+            case 'matching':
                 result = $('#' + i).contents('input[name=result]').val();
                 content.answer[i] = result;
                 break;
-            case 3:
+            case 'short_answer':
                 result = $('#' + i).contents('textarea').val();
                 content.answer[i] = result;
                 break;
@@ -190,3 +182,70 @@ function draw(ctx, current, choice, c) {
     y2 += choice.height() / 2.0 + 7;
     drawLine(ctx, x1, y1, x2, y2);
 }
+
+const description = new Vue({
+    el: '#assignment_description',
+    data: {
+        isOpen: true,
+        buttonText: 'Complete This Assignment',
+    },
+    methods: {},
+    mounted: function () {
+        var aStatus = assignmentStatus();
+        this.isOpen = aStatus['open'];
+        this.buttonText = aStatus['msg'] ? aStatus['msg'] : 'Complete This Assignment';
+    }
+});
+
+const grade = new Vue({
+    el: '#assignment_grade',
+    data: {
+        answer: null,
+        questions: null,
+        correct: null,
+    },
+    methods: {
+        fetch: function (event) {
+            var id = document.getElementsByTagName('meta')['id'].content;
+            var self = this;
+            var questions = sessionStorage.getItem('questions-' + id);
+            axios.get('/assignments/' + id + '/grade').then(function (res) {
+                if (res.data.msg)
+                    showMessage(res.data.msg.content, res.data.msg.type);
+                self.answer = JSON.parse(res.data.grade.answer);
+                self.correct = JSON.parse(res.data.correct);
+            });
+            if (questions)
+                self.questions = JSON.parse(questions);
+            else
+                axios.get('/assignments/' + id + '/questions').then(function (res) {
+                    self.questions = res.data;
+                    sessionStorage.setItem('questions-' + id, JSON.stringify(res.data));
+                })
+        },
+    },
+});
+
+function assignmentStatus() {
+    let setting = $('meta[name=setting]');
+    let attempt = $('#attempt').html();
+    let status = $('meta[name=status]');
+    if (status.length === 1)
+        status = status.attr('content');
+    if (setting.length === 1)
+        setting = JSON.parse(setting.attr('content'));
+    let value = [];
+    value['gradeStatus'] = status;
+    value['open'] = setting.open && attempt < setting.attempt;
+    if (!value['open'])
+        value['msg'] = setting.open ? 'You exceed the attempt limit' : 'The assignment is closed';
+    return value;
+}
+
+$('#get_detail').on('click', function (event) {
+    grade.fetch();
+});
+
+$('#get_content').on('click', function (event) {
+    content.fetch();
+});

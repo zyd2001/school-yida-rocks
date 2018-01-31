@@ -22,7 +22,7 @@ class CreateCoursesTable extends Migration
             $table->text('fileStructure')->nullable(); //json
             $table->text('setting')->nullable();//json
             $table->string('accessCode');
-            $table->integer('type')->default(0); //0 => class, 1 => course, 2 => group
+            $table->string('type')->default('course');
             $table->timestamps();
         });
     }

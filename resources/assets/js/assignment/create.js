@@ -112,7 +112,7 @@ const create = new Vue({
                                 if (node.nodeName === 'SPAN')
                                     this.correct[i].push(node.textContent);
                                 else if (node.nodeName === 'BR')
-                                    this.questions[i].question.push('\n');
+                                    this.questions[i].question[this.questions[i].question.length - 1] += '\n';
                                 else
                                     this.questions[i].question.push(node.textContent);
                             }

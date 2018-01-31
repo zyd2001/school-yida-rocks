@@ -24,7 +24,7 @@
                 <h6>@{{ Number(index) + 1}}.&nbsp;</h6>
                 <span v-for="(content, key) in question.question">
                     @{{ content }}
-                    <span v-if="key != question.question.length - 1" class="blank-text" contentEditable="true" v-on:input="blank">&nbsp;&nbsp;</span>
+                    <span v-if="key < question.question.length - 1" class="blank-text" contentEditable="true" v-on:input="blank">&nbsp;&nbsp;</span>
                 </span>
             </div>
             <div v-else-if="question.type === 'matching'" v-bind:id="index">
@@ -51,8 +51,8 @@
 </div>
 <div class="mt-3">
     <div class="btn-group pull-left">
-        <button class="btn btn-outline-primary" v-on:click="save(0)">Save to local</button>
-        <button class="btn btn-outline-primary" v-on:click="save(1)">Save to server</button>
+        <button class="btn btn-outline-primary" v-on:click="save('local')">Save to local</button>
+        <button class="btn btn-outline-primary" v-on:click="save('server')">Save to server</button>
     </div>
     <div class="pull-right">
         <button id="get_description" class="btn btn-outline-secondary" href="#" data-toggle="modal"
