@@ -1,7 +1,7 @@
 <div class="card" id="wrapping_card">
     <ul class="list-group list-group-flush">
         <li class="list-group-item" v-for="(question, index) in questions">
-            <div v-if="question.type === 0" v-bind:id="index">
+            <div v-if="question.type === 'multiple_choice'" v-bind:id="index">
                 {{--multiple choice--}}
                 <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question }}</h6>
                 <div v-for="(choice, i) in question.answer">
@@ -16,10 +16,10 @@
                     <div class="custom-control custom-checkbox" style="margin-top: 0.4rem">
                         <input type="checkbox" class="custom-control-input" v-bind:id="index + '_' + i" v-bind:name="index" v-bind:value="i">
                         <label class="custom-control-label" v-bind:for="index + '_' + i">@{{ i }}.&nbsp;@{{ choice }}</label>
-                    </div>                    
+                    </div>
                 </div>
             </div>
-            <div v-else-if="question.type === 1" v-bind:id="index" class="row">
+            <div v-else-if="question.type === 'fill_in_the_blank'" v-bind:id="index">
                 {{--fill the blank--}}
                 <h6>@{{ Number(index) + 1}}.&nbsp;</h6>
                 <span v-for="(content, key) in question.question">
@@ -27,7 +27,7 @@
                     <span v-if="key != question.question.length - 1" class="blank-text" contentEditable="true" v-on:input="blank">&nbsp;&nbsp;</span>
                 </span>
             </div>
-            <div v-else-if="question.type === 2" v-bind:id="index">
+            <div v-else-if="question.type === 'matching'" v-bind:id="index">
                 {{--matching--}}
                 <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question.title }}</h6>
                 <br>
@@ -42,7 +42,7 @@
                 </div>
                 <input type="hidden" name="result">
             </div>
-            <div v-else-if="question.type === 3" v-bind:id="index">
+            <div v-else-if="question.type === 'short_answer'" v-bind:id="index">
                 <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question }}</h6>
                 <textarea name="essay" class="form-control"></textarea>
             </div>
