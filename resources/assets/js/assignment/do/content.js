@@ -138,10 +138,10 @@ function getAnswer() {
         switch (type) {
             case 0:
                 var input = $('input[name=' + i + ']');
-                var value = null;
+                let value = [];
                 for (var j = 0; j < input.length; j++) {
                     if (input[j].checked) {
-                        value = input[j].value;
+                        value.push(input[j].value);
                     }
                 }
                 content.answer[i] = value;

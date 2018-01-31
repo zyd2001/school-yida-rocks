@@ -9,10 +9,14 @@
                         {{--<input type="radio" v-bind:name="index" v-bind:value="i"/>--}}
                         {{--<div class="control__indicator"></div>--}}
                     {{--</label>--}}
-                    <label>
+<!--                     <label>
                         <input type="radio" v-bind:name="index" v-bind:value="i"/>
                         @{{ i }}.&nbsp;@{{ choice }}
-                    </label>
+                    </label> -->
+                    <div class="custom-control custom-checkbox" style="margin-top: 0.4rem">
+                        <input type="checkbox" class="custom-control-input" v-bind:id="index + '_' + i" v-bind:name="index" v-bind:value="i">
+                        <label class="custom-control-label" v-bind:for="index + '_' + i">@{{ i }}.&nbsp;@{{ choice }}</label>
+                    </div>                    
                 </div>
             </div>
             <div v-else-if="question.type === 1" v-bind:id="index" class="row">

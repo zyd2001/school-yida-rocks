@@ -2,7 +2,7 @@
 	<div class="card">
 	    <ul class="list-group list-group-flush">
 	        <li v-for="(question, index) in questions" class="list-group-item">
-	        	<div v-if="answer[index] === correct[index]" class="border-success">
+	        	<div v-if="answer[index].equals(correct[index])" class="border-success">
 		            <div v-if="question.type === 0" v-bind:id="index" v-bind:type="question.type">
 		                {{--multiple choice--}}
 	               		<h6>@{{ Number(index)+1 }}.&nbsp;<span>@{{ question.question }}:</span></h6>
