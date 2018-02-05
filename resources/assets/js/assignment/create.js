@@ -87,7 +87,7 @@ const create = new Vue({
                     {
                         case 'multiple_choice':
                             this.correct[i] = [];
-                            this.questions[i] = {'answer': {}};
+                            this.questions[i] = {'answer': []};
                             this.questions[i].question = temp.find('textarea').val();
                             this.questions[i].type = 'multiple_choice';
                             this.questions[i].option = null;
@@ -121,21 +121,21 @@ const create = new Vue({
                             break; //Case 1: Fill-in-the-blank Questions
 
                         case 'matching':
-                            this.correct[i] = null;
-                            this.questions[i] = {'answer': {}};
-                            this.questions[i].question = {'content': {}};
-                            this.questions[i].question.title = temp.find('textarea').val();
+                            this.correct[i] = [];
+                            this.questions[i] = {'answer': []};
+                            this.questions[i].question = [];
+                            this.questions[i].title = temp.find('textarea').val();
                             this.questions[i].type = 'matching';
                             this.questions[i].option = null;
-                            // if (choices.length > 26)
-                            //     showMessage('Too much pairs in question' + i + 1, 0);
                             let pairs = temp.find('.pairs').children();
+                            let questionIndex = [].range(0, pairs.length - 1).shuffle();
+                            let answerIndex = [].range(0, pairs.length - 1).shuffle();
                             for (let j = 0; j < pairs.length; j++)
                             {
                                 let input = $(pairs[j]).find('input');
-                                this.questions[i].question.content[j] = input[0].value;
-                                this.questions[i].answer[j] = input[1].value;
-                                // this.correct[i].push(this.alphabet[j])
+                                this.questions[i].question[questionIndex[j]] = input[0].value;
+                                this.questions[i].answer[answerIndex[j]] = input[1].value;
+                                this.correct[i][questionIndex[j]] = answerIndex[j];
                             }
                             break; //Case 2: Matching Questions
 

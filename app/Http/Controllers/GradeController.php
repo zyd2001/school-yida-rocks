@@ -63,6 +63,9 @@ class GradeController extends ControllerWithMid
                         $count++;
                     break;
                 case 'matching':
+                    if ($answer[$key] === $correct[$key])
+                        $count++;
+                    break;
                 case 'short_answer':
             }
         }

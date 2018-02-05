@@ -65,11 +65,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $verifyCode = strtoupper(bin2hex(random_bytes(3))); // better methods for generate verify code
+        $randomToken = random_int(100000, 999999);
 
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'randomToken' => $randomToken,
             'verifyCode' => $verifyCode,
         ]);
 

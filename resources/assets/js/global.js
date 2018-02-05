@@ -54,6 +54,30 @@ function echo() {
     }
 }
 
+Array.prototype.shuffle = function ()
+{
+    let array = this;
+    for (let i = 0; i < array.length; i++)
+    {
+        let index = Math.floor(Math.random() * (array.length - 1));
+        let temp = array[index];
+        array[index] = array[i];
+        array[i] = temp;
+    }
+    return array;
+}
+
+Array.prototype.range = function (min, max) 
+{
+    let array = this;
+    min = Math.floor(min);
+    max = Math.floor(max);
+    array = new Array();
+    for (let i = 0; i < (max - min + 1); i++)
+        array[i] = min + i;
+    return array;
+}
+
 Array.prototype.equals = function (array) {
     if (!array)
         return false;

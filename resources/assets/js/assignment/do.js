@@ -84,9 +84,9 @@ const content = new Vue({
             }
         },
         match: function (event) {
-            var current = $(event.target);
-            var index = current.attr('index');
-            var c = $('#canvas-' + index);
+            let current = $(event.target);
+            let question = $(event.target).parents('.question')[0];
+            var c = $('#canvas-' + question.id);
             if (!c.width()) {
                 var w = c.parent().width();
                 var h = c.parent().height();
@@ -94,28 +94,25 @@ const content = new Vue({
                 c[0].height = h;
             }
             var ctx = c[0].getContext('2d');
-            var choices = $('a[index=' + index + '].disabled');
+            var choices = current.parent().siblings('ul').children();
             current.addClass('disabled').siblings().addClass('disabled');
             choices.on('click', function (e) {
                 var choice = $(e.target);
-                var input = $('#' + index).contents('input[name=result]');
-                var result = input.val();
+                var result = question.result;
                 if (!result)
-                    result = [];
-                else
-                    result = JSON.parse(result);
-                result[current.attr('order')] = choice.attr('value');
+                    result = new Map();
+                if (result.has(current[0]))
+                    result.delete(current[0]);
+                result.set(current[0], choice[0]);
                 ctx.clearRect(0, 0, c.width(), c.height());
                 ctx.strokeStyle = '#007bff';
-                for (var i in result) {
-                    if (result[i])
-                        draw(ctx, $('[index=' + index + '][order=' + i + ']'), $('[index=' + index + '][value=' + result[i] + ']'), c);
-                }
+                result.forEach(function (value, key, map) {
+                    draw(ctx, $(key), $(value), c);
+                })
                 choices.unbind('click');
                 choices.addClass('disabled');
                 current.removeClass('disabled').siblings().removeClass('disabled');
-                result = JSON.stringify(result);
-                input.val(result);
+                question.result = result;
             });
             choices.removeClass('disabled');
         }
@@ -146,8 +143,12 @@ function getAnswer() {
                 })
                 break;
             case 'matching':
-                result = $('#' + i).contents('input[name=result]').val();
-                content.answer[i] = result;
+                let result = $('#' + i)[0].result;
+                let answer = [];
+                result.forEach(function (value, key, map) {
+                    answer[$(key).attr('order')] = Number($(value).attr('order'));
+                });
+                content.answer[i] = answer;
                 break;
             case 'short_answer':
                 result = $('#' + i).contents('textarea').val();

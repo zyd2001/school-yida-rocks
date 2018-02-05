@@ -1,7 +1,7 @@
 <div class="card" id="wrapping_card">
     <ul class="list-group list-group-flush">
         <li class="list-group-item" v-for="(question, index) in questions">
-            <div v-if="question.type === 'multiple_choice'" v-bind:id="index">
+            <div v-if="question.type === 'multiple_choice'" v-bind:id="index" class="question">
                 {{--multiple choice--}}
                 <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question }}</h6>
                 <div v-for="(choice, i) in question.answer">
@@ -19,7 +19,7 @@
                     </div>
                 </div>
             </div>
-            <div v-else-if="question.type === 'fill_in_the_blank'" v-bind:id="index">
+            <div v-else-if="question.type === 'fill_in_the_blank'" v-bind:id="index" class="question">
                 {{--fill the blank--}}
                 <h6>@{{ Number(index) + 1}}.&nbsp;</h6>
                 <span v-for="(content, key) in question.question">
@@ -27,22 +27,21 @@
                     <span v-if="key < question.question.length - 1" class="blank-text" contentEditable="true" v-on:input="blank">&nbsp;&nbsp;</span>
                 </span>
             </div>
-            <div v-else-if="question.type === 'matching'" v-bind:id="index">
+            <div v-else-if="question.type === 'matching'" v-bind:id="index" class="question">
                 {{--matching--}}
-                <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question.title }}</h6>
+                <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.title }}</h6>
                 <br>
                 <div class="row">
                     <ul class="col-4">
-                        <a href="#" v-on:click.prevent="match" v-bind:order="i" v-bind:index="index" class="matching-list" v-for="(q, i) in question.question.content">@{{ Number(i)+1 }}.&nbsp;@{{ q }}</a>
+                        <a href="#" v-on:click.prevent="match" v-bind:order="i" class="matching-list" v-for="(q, i) in question.question">@{{ Number(i) + 1 }}.&nbsp;@{{ q }}</a>
                     </ul>
                     <div class="col-4"><canvas v-bind:id="'canvas-' + index" height="0" width="0"></canvas></div>
                     <ul class="col-4">
-                        <a href="#" onclick="event.preventDefault();" v-bind:index="index" class="matching-list disabled" v-for="(a, i) in question.answer" v-bind:value="i">@{{ i }}.&nbsp;@{{ a }}</a>
+                        <a href="#" onclick="event.preventDefault();" class="matching-list disabled" v-bind:order="i" v-for="(a, i) in question.answer">@{{ Number(i) + 1 }}.&nbsp;@{{ a }}</a>
                     </ul>
                 </div>
-                <input type="hidden" name="result">
             </div>
-            <div v-else-if="question.type === 'short_answer'" v-bind:id="index">
+            <div v-else-if="question.type === 'short_answer'" v-bind:id="index" class="question">
                 <h6>@{{ Number(index)+1 }}.&nbsp;@{{ question.question }}</h6>
                 <textarea name="essay" class="form-control"></textarea>
             </div>

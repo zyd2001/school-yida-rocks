@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('isTeacher')->default(false);
             $table->string('avatar')->default('http://orjf65xeb.bkt.clouddn.com/default.jpeg');
+            $table->integer('randomToken');
             $table->text('setting')->nullable(); //json
             $table->boolean('isVerified')->default(false);
             $table->string('verifyCode', 6);
